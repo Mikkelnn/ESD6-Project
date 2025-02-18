@@ -165,13 +165,19 @@ results = 20 * np.log10(np.abs(shifted))
 
 # Compute range axis
 range_axis = np.arange(range_bins) * delta_R  # Convert bin index to meters
-print(f"range bin count: {range_bins}, max range: {range_bins * delta_R}m")
+
+doppler_max = ((wavelength * (1 / (2 * prp))) / 2)
+doppler_axis = np.linspace(-doppler_max, doppler_max, doppler_bins)
+
+print(f"range bin count: {range_bins}, max range: {range_axis[-1]} m")
+print(f"doppler bin count: {doppler_bins}, max velocity: {doppler_axis[-1]} m/s")
+
 
 # Plot the 2D array
-plt.imshow(results, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], -doppler_bins//2, doppler_bins//2])
+plt.imshow(results, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
 plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (meters)')
-plt.ylabel('Doppler Frequency (Hz)')
+plt.xlabel('Range (m)')
+plt.ylabel('Velocity (m/s)')
 plt.title('Range-Doppler Map')
 plt.show()
 
