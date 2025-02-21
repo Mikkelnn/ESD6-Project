@@ -13,16 +13,24 @@ import matplotlib.pyplot as plt
 
 c = 3e8
 f_c = 10e9 # center frequency
-bw = 1e9 # bandwidth
-t_chirp = 16e-6 # chirp time
-prp=40e-6 # Pulse Repetition Period
+wavelength = c / f_c
+
+bw = 0.1e9 # bandwidth
+t_chirp = 90e-6 # chirp time
+prp=91e-6 # Pulse Repetition Period
+pulses = 512
 
 r_max = (c * t_chirp) / 2 # calculate the maximum range
 delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
+doppler_max = wavelength / (4 * prp) #((wavelength * (1 / (2 * prp))) / 2)
+delta_velocity = wavelength / (2 * pulses * prp)
 
-print(f"max range: {r_max}m; range resolution: {delta_R}m")
+print(f"max range: {round(r_max, 2)} m; range resolution: {round(delta_R, 3)} m")
+print(f"max velocity {round(doppler_max, 2)} m/s; velocity resolution: {round(delta_velocity, 3)} m/s")
 
-wavelength = c / f_c
+
+
+print(f"tx time: {prp * pulses}s")
 
 N_tx = 1
 N_rx = 1
@@ -30,7 +38,7 @@ N_rx = 1
 tx_channels = []
 tx_channels.append(
     dict(
-        location=(0, -N_rx / 2 * wavelength / 2, 0),
+        location=(0, -N_rx / 2 * wavelength / 2, 0)
     )
 )
 
@@ -48,22 +56,22 @@ for idx in range(0, N_rx):
         )
     )
 
-    tx = Transmitter(
+tx = Transmitter(
     f=[f_c - (bw/2), f_c + (bw/2)],
     t=[0, t_chirp],
-    tx_power=150,
+    tx_power=40,
     prp=prp,
-    pulses=512,
-    channels=tx_channels,
+    pulses=pulses,
+    channels=tx_channels
 )
 
 rx = Receiver(
-    fs=20e6,
+    fs=50e6,
     noise_figure=8,
     rf_gain=20,
     load_resistor=500,
     baseband_gain=30,
-    channels=rx_channels,
+    channels=rx_channels
 )
 
 radar = Radar(transmitter=tx, receiver=rx)
@@ -105,40 +113,40 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-true_theta = [-5, -4, 45]
+# true_theta = [-5, -4, 45]
 
 target_1 = dict(
     location=(
         #10 * np.cos(np.radians(true_theta[0])),
         #10 * np.sin(np.radians(true_theta[0])),
         0,
-        10,
+        500,
         0,
     ),
-    speed=(0, 0, 0),
-    rcs=10,
+    speed=(0, 10, 0),
+    rcs=np.pi/9,
     phase=0,
 )
-target_2 = dict(
-    location=(
-        40 * np.cos(np.radians(true_theta[1])),
-        40 * np.sin(np.radians(true_theta[1])),
-        0,
-    ),
-    speed=(0, 0, 0),
-    rcs=10,
-    phase=0,
-)
+# target_2 = dict(
+#     location=(
+#         40 * np.cos(np.radians(true_theta[1])),
+#         40 * np.sin(np.radians(true_theta[1])),
+#         0,
+#     ),
+#     speed=(0, 0, 0),
+#     rcs=np.pi/9,
+#     phase=0,
+# )
 target_3 = dict(
     location=(
         #40 * np.cos(np.radians(true_theta[2])),
         #40 * np.sin(np.radians(true_theta[2])),
         0,
-        40,
+        1000,
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=np.pi/9,
     phase=0,
 )
 
@@ -157,28 +165,51 @@ doppler_window = signal.windows.chebwin(
 
 range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window)
 
-doppler_bins = len(range_window)
-range_bins = len(range_window)
+doppler_bins = range_doppler.shape[1]
+range_bins = range_doppler.shape[2]
 
-shifted = fft.fftshift(range_doppler[0], axes=(0,))
-results = 20 * np.log10(np.abs(shifted))
+shifted = np.abs(fft.fftshift(range_doppler[0], axes=(0,)))
+results = 10 * np.log10(shifted)
+
+cfar = proc.cfar_ca_2d(shifted, guard=2, trailing=10, pfa=0.8e-3)
+cfar_db = 10 * np.log10(cfar)
+cfar_diff = shifted - cfar
+# cfar_diff = results - cfar_db
 
 # Compute range axis
 range_axis = np.arange(range_bins) * delta_R  # Convert bin index to meters
-
-doppler_max = ((wavelength * (1 / (2 * prp))) / 2)
 doppler_axis = np.linspace(-doppler_max, doppler_max, doppler_bins)
 
 print(f"range bin count: {range_bins}, max range: {range_axis[-1]} m")
 print(f"doppler bin count: {doppler_bins}, max velocity: {doppler_axis[-1]} m/s")
 
+remove_firs_range_bins = 5
+targets = np.argwhere(cfar_diff[:, remove_firs_range_bins:] > 2)
+targets[:,1] += remove_firs_range_bins # fix indexes 
+print(f"targets:")
+for target in targets:
+    print(f"conf: {round(cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
 
 # Plot the 2D array
-plt.imshow(results, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
+plt.figure(1)
+plt.imshow(shifted, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
 plt.colorbar(label='Amplitude (dB)')
 plt.xlabel('Range (m)')
 plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map')
+plt.title('Range-Doppler Map Raw')
+
+plt.figure(2)
+plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Range (m)')
+plt.ylabel('Velocity (m/s)')
+plt.title('Range-Doppler Map with CFAR')
+
+# plt.figure(3)
+# plt.plot(range_axis, shifted[len(shifted)//2], label='radar')
+# plt.plot(range_axis, cfar[len(shifted)//2], label='cfar')
+# plt.xlabel('Range (m)')
+# plt.legend()
 plt.show()
 
 exit()
