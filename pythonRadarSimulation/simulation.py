@@ -15,10 +15,12 @@ c = 3e8
 f_c = 10e9 # center frequency
 wavelength = c / f_c
 
-bw = 0.1e9 # bandwidth
-t_chirp = 90e-6 # chirp time
-prp=91e-6 # Pulse Repetition Period
-pulses = 512
+bw = 0.01e9 # bandwidth
+t_chirp = 10e-6 # chirp time
+prp=10e-6 # Pulse Repetition Period
+pulses = 128
+
+fs = 46e6 # 50e6 # IF fs
 
 r_max = (c * t_chirp) / 2 # calculate the maximum range
 delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
@@ -27,10 +29,7 @@ delta_velocity = wavelength / (2 * pulses * prp)
 
 print(f"max range: {round(r_max, 2)} m; range resolution: {round(delta_R, 3)} m")
 print(f"max velocity {round(doppler_max, 2)} m/s; velocity resolution: {round(delta_velocity, 3)} m/s")
-
-
-
-print(f"tx time: {prp * pulses}s")
+print(f"tx time: {prp * pulses}s; sampls/chirp: {round(t_chirp * fs, 2)}")
 
 N_tx = 1
 N_rx = 1
@@ -66,7 +65,7 @@ tx = Transmitter(
 )
 
 rx = Receiver(
-    fs=50e6,
+    fs=fs,
     noise_figure=8,
     rf_gain=20,
     load_resistor=500,
@@ -163,7 +162,7 @@ doppler_window = signal.windows.chebwin(
     radar.radar_prop["transmitter"].waveform_prop["pulses"], at=60
 )
 
-range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window)
+range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=1024)
 
 doppler_bins = range_doppler.shape[1]
 range_bins = range_doppler.shape[2]
@@ -210,7 +209,7 @@ plt.title('Range-Doppler Map with CFAR')
 # plt.plot(range_axis, cfar[len(shifted)//2], label='cfar')
 # plt.xlabel('Range (m)')
 # plt.legend()
-plt.show()
+# plt.show()
 
 exit()
 
