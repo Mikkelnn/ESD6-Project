@@ -14,7 +14,7 @@
 
 // // Allocate DMA-capable buffer
 // uint8_t *dma_buffer;
-int GPIO = 5;
+int GPIO_OUT = 5;
 
 // // Configure DAC for continuous output
 // void initDAC() {
@@ -100,7 +100,7 @@ int GPIO = 5;
 void setup() {
     Serial.begin(115200);
     // initDAC();
-    pinMode(GPIO, OUTPUT);
+    pinMode(GPIO_OUT, OUTPUT);
         
     // Start a fixed-frequency IQ signal with a 45-degree phase shift
     // generateFixedFrequency(1000, 15);
@@ -157,7 +157,7 @@ void loop() {
     if (lastTime < currentTime) {
       state = (state == HIGH ? LOW : HIGH);
       Serial.println("Now!");
-      digitalWrite(GPIO, state);
+      digitalWrite(GPIO_OUT, state);
       lastTime += lapsTime;
     }
 }
