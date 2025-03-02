@@ -89,9 +89,21 @@ void applyPhaseToChirp(float phase_deg) {
     float A_Q = sin(phase_rad);
 
     for (int i = 0; i < CHIRP_LENGTH; i++) {        
-        uint8_t I = (uint8_t)(A_I * (float)I_chirp[i]);
-        uint8_t Q = (uint8_t)(A_Q * (float)Q_chirp[i]);
+        uint8_t I;
+        uint8_t Q;
 
+        if (A_I < 0) {
+           I = (uint8_t)(A_I * (float)(I_chirp[i] - 127)) + 127; // essentially a 180 deg phase shift
+        } else {
+           I = (uint8_t)(A_I * (float)I_chirp[i]);
+        }
+
+        if (A_Q < 0) {
+           Q = (uint8_t)(A_Q * (float)(Q_chirp[i] - 127)) + 127; // essentially a 180 deg phase shift
+        } else {
+           Q = (uint8_t)(A_Q * (float)Q_chirp[i]);
+        }
+        
         dma_buffer[2 * i] = I;  // Left channel (I)
         dma_buffer[2 * i + 1] = Q;  // Right channel (Q)
     }
