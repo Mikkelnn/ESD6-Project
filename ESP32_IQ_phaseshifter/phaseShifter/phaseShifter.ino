@@ -14,7 +14,7 @@ dac_continuous_handle_t dac_handle;  // Handle for the DAC driver
 
 // Allocate DMA-capable buffer
 uint8_t *dma_buffer;
-int GPIO_OUT = 32;
+int GPIO_OUT = 27;
 
 // Configure DAC for continuous output
 void initDAC() {
@@ -128,10 +128,10 @@ void setup() {
 
     //dac_continuous_write(dac_handle, (uint8_t *)dma_buffer, BUFFER_SIZE * 2, NULL, -1);
     uint written = 0;
-    dac_continuous_write_cyclically(dac_handle, (uint8_t *)dma_buffer, DMA_TOTAL_SIZE, &written);
+    // dac_continuous_write_cyclically(dac_handle, (uint8_t *)dma_buffer, DMA_TOTAL_SIZE, &written);
     // Serial.print("written: ");Serial.println(written);
 
-    // dac_continuous_write(dac_handle, (uint8_t *)dma_buffer, DMA_TOTAL_SIZE, NULL, -1);
+    dac_continuous_write(dac_handle, (uint8_t *)dma_buffer, DMA_TOTAL_SIZE, NULL, -1);
     digitalWrite(GPIO_OUT, HIGH);
     delayMicroseconds(11000);
     digitalWrite(GPIO_OUT, LOW);
