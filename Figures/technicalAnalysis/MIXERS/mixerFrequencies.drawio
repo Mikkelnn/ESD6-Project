@@ -56,7 +56,7 @@
             <mxPoint x="760" y="310" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-vtq7CmUPHouBcaLsz_P-11" value="&lt;font style=&quot;color: rgb(0, 0, 255);&quot;&gt;$$f_c\pm f_b$$&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
+        <mxCell id="-vtq7CmUPHouBcaLsz_P-11" value="&lt;font data-font-src=&quot;https://sourceforge.net/projects/cm-unicode/&quot; face=&quot;modern&quot; style=&quot;color: rgb(0, 0, 255);&quot;&gt;$$f_c\pm f_b$$&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
           <mxGeometry x="770" y="210" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="-vtq7CmUPHouBcaLsz_P-16" value="&lt;font style=&quot;color: rgb(255, 0, 0);&quot;&gt;$$f_b$$&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">

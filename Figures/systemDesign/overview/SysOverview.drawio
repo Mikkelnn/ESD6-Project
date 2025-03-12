@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="26.0.11">
+  <diagram name="Page-1" id="qliulG-fnR_hOsUM4O2U">
+    <mxGraphModel dx="1434" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="y5npIMlzG3xFoBkiuon2-9" value="" style="endArrow=classic;html=1;rounded=0;startArrow=classic;startFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="y5npIMlzG3xFoBkiuon2-8" target="y5npIMlzG3xFoBkiuon2-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="140" as="sourcePoint" />
+            <mxPoint x="530" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-10" value="CubeSat&lt;br&gt;modules" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#808080;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="550" y="80" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-12" value="CAN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="490" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-13" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="120" y="80" width="370" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-1" value="ANT" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-2" value="TRANSCEIVER" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="90" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-3" value="DSP" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="200" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="80" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="190" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-8" value="MCU" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="290" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="y5npIMlzG3xFoBkiuon2-7" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="y5npIMlzG3xFoBkiuon2-13">
+          <mxGeometry x="280" width="10" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
