@@ -33,11 +33,23 @@ options:
     state: enabled
 
 blocks:
+- name: bw
+  id: variable
+  parameters:
+    comment: ''
+    value: 10*10**6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 12.0]
+    rotation: 0
+    state: enabled
 - name: fc
   id: variable
   parameters:
     comment: ''
-    value: 433.125*10**6
+    value: 5.8*10**9
   states:
     bus_sink: false
     bus_source: false
@@ -49,7 +61,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 2*10**6
+    value: 30*10**6
   states:
     bus_sink: false
     bus_source: false
@@ -57,57 +69,14 @@ blocks:
     coordinate: [200, 12]
     rotation: 0
     state: enabled
-- name: analog_nbfm_rx_0
-  id: analog_nbfm_rx
-  parameters:
-    affinity: ''
-    alias: ''
-    audio_rate: '48000'
-    comment: ''
-    max_dev: 5e3
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    quad_rate: '48000'
-    tau: 75e-6
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [768, 140.0]
-    rotation: 0
-    state: enabled
-- name: low_pass_filter_0
-  id: low_pass_filter
-  parameters:
-    affinity: ''
-    alias: ''
-    beta: '6.76'
-    comment: ''
-    cutoff_freq: '100000'
-    decim: '1'
-    gain: '1'
-    interp: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samp_rate: samp_rate
-    type: fir_filter_ccf
-    width: '1000000'
-    win: window.WIN_HAMMING
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [560, 116.0]
-    rotation: 0
-    state: enabled
 - name: qtgui_sink_x_0
   id: qtgui_sink_x
   parameters:
     affinity: ''
     alias: ''
-    bw: '100000'
+    bw: bw
     comment: ''
-    fc: '50000'
+    fc: fc
     fftsize: '1024'
     gui_hint: ''
     maxoutbuf: '0'
@@ -120,13 +89,13 @@ blocks:
     rate: '10'
     showports: 'False'
     showrf: 'True'
-    type: float
+    type: complex
     wintype: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [984, 132.0]
+    coordinate: [544, 148.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -166,7 +135,7 @@ blocks:
     ant7: '"RX2"'
     ant8: '"RX2"'
     ant9: '"RX2"'
-    bw0: '0'
+    bw0: bw
     bw1: '0'
     bw10: '0'
     bw11: '0'
@@ -304,7 +273,7 @@ blocks:
     dc_offs_enb7: default
     dc_offs_enb8: default
     dc_offs_enb9: default
-    dev_addr: '""'
+    dev_addr: '"addr=192.168.10.2"'
     dev_args: ''
     gain0: '0'
     gain1: '0'
@@ -567,9 +536,7 @@ blocks:
     state: enabled
 
 connections:
-- [analog_nbfm_rx_0, '0', qtgui_sink_x_0, '0']
-- [low_pass_filter_0, '0', analog_nbfm_rx_0, '0']
-- [uhd_usrp_source_0, '0', low_pass_filter_0, '0']
+- [uhd_usrp_source_0, '0', qtgui_sink_x_0, '0']
 
 metadata:
   file_format: 1
