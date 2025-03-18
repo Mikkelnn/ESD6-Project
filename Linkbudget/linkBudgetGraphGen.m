@@ -1,49 +1,43 @@
 clc; clear; close all;
 
 % Given parameters
-Pt = 5;             % Transmitted power (W)
-G = 13;               % Antenna gain (linear)
-k = 1.38e-23;         % Boltzmann's constant (J/K)
-T0 = 290;             % Standard temperature (K)
-B = 10e6;              % Bandwidth (Hz)
-SNR0 = 10e5;            % Required SNR (linear)
+B = 10e6; % Bandwidth in Hz
+Pt = 5; % Transmit power in W
+G_dBi = 6.8; % Gain in dBi
+G = 10^(G_dBi/10); % Convert dBi to linear scale
+k = 1.38e-23; % Boltzmann constant
+T0 = 290; % Standard temperature in Kelvin
+F_dB = 6.5; % Noise figure in dB
+F = 10^(F_dB/10); % Convert dB to linear scale
 
-% Debris sizes (L) in meters
-L_values = [1, 2.5, 5, 7.5, 10] * 1e-2; % Convert cm to meters
+% Define variable ranges
+lambda = [3e8/5.8e9, 3e8/10e9, 3e8/32e9, 3e8/70e9]; % Convert GHz to meters
+sigma_vals = [3.47e-6, 1.38e-4, 2.17e-3, 0.011, 0.035];
+SNRo_vals = logspace(-2, 2, 100); % SNR0 range in linear scale
+SNRo_dB = 10 * log10(SNRo_vals);  % Convert SNR0 to dB
 
-% Wavelengths for given frequencies
-freq_values = [5.8e9, 10e9, 32e9, 70e9]; % Frequencies in Hz
-lambda_values = 3e8 ./ freq_values; % Convert to meters
-
-% Logarithmic range of noise figure F
-F = logspace(-15, -5, 100); % 100 points from 10^-15 to 10^-5
-
-% Colors for different lambda values
-colors = lines(length(lambda_values));
-
-% Generate plots for each debris size L
-for idx = 1:length(L_values)
-    L = L_values(idx);
+% Plot for each sigma
+for s_idx = 1:length(sigma_vals)
+    sigma = sigma_vals(s_idx);
+    figure;
+    hold on;
     
-    figure; hold on; grid on;
-    title(sprintf('R_{max} vs Noise Figure (L = %.1f cm)', L*100));
-    xlabel('Noise Figure F (log scale)');
-    ylabel('R_{max} (m)');
-    set(gca, 'XScale', 'log'); % Set x-axis to log scale
-    
-    for j = 1:length(lambda_values)
-        lambda = lambda_values(j);
+    % Loop through each lambda
+    for l_idx = 1:length(lambda)
+        lam = lambda(l_idx);
         
-        % Compute sigma using the given formula
-        sigma = (12 * pi * L^4) / lambda^2;
+        % Calculate Rmax for each SNRo
+        Rmax = ((Pt * G^2 * lam^2 * sigma) ./ ((4 * pi)^3 * k * T0 * B * SNRo_vals * F)).^(1/4);
         
-        % Compute R_max using the given formula
-        R_max = ((Pt * G^2 * lambda^2 * sigma) ./ ((4 * pi)^3 * k * T0 * B * SNR0 .* F)).^(1/4);
-        
-        % Plot results
-        plot(F, R_max, 'Color', colors(j, :), 'LineWidth', 2, ...
-            'DisplayName', sprintf('\\lambda = %.1f GHz', freq_values(j)/1e9));
+        % Plot each lambda case
+        plot(Rmax, SNRo_dB, 'LineWidth', 2, 'DisplayName', sprintf('\\lambda = %.1f GHz', 3e8/lam * 1e-9));
     end
     
-    legend('show', 'Location', 'best');
+    % Formatting the plot
+    set(gca, 'XScale', 'log'); % Log scale for Rmax
+    xlabel('R_{max} [m]');
+    ylabel('SNR_0 [dB]');
+    title(sprintf('\\sigma = %.2e', sigma));
+    legend('show', 'Location', 'Best');
+    grid on;
 end
