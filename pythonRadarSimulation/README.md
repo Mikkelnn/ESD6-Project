@@ -1,7 +1,7 @@
 This folder contains pythons scripts for RADAR simulations.
 The primary use of this is for initial test of signal processing.
 
-This juses radarsimpy package:
+This uses radarsimpy package:
 https://github.com/radarsimx/radarsimpy
 https://radarsimx.com/
 
@@ -13,7 +13,7 @@ If not already created, create the virtual enviorment
 windows: ´python -m venv .venv´
 linux: ´python3 -m venv .venv´
 
-Activat the virtual enviorment
+Activate the virtual enviorment
 windows: ´.venv\Scripts\activate´
 linux: ´source .venv/bin/activate´
 
