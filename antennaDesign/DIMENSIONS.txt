@@ -1,0 +1,5 @@
+X or offset(from the center to the point (In theory in Y in easyEDA) = 0.00626m
+Width = 0.02368m
+Length = 0.01375m
+radius 1 = 0.8mm
+radius 2 = 2.5mm
