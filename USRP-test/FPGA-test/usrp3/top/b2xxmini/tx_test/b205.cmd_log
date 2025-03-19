@@ -1,0 +1,4 @@
+xst -intstyle ise -ifn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.xst" -ofn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.syr" 
+xst -intstyle ise -ifn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.xst" -ofn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.syr" 
+xst -intstyle ise -ifn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.xst" -ofn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.syr" 
+xst -intstyle ise -ifn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.xst" -ofn "/home/mikkel/repoes/ESD6/uhd_fpga_tx_test/fpga/usrp3/top/b2xxmini/tx_test/b205.syr" 
