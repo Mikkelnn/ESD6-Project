@@ -21,4 +21,5 @@ Install packages
 ´pip install matplotlib plotly kaleido ipython numpy scipy´
 
 To deactivate the enviorment
-´deactivate´
+windows: ´deactivate´
+linux: ´source .venv/bin/deactivate´
