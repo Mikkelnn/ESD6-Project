@@ -1,0 +1,5 @@
+verilog work "../coregen/b205_clk_gen.v"
+verilog work "../b205_ref_pll.v"
+verilog work "../b205_io.v"
+verilog work "../b205_core.v"
+verilog work "../b205.v"
