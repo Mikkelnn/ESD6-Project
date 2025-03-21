@@ -139,60 +139,6 @@
         <mxCell id="JSWtgp5aBdgA1HYlNqDZ-50" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.radio.aerial_-_antenna_2;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
           <mxGeometry x="510" y="280.5" width="20" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-51" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="150" y="240" as="sourcePoint" />
-            <mxPoint x="300" y="240" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-52" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="390" y="240" as="sourcePoint" />
-            <mxPoint x="530" y="240" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-53" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="320" y="240" as="sourcePoint" />
-            <mxPoint x="370" y="240" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-54" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="300" y="250" as="sourcePoint" />
-            <mxPoint x="300" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-55" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="319.82" y="250" as="sourcePoint" />
-            <mxPoint x="319.82" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-56" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="150" y="250" as="sourcePoint" />
-            <mxPoint x="150" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-57" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="370" y="250" as="sourcePoint" />
-            <mxPoint x="370" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-58" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="389.9" y="250" as="sourcePoint" />
-            <mxPoint x="389.9" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-59" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="530" y="250" as="sourcePoint" />
-            <mxPoint x="530" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="JSWtgp5aBdgA1HYlNqDZ-60" value="Digital" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
           <mxGeometry x="195" y="210" width="60" height="30" as="geometry" />
         </mxCell>
@@ -201,6 +147,15 @@
         </mxCell>
         <mxCell id="JSWtgp5aBdgA1HYlNqDZ-62" value="Analog" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
           <mxGeometry x="430" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-63" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="230" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-66" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="230" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JSWtgp5aBdgA1HYlNqDZ-67" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="230" width="150" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
