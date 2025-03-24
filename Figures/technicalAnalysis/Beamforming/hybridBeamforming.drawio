@@ -1,9 +1,261 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0" version="26.1.1">
   <diagram name="Page-1" id="ZXMcCEr7-6ZTMJQJ-nTa">
-    <mxGraphModel>
+    <mxGraphModel dx="1272" dy="756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-1" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.abstract.dac;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="140" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-3" target="SFJQxMjhM0Eyy20yIfaC-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="355" y="155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-3" value="&lt;font data-font-src=&quot;https://sourceforge.net/projects/cm-unicode/&quot;&gt;DAC&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="250" y="140" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-5" target="SFJQxMjhM0Eyy20yIfaC-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="355" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-5" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.abstract.dac;rotation=-180;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-6" value="&lt;font&gt;ADC&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-7" target="SFJQxMjhM0Eyy20yIfaC-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-7" target="SFJQxMjhM0Eyy20yIfaC-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-7" value="RF chain" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="320" y="162" width="70" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-16" target="SFJQxMjhM0Eyy20yIfaC-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="355" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-16" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.abstract.dac;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="385" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-18" target="SFJQxMjhM0Eyy20yIfaC-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="355" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-18" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.abstract.dac;rotation=-180;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="425" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-19" value="&lt;font&gt;ADC&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="425" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-20" target="SFJQxMjhM0Eyy20yIfaC-114">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-130" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-20" target="SFJQxMjhM0Eyy20yIfaC-108">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-20" value="RF chain" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="320" y="407" width="70" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-21" value="&lt;div&gt;Baseband Proceesing&lt;/div&gt;&lt;div&gt;&amp;amp;&lt;/div&gt;&lt;div&gt;Precoding/Combining&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="150" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.001;entryY=0.914;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-19" target="SFJQxMjhM0Eyy20yIfaC-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-23" value="&lt;font data-font-src=&quot;https://sourceforge.net/projects/cm-unicode/&quot;&gt;DAC&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="250" y="385" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.003;entryY=0.8;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;endArrow=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-16" target="SFJQxMjhM0Eyy20yIfaC-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.004;entryY=0.214;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-5" target="SFJQxMjhM0Eyy20yIfaC-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.003;entryY=0.1;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;startFill=1;startArrow=classic;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-1" target="SFJQxMjhM0Eyy20yIfaC-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-29" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/phosphor-fill-vol-2/256/dots-three-outline-fill-128.png;rotation=90;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="272" y="281" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-30" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="430" y="99.5" width="33.039999999999964" height="31.04000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-31" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-30">
+          <mxGeometry width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-32" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-30">
+          <mxGeometry y="0.004466094067254289" width="33.04" height="31.035533905932766" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-33" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-32">
+          <mxGeometry y="-3" width="33.04" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-34" value="" style="endArrow=none;html=1;rounded=0;entryX=0.372;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="SFJQxMjhM0Eyy20yIfaC-33" target="SFJQxMjhM0Eyy20yIfaC-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="33" as="sourcePoint" />
+            <mxPoint x="31.937584931011052" y="1.1010804260482827" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-35" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-45;gradientColor=none;fillColor=#000000;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-33">
+          <mxGeometry x="26.614654109175877" y="1.1010804260482827" width="5.322930821835175" height="5.31648659565862" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-36" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="430" y="219.5" width="33.039999999999964" height="31.04000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-37" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-36">
+          <mxGeometry width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-38" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-36">
+          <mxGeometry y="0.004466094067254289" width="33.04" height="31.035533905932766" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-39" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-38">
+          <mxGeometry y="-3" width="33.04" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-40" value="" style="endArrow=none;html=1;rounded=0;entryX=0.372;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="SFJQxMjhM0Eyy20yIfaC-39" target="SFJQxMjhM0Eyy20yIfaC-41">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="33" as="sourcePoint" />
+            <mxPoint x="31.937584931011052" y="1.1010804260482827" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-41" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-45;gradientColor=none;fillColor=#000000;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-39">
+          <mxGeometry x="26.614654109175877" y="1.1010804260482827" width="5.322930821835175" height="5.31648659565862" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-43">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="114.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-43" value="" style="triangle;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="500" y="99.5" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="234.53846153846155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-45" value="" style="triangle;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="500" y="219.5" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-37" target="SFJQxMjhM0Eyy20yIfaC-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-31" target="SFJQxMjhM0Eyy20yIfaC-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-48" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.radio.aerial_-_antenna_2;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="580" y="80" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-49" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.radio.aerial_-_antenna_2;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="580" y="200" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-76" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/phosphor-fill-vol-2/256/dots-three-outline-fill-128.png;rotation=90;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="463.03999999999996" y="160.54" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-107" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="430" y="339.5" width="33.039999999999964" height="31.04000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-108" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-107">
+          <mxGeometry width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-109" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-107">
+          <mxGeometry y="0.004466094067254289" width="33.04" height="31.035533905932766" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-110" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-109">
+          <mxGeometry y="-3" width="33.04" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-111" value="" style="endArrow=none;html=1;rounded=0;entryX=0.372;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="SFJQxMjhM0Eyy20yIfaC-110" target="SFJQxMjhM0Eyy20yIfaC-112">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="33" as="sourcePoint" />
+            <mxPoint x="31.937584931011052" y="1.1010804260482827" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-112" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-45;gradientColor=none;fillColor=#000000;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-110">
+          <mxGeometry x="26.614654109175877" y="1.1010804260482827" width="5.322930821835175" height="5.31648659565862" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-113" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="430" y="459.5" width="33.039999999999964" height="31.04000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-114" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-113">
+          <mxGeometry width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-115" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-113">
+          <mxGeometry y="0.004466094067254289" width="33.04" height="31.035533905932766" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-116" value="" style="group;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" connectable="0" parent="SFJQxMjhM0Eyy20yIfaC-115">
+          <mxGeometry y="-3" width="33.04" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-117" value="" style="endArrow=none;html=1;rounded=0;entryX=0.372;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="SFJQxMjhM0Eyy20yIfaC-116" target="SFJQxMjhM0Eyy20yIfaC-118">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="33" as="sourcePoint" />
+            <mxPoint x="31.937584931011052" y="1.1010804260482827" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-118" value="" style="triangle;whiteSpace=wrap;html=1;rotation=-45;gradientColor=none;fillColor=#000000;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="SFJQxMjhM0Eyy20yIfaC-116">
+          <mxGeometry x="26.614654109175877" y="1.1010804260482827" width="5.322930821835175" height="5.31648659565862" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-119" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-120">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="354.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-120" value="" style="triangle;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="500" y="339.5" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-121" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-122">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="474.53846153846155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-122" value="" style="triangle;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="500" y="459.5" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-114" target="SFJQxMjhM0Eyy20yIfaC-122">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-124" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="SFJQxMjhM0Eyy20yIfaC-108" target="SFJQxMjhM0Eyy20yIfaC-120">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-125" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.radio.aerial_-_antenna_2;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="580" y="320" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-126" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.radio.aerial_-_antenna_2;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="580" y="440" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-127" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/phosphor-fill-vol-2/256/dots-three-outline-fill-128.png;rotation=90;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="463.03999999999996" y="400.53999999999996" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-131" value="Digital" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="125" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-132" value="Mixed &lt;br&gt;Signal" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-133" value="Analog" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="416.52" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-134" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-135" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SFJQxMjhM0Eyy20yIfaC-136" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="280" height="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
