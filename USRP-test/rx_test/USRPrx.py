@@ -6,7 +6,7 @@
 #
 # GNU Radio Python Flow Graph
 # Title: USRP_rx_test
-# GNU Radio version: 3.10.11.0
+# GNU Radio version: 3.10.12.0
 
 from PyQt5 import Qt
 from gnuradio import qtgui
@@ -79,13 +79,12 @@ class USRPrx(gr.top_block, Qt.QWidget):
             ),
         )
         self.uhd_usrp_source_0.set_samp_rate(samp_rate)
-        self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec(0))
+        # No synchronization enforced.
 
         self.uhd_usrp_source_0.set_center_freq(fc, 0)
         self.uhd_usrp_source_0.set_antenna("RX2", 0)
         self.uhd_usrp_source_0.set_bandwidth(bw, 0)
-        self.uhd_usrp_source_0.set_rx_agc(False, 0)
-        self.uhd_usrp_source_0.set_gain(0, 0)
+        self.uhd_usrp_source_0.set_power_reference(0, 0)
         self.qtgui_sink_x_0 = qtgui.sink_c(
             1024, #fftsize
             window.WIN_BLACKMAN_hARRIS, #wintype
