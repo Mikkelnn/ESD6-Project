@@ -36,24 +36,12 @@ N_tx = 1
 N_rx = 4
 
 tx_channels = []
-# for idx in range(0, N_tx):
-#     tx_channels.append(
-#         dict(
-#             location=(0, wavelength / 2 * idx - (N_tx - 1) * wavelength / 4, 0),
-#         )
-#     )
+if (N_tx == 1):
+    tx_channels.append(dict(location=(0, 0, 0)))
+else:
+    for idx in range(0, N_tx):
+        tx_channels.append(dict(location=(0, wavelength / 2 * idx - (N_tx - 1) * wavelength / 4, 0)))
 
-# tx_channels.append(
-#     dict(
-#         location=(0, -N_rx / 2 * wavelength / 2, 0)
-#     )
-# )
-
-tx_channels.append(
-    dict(
-        location=(0, 0, 0),
-    )
-)
 
 rx_channels = []
 for idx in range(0, N_rx):
@@ -162,7 +150,7 @@ targets = [target_1, target_3] #, target_2
 
 data = sim_radar(radar, targets)
 timestamp = data["timestamp"]
-baseband = data["baseband"]+data["noise"]
+baseband = data["baseband"] # + data["noise"]
 
 
 range_window = signal.windows.chebwin(radar.sample_prop["samples_per_pulse"], at=80)
