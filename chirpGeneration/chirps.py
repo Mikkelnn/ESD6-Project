@@ -27,28 +27,39 @@ print(f"samples: {chirpLength}, scale: {scale}, max_val: {max(max(Q), max(I))}, 
 I_chirp = ', '.join(str(x) for x in I).removesuffix(', ')
 Q_chirp = ', '.join(str(x) for x in Q).removesuffix(', ')
 
-windowsSize = 64
-overlapFrac = 1/2 # 1/2 = 50% windows overlap
+windowsSize = 128
+overlapFrac = 7/10 # 1/2 = 50% windows overlap
 
-f, t, Zxx = stft(I, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac)
+f, t, Zxx = stft(I, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac, nfft=4096)
 f /= 1e6
 t *= 1e6
-plt.figure()
-plt.subplot(211)
+
+maxPlotFreq = (fmax * 1e-6) * 1.3
+lastIndex = np.argwhere(f > maxPlotFreq)[0][0]
+f = f[:lastIndex]
+Zxx = Zxx[:lastIndex,:]
+
+plt.figure(layout="constrained")
+plt.subplot(311)
 plt.plot(I)
 plt.ylabel('Amplitude')
-plt.xlabel('Sample')
+plt.xlabel('Sample (I)')
 
-plt.subplot(212)
+plt.subplot(312)
+plt.plot(Q)
+plt.ylabel('Amplitude')
+plt.xlabel('Sample (Q)')
+
+plt.subplot(313)
 plt.pcolormesh(t, f, np.abs(Zxx), shading='gouraud')
 plt.ylabel('MHz')
-plt.xlabel('ms')
+plt.xlabel('$\mu$s (I)')
 
 plt.show()
 
 res = input(f"Save to chirps.h? [Y/n]: ")
 if (res.lower() == 'y'):
-  path = "./ESP32_IQ_phaseshifter\phaseShifter\chirp.h"
+  path = "./chirp.h"
   def newChirp(match_obj):
     if match_obj.group(1) is not None:
       return I_chirp
