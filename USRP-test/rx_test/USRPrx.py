@@ -71,7 +71,7 @@ class USRPrx(gr.top_block, Qt.QWidget):
         ##################################################
 
         self.uhd_usrp_source_0 = uhd.usrp_source(
-            ",".join(("addr=192.168.10.2", '')),
+            ",".join(("addr=192.168.1.2", '')),
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
@@ -82,7 +82,7 @@ class USRPrx(gr.top_block, Qt.QWidget):
         # No synchronization enforced.
 
         self.uhd_usrp_source_0.set_center_freq(fc, 0)
-        self.uhd_usrp_source_0.set_antenna("RX2", 0)
+        self.uhd_usrp_source_0.set_antenna("RX1", 0)
         self.uhd_usrp_source_0.set_bandwidth(bw, 0)
         self.uhd_usrp_source_0.set_power_reference(0, 0)
         self.qtgui_sink_x_0 = qtgui.sink_c(
