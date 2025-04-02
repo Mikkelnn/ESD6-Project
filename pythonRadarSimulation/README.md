@@ -10,7 +10,7 @@ https://radarsimx.com/
 Obtain the binaries of radarsimpy and place it in this folder i.e. 'pythonRadarSimulation\radarsimpy'
 
 If not already created, create the virtual enviorment
-windows: ´python -m venv .venv´
+windows: ´py -m venv .venv´
 linux: ´python3 -m venv .venv´
 
 Activate the virtual enviorment
