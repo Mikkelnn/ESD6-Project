@@ -1,7 +1,7 @@
 % MATLAB Script for Visualizing Beamforming of a 4-Element Linear Antenna Array
 
 % Load the radiation pattern data from a CSV file
-filename="C:\Users\mvhod\Desktop\Uni\6. Semester\Project\antena1ro30035x5_Patch_rectangular1_FarField.csv";  
+filename="C:\Users\mvhod\Desktop\Uni\6. Semester\ESD6-Project\Beamforming\antena1ro30035x5_Patch_rectangular1_FarField.csv";  
 data = readmatrix(filename);
 % The CSV file should contain Theta (deg), Phi (deg), and Directivity(Total) (dB)
 theta_data = data(:,1);  % Extract Theta values
