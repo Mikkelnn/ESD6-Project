@@ -210,8 +210,8 @@ target_8 = dict(
 )
 
 
-# targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
-targets = [target_1, target_3]
+targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
+# targets = [target_1, target_3]
 
 data = sim_radar(radar, targets)
 timestamp = data["timestamp"]
