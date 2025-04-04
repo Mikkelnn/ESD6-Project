@@ -129,7 +129,7 @@ target_2 = dict(
         500,
         0,
     ),
-    speed=(0, 0.505, 0),
+    speed=(0, 0.55, 0),
     rcs=10,
     phase=0,
 )
