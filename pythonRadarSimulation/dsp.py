@@ -20,10 +20,11 @@ bw = 0.02e9 # bandwidth
 t_chirp = 4.6e-6 # chirp time
 prp=5e-6 # Pulse Repetition Period
 pulses = 128
+angleBins = int(180 / 5)
 
 fs = 46e6 # 50e6 # IF fs
 
-range_window = signal.windows.chebwin(fs * t_chirp, at=80)
+range_window = signal.windows.chebwin(int(fs * t_chirp), at=80)
 doppler_window = signal.windows.chebwin(pulses, at=60)
 
 
@@ -33,14 +34,14 @@ doppler_window = signal.windows.chebwin(pulses, at=60)
 
 
 range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256) # 
-
+range_doppler_angle = fft.fft(range_doppler, axis=2, n=angleBins)
 
 # range_doppler = np.sum(range_doppler, axis=0, keepdims=True)
 
 doppler_bins = range_doppler.shape[1]
 range_bins = range_doppler.shape[2]
 
-shifted = np.abs(fft.fftshift(range_doppler[0], axes=(0,)))
+shifted = np.abs(fft.fftshift(range_doppler_angle[0], axes=(0,)))
 results = 10 * np.log10(shifted)
 
 cfar = proc.cfar_ca_2d(shifted, guard=2, trailing=10, pfa=0.8e-3)
@@ -75,18 +76,36 @@ plt.xlabel('Range (m)')
 plt.ylabel('Velocity (m/s)')
 plt.title('Range-Doppler Map Raw')
 
-plt.figure(2)
-plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map with CFAR')
+# plt.figure(2)
+# plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
+# plt.colorbar(label='Amplitude (dB)')
+# plt.xlabel('Range (m)')
+# plt.ylabel('Velocity (m/s)')
+# plt.title('Range-Doppler Map with CFAR')
 
 plt.figure(3)
 plt.plot(range_axis, shifted[len(shifted)//2], label='radar')
 plt.plot(range_axis, cfar[len(shifted)//2], label='cfar')
 plt.xlabel('Range (m)')
 plt.legend()
+
+range_angle_map = np.sum(np.abs(shifted), axis=1)  # Sum over Doppler bins
+
+print(f"shape: {range_angle_map.shape}")
+
+# Define axis labels
+angle_bins = np.linspace(-90, 90, angleBins)  # Assuming angle spans -90 to 90 degrees
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.imshow(20 * np.log10(range_angle_map + 1e-6), aspect='auto', 
+           extent=[angle_bins[0], angle_bins[-1], range_axis[-1], range_axis[0]], 
+           cmap='jet')
+
+plt.colorbar(label="Power (dB)")
+plt.xlabel("Angle (degrees)")
+plt.ylabel("Range bin")
+plt.title("Range-Angle Heatmap")
 
 plt.show()
 
