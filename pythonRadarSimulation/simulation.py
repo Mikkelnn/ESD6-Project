@@ -108,7 +108,7 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-rcs = 0.1
+rcs = 1
 
 
 # velocity resolution
