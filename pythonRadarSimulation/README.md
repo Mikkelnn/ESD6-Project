@@ -9,17 +9,12 @@ https://radarsimx.com/
 
 Obtain the binaries of radarsimpy and place it in this folder i.e. 'pythonRadarSimulation\radarsimpy'
 
-If not already created, create the virtual enviorment
-windows: ´py -m venv .venv´
-linux: ´python3 -m venv .venv´
-
-Activate the virtual enviorment
-windows: ´.venv\Scripts\activate´
-linux: ´source .venv/bin/activate´
-
-Install packages
-´pip install matplotlib plotly kaleido ipython numpy scipy´
-
-To deactivate the enviorment
-windows: ´deactivate´
-linux: ´source .venv/bin/deactivate´
+1. Follow pyton direction from root README.md
+   - Required packages: ´matplotlib plotly kaleido ipython numpy scipy´
+2. Run script:
+   1. DSP:
+      - Windows: `py -m .\dsp.py`
+      - Linux: `py .\dsp.py`
+   2. Simulation:
+      - Windows: `py -m .\simulation.py`
+      - Linux: `py .\simulation.py`
