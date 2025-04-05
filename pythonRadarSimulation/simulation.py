@@ -54,7 +54,7 @@ for idx in range(0, N_rx):
 tx = Transmitter(
     f=[f_c - (bw/2), f_c + (bw/2)],
     t=[0, t_chirp],
-    tx_power=40,
+    tx_power=40000,
     prp=prp,
     pulses=pulses,
     channels=tx_channels
@@ -108,7 +108,8 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-# true_theta = [-5, -4, 45]
+rcs = 0.1
+
 
 # velocity resolution
 target_1 = dict(
@@ -118,7 +119,7 @@ target_1 = dict(
         0,
     ),
     speed=(0, 0.5, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -130,7 +131,7 @@ target_2 = dict(
         0,
     ),
     speed=(0, 0.55, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -142,7 +143,7 @@ target_3 = dict(
         0,
     ),
     speed=(0, -15000.25, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -157,7 +158,7 @@ target_4 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -169,7 +170,7 @@ target_5 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -181,7 +182,7 @@ target_6 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -193,7 +194,7 @@ target_7 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
@@ -205,12 +206,12 @@ target_8 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=10,
+    rcs=rcs,
     phase=0,
 )
 
 
-targets = [target_1, target_2, target_4, target_5, target_6, target_7, target_8] #, target_3
+targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
 # targets = [target_1, target_3]
 
 data = sim_radar(radar, targets)
@@ -218,5 +219,5 @@ timestamp = data["timestamp"]
 baseband = data["baseband"] #+ data["noise"]
 
 # Save data to file
-with open('radarBaseband-no-t3.npy', 'wb') as f:
+with open('radarBaseband.npy', 'wb') as f:
     np.save(f, baseband)
