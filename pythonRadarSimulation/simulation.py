@@ -54,7 +54,7 @@ for idx in range(0, N_rx):
 tx = Transmitter(
     f=[f_c - (bw/2), f_c + (bw/2)],
     t=[0, t_chirp],
-    tx_power=400, # 40
+    tx_power=40, # 40
     prp=prp,
     pulses=pulses,
     channels=tx_channels
@@ -63,9 +63,9 @@ tx = Transmitter(
 rx = Receiver(
     fs=fs,
     noise_figure=0, # 8
-    rf_gain=200, # 20
+    rf_gain=20,
     load_resistor=50,
-    baseband_gain=300, # 30
+    baseband_gain=30,
     channels=rx_channels
 )
 
@@ -108,7 +108,7 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-rcs = 1
+rcs = 10
 
 
 # velocity resolution
