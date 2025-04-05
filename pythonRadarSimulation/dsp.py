@@ -84,12 +84,12 @@ print(f"targets (range doppler):")
 #     print(f"conf: {round(doppler_range_shifted_cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
 
 # Plot the 2D array
-# plt.figure(1)
-# plt.imshow(doppler_range_shifted, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-# plt.colorbar(label='Amplitude (dB)')
-# plt.xlabel('Range (m)')
-# plt.ylabel('Velocity (m/s)')
-# plt.title('Range-Doppler Map (sum over angle)')
+plt.figure(1)
+plt.imshow(doppler_range_shifted_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Range (m)')
+plt.ylabel('Velocity (m/s)')
+plt.title('Range-Doppler Map (sum over angle)')
 
 # plt.figure(2)
 # plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
@@ -107,19 +107,19 @@ print(f"targets (range doppler):")
 
 # Plot
 # angle_doppler_range[:,0,:]
-# plt.figure(4)
-# plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
-# plt.colorbar(label="Power (dB)")
-# plt.xlabel("Range bin")
-# plt.ylabel("Angle (degrees)")
-# plt.title("Range-Angle Map (sum over doppler)")
+plt.figure(4)
+plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
+plt.colorbar(label="Power (dB)")
+plt.xlabel("Range bin")
+plt.ylabel("Angle (degrees)")
+plt.title("Range-Angle Map (sum over doppler)")
 
-# plt.figure(5)
-# plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
-# plt.colorbar(label='Amplitude (dB)')
-# plt.xlabel('Velocity (m/s)')
-# plt.ylabel('Angle (degrees)')
-# plt.title('Angle-Doppler Map (sum over range)')
+plt.figure(5)
+plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Velocity (m/s)')
+plt.ylabel('Angle (degrees)')
+plt.title('Angle-Doppler Map (sum over range)')
 
 # plt.figure(6)
 # plt.plot(angle_axis, angle_range_map[:,114], label='radar')
@@ -133,7 +133,7 @@ fig = plt.figure(7)
 ax = fig.add_subplot(111, projection='3d')
 # Scatter plot
 angle_doppler_range_shifted = fft.fftshift(20 * np.log10(angle_doppler_range), axes=(1))
-indices  = np.argwhere(angle_doppler_range_shifted > -30)
+indices  = np.argwhere(angle_doppler_range_shifted > -10) # -30
 angles, dopplers, ranges = indices.T
 points = angle_doppler_range_shifted[indices[:, 0], indices[:, 1], indices[:, 2]]
 sc = ax.scatter(angle_axis[angles], np.flip(doppler_axis)[dopplers], range_axis[ranges], c=points, cmap='viridis', marker='o', alpha=0.7)
