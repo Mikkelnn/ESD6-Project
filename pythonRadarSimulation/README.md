@@ -14,7 +14,7 @@ Obtain the binaries of radarsimpy and place it in this folder i.e. 'pythonRadarS
 2. Run script:
    1. DSP:
       - Windows: `py -m .\dsp.py`
-      - Linux: `py .\dsp.py`
+      - Linux: `python3 .\dsp.py`
    2. Simulation:
       - Windows: `py -m .\simulation.py`
-      - Linux: `py .\simulation.py`
+      - Linux: `python3 .\simulation.py`
