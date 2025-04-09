@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: ''
+    author: theil
     catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: USRPrx
+    id: phaseShiftSetup
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: USRP_rx_test
+    title: Not titled yet
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -42,7 +42,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 12.0]
+    coordinate: [392, 16.0]
     rotation: 0
     state: enabled
 - name: fc
@@ -54,7 +54,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [304, 12.0]
+    coordinate: [304, 16.0]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -66,9 +66,101 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [200, 12]
+    coordinate: [200, 16.0]
     rotation: 0
     state: enabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 188.0]
+    rotation: 0
+    state: disabled
+- name: analog_sig_source_x_0_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '3.14'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [48, 340.0]
+    rotation: 0
+    state: disabled
+- name: analog_sig_source_x_0_0_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '4.61'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 484.0]
+    rotation: 0
+    state: disabled
+- name: analog_sig_source_x_0_0_1
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '1.56'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 660.0]
+    rotation: 0
+    state: disabled
 - name: blocks_conjugate_cc_0
   id: blocks_conjugate_cc
   parameters:
@@ -81,7 +173,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [712, 304.0]
+    coordinate: [920, 304.0]
     rotation: 0
     state: enabled
 - name: blocks_conjugate_cc_0_0
@@ -96,10 +188,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [712, 400.0]
+    coordinate: [920, 520.0]
     rotation: 0
     state: enabled
-- name: blocks_conjugate_cc_0_1
+- name: blocks_conjugate_cc_1
   id: blocks_conjugate_cc
   parameters:
     affinity: ''
@@ -111,10 +203,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 496.0]
+    coordinate: [912, 432.0]
     rotation: 0
     state: enabled
-- name: blocks_conjugate_cc_0_2
+- name: blocks_conjugate_cc_1_0
   id: blocks_conjugate_cc
   parameters:
     affinity: ''
@@ -126,7 +218,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [728, 592.0]
+    coordinate: [912, 648.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0
@@ -144,7 +236,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [976, 272.0]
+    coordinate: [1224, 272.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0_0
@@ -162,10 +254,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [984, 368.0]
+    coordinate: [1224, 488.0]
     rotation: 0
     state: enabled
-- name: blocks_multiply_xx_0_1
+- name: blocks_multiply_xx_1
   id: blocks_multiply_xx
   parameters:
     affinity: ''
@@ -180,10 +272,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 464.0]
+    coordinate: [1224, 392.0]
     rotation: 0
     state: enabled
-- name: blocks_multiply_xx_0_2
+- name: blocks_multiply_xx_1_0
   id: blocks_multiply_xx
   parameters:
     affinity: ''
@@ -198,7 +290,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 560.0]
+    coordinate: [1224, 608.0]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0
@@ -254,7 +346,7 @@ blocks:
     marker9: '0'
     name: '""'
     nconnections: '4'
-    size: '32768'
+    size: '1024'
     style1: '0'
     style10: '0'
     style2: '0'
@@ -290,7 +382,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 360.0]
+    coordinate: [1512, 384.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -726,27 +818,35 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [200, 196.0]
+    coordinate: [496, 240.0]
     rotation: 0
     state: enabled
 
 connections:
+- [analog_sig_source_x_0, '0', blocks_conjugate_cc_0, '0']
+- [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '0']
+- [analog_sig_source_x_0, '0', blocks_multiply_xx_0_0, '0']
+- [analog_sig_source_x_0, '0', blocks_multiply_xx_1, '0']
+- [analog_sig_source_x_0, '0', blocks_multiply_xx_1_0, '0']
+- [analog_sig_source_x_0_0, '0', blocks_conjugate_cc_1, '0']
+- [analog_sig_source_x_0_0_0, '0', blocks_conjugate_cc_0_0, '0']
+- [analog_sig_source_x_0_0_1, '0', blocks_conjugate_cc_1_0, '0']
 - [blocks_conjugate_cc_0, '0', blocks_multiply_xx_0, '1']
 - [blocks_conjugate_cc_0_0, '0', blocks_multiply_xx_0_0, '1']
-- [blocks_conjugate_cc_0_1, '0', blocks_multiply_xx_0_1, '1']
-- [blocks_conjugate_cc_0_2, '0', blocks_multiply_xx_0_2, '1']
+- [blocks_conjugate_cc_1, '0', blocks_multiply_xx_1, '1']
+- [blocks_conjugate_cc_1_0, '0', blocks_multiply_xx_1_0, '1']
 - [blocks_multiply_xx_0, '0', qtgui_const_sink_x_0, '0']
-- [blocks_multiply_xx_0_0, '0', qtgui_const_sink_x_0, '1']
-- [blocks_multiply_xx_0_1, '0', qtgui_const_sink_x_0, '2']
-- [blocks_multiply_xx_0_2, '0', qtgui_const_sink_x_0, '3']
+- [blocks_multiply_xx_0_0, '0', qtgui_const_sink_x_0, '2']
+- [blocks_multiply_xx_1, '0', qtgui_const_sink_x_0, '1']
+- [blocks_multiply_xx_1_0, '0', qtgui_const_sink_x_0, '3']
 - [uhd_usrp_source_0, '0', blocks_conjugate_cc_0, '0']
 - [uhd_usrp_source_0, '0', blocks_multiply_xx_0, '0']
 - [uhd_usrp_source_0, '0', blocks_multiply_xx_0_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_1, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_2, '0']
-- [uhd_usrp_source_0, '1', blocks_conjugate_cc_0_0, '0']
-- [uhd_usrp_source_0, '2', blocks_conjugate_cc_0_1, '0']
-- [uhd_usrp_source_0, '3', blocks_conjugate_cc_0_2, '0']
+- [uhd_usrp_source_0, '0', blocks_multiply_xx_1, '0']
+- [uhd_usrp_source_0, '0', blocks_multiply_xx_1_0, '0']
+- [uhd_usrp_source_0, '1', blocks_conjugate_cc_1, '0']
+- [uhd_usrp_source_0, '2', blocks_conjugate_cc_0_0, '0']
+- [uhd_usrp_source_0, '3', blocks_conjugate_cc_1_0, '0']
 
 metadata:
   file_format: 1
