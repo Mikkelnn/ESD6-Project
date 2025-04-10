@@ -11,7 +11,6 @@
 
 from PyQt5 import Qt
 from gnuradio import qtgui
-from gnuradio import analog
 from gnuradio import blocks
 from gnuradio import gr
 from gnuradio.filter import firdes
@@ -22,6 +21,8 @@ from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+from gnuradio import uhd
+import time
 import sip
 import threading
 
@@ -63,12 +64,44 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 32000
+        self.samp_rate = samp_rate = 30*10**6
+        self.fc = fc = 5.8*10**9
+        self.bw = bw = 10**6
 
         ##################################################
         # Blocks
         ##################################################
 
+        self.uhd_usrp_source_0 = uhd.usrp_source(
+            ",".join(("addr=192.168.1.2", '')),
+            uhd.stream_args(
+                cpu_format="fc32",
+                args='',
+                channels=list(range(0,4)),
+            ),
+        )
+        self.uhd_usrp_source_0.set_subdev_spec('A:0 A:1 B:0 B:1', 0)
+        self.uhd_usrp_source_0.set_samp_rate(samp_rate)
+        # No synchronization enforced.
+
+        self.uhd_usrp_source_0.set_center_freq(fc, 0)
+        self.uhd_usrp_source_0.set_antenna("RX1", 0)
+        self.uhd_usrp_source_0.set_bandwidth(bw, 0)
+        self.uhd_usrp_source_0.set_gain(0, 0)
+
+        self.uhd_usrp_source_0.set_center_freq(fc, 1)
+        self.uhd_usrp_source_0.set_antenna("RX1", 1)
+        self.uhd_usrp_source_0.set_bandwidth(bw, 1)
+        self.uhd_usrp_source_0.set_gain(0, 1)
+
+        self.uhd_usrp_source_0.set_center_freq(fc, 2)
+        self.uhd_usrp_source_0.set_antenna("RX1", 2)
+        self.uhd_usrp_source_0.set_bandwidth(bw, 2)
+        self.uhd_usrp_source_0.set_gain(0, 2)
+
+        self.uhd_usrp_source_0.set_center_freq(fc, 3)
+        self.uhd_usrp_source_0.set_antenna("RX1", 3)
+        self.uhd_usrp_source_0.set_gain(bw, 3)
         self.qtgui_const_sink_x_0 = qtgui.const_sink_c(
             1024, #size
             "", #name
@@ -76,8 +109,8 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
             None # parent
         )
         self.qtgui_const_sink_x_0.set_update_time(0.10)
-        self.qtgui_const_sink_x_0.set_y_axis((-1.2), 1.2)
-        self.qtgui_const_sink_x_0.set_x_axis((-1.2), 1.2)
+        self.qtgui_const_sink_x_0.set_y_axis((-0.0001), 0.0001)
+        self.qtgui_const_sink_x_0.set_x_axis((-0.0001), 0.0001)
         self.qtgui_const_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
         self.qtgui_const_sink_x_0.enable_autoscale(False)
         self.qtgui_const_sink_x_0.enable_grid(False)
@@ -118,23 +151,11 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         self.blocks_conjugate_cc_1 = blocks.conjugate_cc()
         self.blocks_conjugate_cc_0_0 = blocks.conjugate_cc()
         self.blocks_conjugate_cc_0 = blocks.conjugate_cc()
-        self.analog_sig_source_x_0_0_1 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 1000, 1, 0, 1.56)
-        self.analog_sig_source_x_0_0_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 1000, 1, 0, 4.61)
-        self.analog_sig_source_x_0_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 1000, 1, 0, 3.14)
-        self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 1000, 1, 0, 0)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_conjugate_cc_0, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0_0, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_1, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_1_0, 0))
-        self.connect((self.analog_sig_source_x_0_0, 0), (self.blocks_conjugate_cc_1, 0))
-        self.connect((self.analog_sig_source_x_0_0_0, 0), (self.blocks_conjugate_cc_0_0, 0))
-        self.connect((self.analog_sig_source_x_0_0_1, 0), (self.blocks_conjugate_cc_1_0, 0))
         self.connect((self.blocks_conjugate_cc_0, 0), (self.blocks_multiply_xx_0, 1))
         self.connect((self.blocks_conjugate_cc_0_0, 0), (self.blocks_multiply_xx_0_0, 1))
         self.connect((self.blocks_conjugate_cc_1, 0), (self.blocks_multiply_xx_1, 1))
@@ -143,6 +164,14 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_multiply_xx_0_0, 0), (self.qtgui_const_sink_x_0, 2))
         self.connect((self.blocks_multiply_xx_1, 0), (self.qtgui_const_sink_x_0, 1))
         self.connect((self.blocks_multiply_xx_1_0, 0), (self.qtgui_const_sink_x_0, 3))
+        self.connect((self.uhd_usrp_source_0, 0), (self.blocks_conjugate_cc_0, 0))
+        self.connect((self.uhd_usrp_source_0, 2), (self.blocks_conjugate_cc_0_0, 0))
+        self.connect((self.uhd_usrp_source_0, 1), (self.blocks_conjugate_cc_1, 0))
+        self.connect((self.uhd_usrp_source_0, 3), (self.blocks_conjugate_cc_1_0, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.blocks_multiply_xx_0_0, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.blocks_multiply_xx_1, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.blocks_multiply_xx_1_0, 0))
 
 
     def closeEvent(self, event):
@@ -158,10 +187,27 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
-        self.analog_sig_source_x_0_0.set_sampling_freq(self.samp_rate)
-        self.analog_sig_source_x_0_0_0.set_sampling_freq(self.samp_rate)
-        self.analog_sig_source_x_0_0_1.set_sampling_freq(self.samp_rate)
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
+
+    def get_fc(self):
+        return self.fc
+
+    def set_fc(self, fc):
+        self.fc = fc
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 0)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 1)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 2)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 3)
+
+    def get_bw(self):
+        return self.bw
+
+    def set_bw(self, bw):
+        self.bw = bw
+        self.uhd_usrp_source_0.set_bandwidth(self.bw, 0)
+        self.uhd_usrp_source_0.set_bandwidth(self.bw, 1)
+        self.uhd_usrp_source_0.set_bandwidth(self.bw, 2)
+        self.uhd_usrp_source_0.set_gain(self.bw, 3)
 
 
 
