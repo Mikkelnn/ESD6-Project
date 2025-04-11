@@ -69,228 +69,33 @@ blocks:
     coordinate: [200, 12]
     rotation: 0
     state: enabled
-- name: blocks_conjugate_cc_0
-  id: blocks_conjugate_cc
+- name: qtgui_sink_x_0
+  id: qtgui_sink_x
   parameters:
     affinity: ''
     alias: ''
+    bw: bw
     comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [712, 304.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_0_0
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [712, 400.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_0_1
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [736, 496.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_0_2
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [728, 592.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [976, 272.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0_0
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [984, 368.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0_1
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [992, 464.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0_2
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [992, 560.0]
-    rotation: 0
-    state: enabled
-- name: qtgui_const_sink_x_0
-  id: qtgui_const_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    autoscale: 'False'
-    axislabels: 'True'
-    color1: '"blue"'
-    color10: '"dark blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
-    comment: ''
-    grid: 'False'
+    fc: fc
+    fftsize: '1024'
     gui_hint: ''
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    marker1: '0'
-    marker10: '0'
-    marker2: '0'
-    marker3: '0'
-    marker4: '0'
-    marker5: '0'
-    marker6: '0'
-    marker7: '0'
-    marker8: '0'
-    marker9: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
     name: '""'
-    nconnections: '4'
-    size: '32768'
-    style1: '0'
-    style10: '0'
-    style2: '0'
-    style3: '0'
-    style4: '0'
-    style5: '0'
-    style6: '0'
-    style7: '0'
-    style8: '0'
-    style9: '0'
-    tr_chan: '0'
-    tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_FREE
-    tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
     type: complex
-    update_time: '0.10'
-    width1: '1'
-    width10: '1'
-    width2: '1'
-    width3: '1'
-    width4: '1'
-    width5: '1'
-    width6: '1'
-    width7: '1'
-    width8: '1'
-    width9: '1'
-    xmax: '1.2'
-    xmin: '-1.2'
-    ymax: '1.2'
-    ymin: '-1.2'
+    wintype: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1264, 360.0]
+    coordinate: [536, 204.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -664,7 +469,7 @@ blocks:
     lo_source9: internal
     maxoutbuf: '0'
     minoutbuf: '0'
-    nchan: '4'
+    nchan: '1'
     num_mboards: '1'
     otw: ''
     rx_agc0: Default
@@ -700,7 +505,7 @@ blocks:
     rx_agc8: Default
     rx_agc9: Default
     samp_rate: samp_rate
-    sd_spec0: A:0 A:1 B:0 B:1
+    sd_spec0: ''
     sd_spec1: ''
     sd_spec2: ''
     sd_spec3: ''
@@ -726,27 +531,12 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [200, 196.0]
+    coordinate: [96, 192.0]
     rotation: 0
     state: enabled
 
 connections:
-- [blocks_conjugate_cc_0, '0', blocks_multiply_xx_0, '1']
-- [blocks_conjugate_cc_0_0, '0', blocks_multiply_xx_0_0, '1']
-- [blocks_conjugate_cc_0_1, '0', blocks_multiply_xx_0_1, '1']
-- [blocks_conjugate_cc_0_2, '0', blocks_multiply_xx_0_2, '1']
-- [blocks_multiply_xx_0, '0', qtgui_const_sink_x_0, '0']
-- [blocks_multiply_xx_0_0, '0', qtgui_const_sink_x_0, '1']
-- [blocks_multiply_xx_0_1, '0', qtgui_const_sink_x_0, '2']
-- [blocks_multiply_xx_0_2, '0', qtgui_const_sink_x_0, '3']
-- [uhd_usrp_source_0, '0', blocks_conjugate_cc_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_1, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_2, '0']
-- [uhd_usrp_source_0, '1', blocks_conjugate_cc_0_0, '0']
-- [uhd_usrp_source_0, '2', blocks_conjugate_cc_0_1, '0']
-- [uhd_usrp_source_0, '3', blocks_conjugate_cc_0_2, '0']
+- [uhd_usrp_source_0, '0', qtgui_sink_x_0, '0']
 
 metadata:
   file_format: 1
