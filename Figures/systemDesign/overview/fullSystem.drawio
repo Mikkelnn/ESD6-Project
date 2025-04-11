@@ -1,9 +1,99 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.10">
   <diagram name="Page-1" id="KYtqhg6V5aARJ8DmFEJh">
-    <mxGraphModel>
+    <mxGraphModel dx="1044" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-1" value="" style="html=1;shape=mxgraph.basic.isocube;isoAngle=15;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="370" y="190" width="100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.pie;startAngle=0.2854035818698135;endAngle=0.7145035189210943;fillColor=none;dashed=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="230" y="220" width="380" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-3" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.pie;startAngle=0.2854035818698135;endAngle=0.7145035189210943;rotation=-180;fillColor=none;dashed=1;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="230" y="50" width="380" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-4" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="220" y="170" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-5" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="270" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-6" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-7" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="210" y="230" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-8" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="290" y="290" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-9" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="230" y="310" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-10" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="250" y="250" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-11" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="310" y="100" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-12" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="330" y="130" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-13" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="410" y="90" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-14" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="370" y="100" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-15" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="490" y="140" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-16" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="420" y="120" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-17" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="490" y="90" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-18" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="450" y="370" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-19" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="310" y="370" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-20" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22whiteSpace%3Dwrap%3Bhtml%3D1%3Bshape%3Dmxgraph.basic.pointed_oval%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22150%22%20y%3D%2250%22%20width%3D%2220%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="400" y="430" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-21" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="360" y="390" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-22" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="530" y="380" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-23" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.pointed_oval;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="460" y="420" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-24" value="Ground station" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="750" y="175" width="170" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-25" value="" style="shape=mxgraph.arrows2.wedgeArrowDashed2;html=1;bendable=0;startWidth=50;stepSize=15;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="720" y="259.5" as="sourcePoint" />
+            <mxPoint x="490" y="259.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-26" value="CubeSat" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="390" y="200" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-27" value="Undetected Debris" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-28" value="Detected Debris" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="525" y="110" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SW7_xnOrG3bbEC9SxCLT-29" value="Detected Debris" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="290" y="410" width="60" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
