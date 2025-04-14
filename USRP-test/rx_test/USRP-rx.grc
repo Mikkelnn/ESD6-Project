@@ -85,17 +85,17 @@ blocks:
     plotconst: 'True'
     plotfreq: 'True'
     plottime: 'True'
-    plotwaterfall: 'False'
+    plotwaterfall: 'True'
     rate: '10'
     showports: 'False'
-    showrf: 'True'
+    showrf: 'False'
     type: complex
     wintype: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [624, 156.0]
+    coordinate: [536, 204.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -104,7 +104,7 @@ blocks:
     affinity: ''
     alias: ''
     ant0: '"RX1"'
-    ant1: '"RX2"'
+    ant1: '"RX1"'
     ant10: '"RX2"'
     ant11: '"RX2"'
     ant12: '"RX2"'
@@ -115,7 +115,7 @@ blocks:
     ant17: '"RX2"'
     ant18: '"RX2"'
     ant19: '"RX2"'
-    ant2: '"RX2"'
+    ant2: '"RX1"'
     ant20: '"RX2"'
     ant21: '"RX2"'
     ant22: '"RX2"'
@@ -126,7 +126,7 @@ blocks:
     ant27: '"RX2"'
     ant28: '"RX2"'
     ant29: '"RX2"'
-    ant3: '"RX2"'
+    ant3: '"RX1"'
     ant30: '"RX2"'
     ant31: '"RX2"'
     ant4: '"RX2"'
@@ -136,7 +136,7 @@ blocks:
     ant8: '"RX2"'
     ant9: '"RX2"'
     bw0: bw
-    bw1: '0'
+    bw1: bw
     bw10: '0'
     bw11: '0'
     bw12: '0'
@@ -147,7 +147,7 @@ blocks:
     bw17: '0'
     bw18: '0'
     bw19: '0'
-    bw2: '0'
+    bw2: bw
     bw20: '0'
     bw21: '0'
     bw22: '0'
@@ -168,7 +168,7 @@ blocks:
     bw8: '0'
     bw9: '0'
     center_freq0: fc
-    center_freq1: '0'
+    center_freq1: fc
     center_freq10: '0'
     center_freq11: '0'
     center_freq12: '0'
@@ -179,7 +179,7 @@ blocks:
     center_freq17: '0'
     center_freq18: '0'
     center_freq19: '0'
-    center_freq2: '0'
+    center_freq2: fc
     center_freq20: '0'
     center_freq21: '0'
     center_freq22: '0'
@@ -190,7 +190,7 @@ blocks:
     center_freq27: '0'
     center_freq28: '0'
     center_freq29: '0'
-    center_freq3: '0'
+    center_freq3: fc
     center_freq30: '0'
     center_freq31: '0'
     center_freq4: '0'
@@ -298,7 +298,7 @@ blocks:
     gain27: '0'
     gain28: '0'
     gain29: '0'
-    gain3: '0'
+    gain3: bw
     gain30: '0'
     gain31: '0'
     gain4: '0'
@@ -307,7 +307,7 @@ blocks:
     gain7: '0'
     gain8: '0'
     gain9: '0'
-    gain_type0: power
+    gain_type0: default
     gain_type1: default
     gain_type10: default
     gain_type11: default
@@ -531,7 +531,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [144, 140.0]
+    coordinate: [96, 192.0]
     rotation: 0
     state: enabled
 

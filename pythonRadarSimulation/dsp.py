@@ -13,7 +13,7 @@ print(f"loaded data shape: {baseband.shape}")
 
 # parameters
 c = 3e8
-f_c = 5.8e9 # center frequency
+f_c = 6e9 # center frequency
 wavelength = c / f_c
 
 bw = 0.02e9 # bandwidth
@@ -24,7 +24,7 @@ angleBins = int(180 / 5)
 
 fs = 46e6 # 50e6 # IF fs
 
-range_window = signal.windows.chebwin(int(fs * t_chirp), at=80)
+range_window = signal.windows.chebwin(int(fs * t_chirp), at=90)
 doppler_window = signal.windows.chebwin(pulses, at=60)
 
 

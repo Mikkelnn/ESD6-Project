@@ -1,0 +1,1 @@
+ -machinefile runfeko_tmp_machinesfile_20988 -delegate -envall -mapall "C:\Program Files\Altair\2023.1-edu\FEKO\bin\feko_mkl.csv.impi.exe" "antenamatrizro30035.6separacion5.8" "--run-from-gui"
