@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.2.12">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.2.12">
   <diagram name="Page-1" id="fxBPO_asNIkTs4WO12ik">
-    <mxGraphModel dx="1428" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="985" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -91,8 +91,8 @@
         <mxCell id="qFYUxvNGJUN21l_IDKZt-39" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;strokeWidth=2;strokeColor=light-dark(#CCCCCC,#EDEDED);fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" parent="1" vertex="1">
           <mxGeometry x="20" y="160" width="440" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="qFYUxvNGJUN21l_IDKZt-40" value="Rx channels in parallel" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" parent="1" vertex="1">
-          <mxGeometry x="20" y="140" width="140" height="20" as="geometry" />
+        <mxCell id="qFYUxvNGJUN21l_IDKZt-40" value="Rx channels in parallel" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;fillColor=default;" parent="1" vertex="1">
+          <mxGeometry x="20" y="139" width="120" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
