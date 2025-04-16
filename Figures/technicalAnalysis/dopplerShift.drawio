@@ -29,7 +29,7 @@
           <mxGeometry x="380" y="120" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="mHHL-iciBwAJmtxELXkr-10" value="$$V_{DopplerDebris}=\cos \theta \cdot V_{Debris}$$" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="190" y="145" width="140" height="30" as="geometry" />
+          <mxGeometry x="169" y="144" width="190" height="30" as="geometry" />
         </mxCell>
         <mxCell id="mHHL-iciBwAJmtxELXkr-12" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.arc;startAngle=0.9211970936297817;endAngle=0.022831136802497397;rotation=-15;" vertex="1" parent="1">
           <mxGeometry x="450" y="175" width="70" height="80" as="geometry" />
