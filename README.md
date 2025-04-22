@@ -12,6 +12,9 @@ First `cd` to the desired module and wollow directions in README.md
 
 If a folder contains Python code, a virtual enviorment must be used within the folder named '.venv'
 
+0. Fix execution policy in Powershell
+   - Windows: `Set-ExecutionPolicy unrestricted`
+
 1. Intall virtial enviorment (if not alredy):
 
    - Windows: `py -m pip install virtualenv`
