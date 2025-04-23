@@ -71,7 +71,7 @@ class USRPrx(gr.top_block, Qt.QWidget):
         ##################################################
 
         self.uhd_usrp_source_0 = uhd.usrp_source(
-            ",".join(("addr=192.168.10.2", '')),
+            ",".join(("addr=192.168.1.2", '')),
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
@@ -82,9 +82,9 @@ class USRPrx(gr.top_block, Qt.QWidget):
         # No synchronization enforced.
 
         self.uhd_usrp_source_0.set_center_freq(fc, 0)
-        self.uhd_usrp_source_0.set_antenna("RX2", 0)
+        self.uhd_usrp_source_0.set_antenna("RX1", 0)
         self.uhd_usrp_source_0.set_bandwidth(bw, 0)
-        self.uhd_usrp_source_0.set_power_reference(0, 0)
+        self.uhd_usrp_source_0.set_gain(0, 0)
         self.qtgui_sink_x_0 = qtgui.sink_c(
             1024, #fftsize
             window.WIN_BLACKMAN_hARRIS, #wintype
@@ -92,7 +92,7 @@ class USRPrx(gr.top_block, Qt.QWidget):
             bw, #bw
             "", #name
             True, #plotfreq
-            False, #plotwaterfall
+            True, #plotwaterfall
             True, #plottime
             True, #plotconst
             None # parent
@@ -100,7 +100,7 @@ class USRPrx(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_0.set_update_time(1.0/10)
         self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.qwidget(), Qt.QWidget)
 
-        self.qtgui_sink_x_0.enable_rf_freq(True)
+        self.qtgui_sink_x_0.enable_rf_freq(False)
 
         self.top_layout.addWidget(self._qtgui_sink_x_0_win)
 
@@ -133,6 +133,9 @@ class USRPrx(gr.top_block, Qt.QWidget):
         self.fc = fc
         self.qtgui_sink_x_0.set_frequency_range(self.fc, self.bw)
         self.uhd_usrp_source_0.set_center_freq(self.fc, 0)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 1)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 2)
+        self.uhd_usrp_source_0.set_center_freq(self.fc, 3)
 
     def get_bw(self):
         return self.bw
@@ -141,6 +144,9 @@ class USRPrx(gr.top_block, Qt.QWidget):
         self.bw = bw
         self.qtgui_sink_x_0.set_frequency_range(self.fc, self.bw)
         self.uhd_usrp_source_0.set_bandwidth(self.bw, 0)
+        self.uhd_usrp_source_0.set_bandwidth(self.bw, 1)
+        self.uhd_usrp_source_0.set_bandwidth(self.bw, 2)
+        self.uhd_usrp_source_0.set_gain(self.bw, 3)
 
 
 

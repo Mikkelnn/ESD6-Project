@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.4">
+  <diagram name="Side-1" id="uW0DjwNeNf7ILn5l6WYy">
+    <mxGraphModel dx="816" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YH7xpM0im31NYv6UUsLt-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" edge="1" parent="1" source="YH7xpM0im31NYv6UUsLt-1" target="YH7xpM0im31NYv6UUsLt-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-2" value="$$50\Omega$$" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="635" y="440" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-7" value="Rx0" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="620" y="418" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-8" value="USRP x410" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="555" y="400" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-10" value="Eth" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="490" y="425" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YH7xpM0im31NYv6UUsLt-11" value="Computer" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" vertex="1" parent="1">
+          <mxGeometry x="310" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

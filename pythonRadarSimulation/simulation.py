@@ -9,15 +9,16 @@ import plotly.graph_objs as go
 from IPython.display import Image
 import matplotlib.pyplot as plt
 
+
 # print("`RadarSimPy` used in this example is version: " + str(radarsimpy.__version__))
 
 c = 3e8
-f_c = 10e9 # center frequency
+f_c = 5.8e9 # center frequency
 wavelength = c / f_c
 
-bw = 0.01e9 # bandwidth
-t_chirp = 10e-6 # chirp time
-prp=10e-6 # Pulse Repetition Period
+bw = 0.02e9 # bandwidth
+t_chirp = 4.6e-6 # chirp time
+prp=5e-6 # Pulse Repetition Period
 pulses = 128
 
 fs = 46e6 # 50e6 # IF fs
@@ -32,20 +33,15 @@ print(f"max velocity {round(doppler_max, 2)} m/s; velocity resolution: {round(de
 print(f"tx time: {prp * pulses}s; sampls/chirp: {round(t_chirp * fs, 2)}")
 
 N_tx = 1
-N_rx = 1
+N_rx = 4
 
 tx_channels = []
-tx_channels.append(
-    dict(
-        location=(0, -N_rx / 2 * wavelength / 2, 0)
-    )
-)
+if (N_tx == 1):
+    tx_channels.append(dict(location=(0, 0, 0)))
+else:
+    for idx in range(0, N_tx):
+        tx_channels.append(dict(location=(0, wavelength / 2 * idx - (N_tx - 1) * wavelength / 4, 0)))
 
-# tx_channels.append(
-#     dict(
-#         location=(0, wavelength * N_rx / 2 - N_rx / 2 * wavelength / 2, 0),
-#     )
-# )
 
 rx_channels = []
 for idx in range(0, N_rx):
@@ -58,7 +54,7 @@ for idx in range(0, N_rx):
 tx = Transmitter(
     f=[f_c - (bw/2), f_c + (bw/2)],
     t=[0, t_chirp],
-    tx_power=40,
+    tx_power=40, # 40
     prp=prp,
     pulses=pulses,
     channels=tx_channels
@@ -66,9 +62,9 @@ tx = Transmitter(
 
 rx = Receiver(
     fs=fs,
-    noise_figure=8,
+    noise_figure=0, # 8
     rf_gain=20,
-    load_resistor=500,
+    load_resistor=50,
     baseband_gain=30,
     channels=rx_channels
 )
@@ -112,31 +108,48 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-# true_theta = [-5, -4, 45]
+rcs = 10
 
+
+# velocity resolution
 target_1 = dict(
     location=(
-        #10 * np.cos(np.radians(true_theta[0])),
-        #10 * np.sin(np.radians(true_theta[0])),
         0,
         500,
         0,
     ),
-    speed=(0, 10, 0),
-    rcs=np.pi/9,
+    speed=(0, 0.5, 0),
+    rcs=rcs,
     phase=0,
 )
-# target_2 = dict(
-#     location=(
-#         40 * np.cos(np.radians(true_theta[1])),
-#         40 * np.sin(np.radians(true_theta[1])),
-#         0,
-#     ),
-#     speed=(0, 0, 0),
-#     rcs=np.pi/9,
-#     phase=0,
-# )
+
+# velocity resolution
+target_2 = dict(
+    location=(
+        0,
+        500,
+        0,
+    ),
+    speed=(0, 0.55, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# max velocity towards radar
 target_3 = dict(
+    location=(
+        0,
+        500,
+        0,
+    ),
+    speed=(0, -15000.25, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+
+# range
+target_4 = dict(
     location=(
         #40 * np.cos(np.radians(true_theta[2])),
         #40 * np.sin(np.radians(true_theta[2])),
@@ -145,110 +158,66 @@ target_3 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=np.pi/9,
+    rcs=rcs,
     phase=0,
 )
 
-targets = [target_1, target_3] #, target_2
+# angle max
+target_5 = dict(
+    location=(
+        500 * np.cos(np.radians(80)),
+        500 * np.sin(np.radians(80)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
 
+# angle max
+target_6 = dict(
+    location=(
+        500 * np.cos(np.radians(-80)),
+        500 * np.sin(np.radians(-80)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# angle res
+target_7 = dict(
+    location=(
+        500 * np.cos(np.radians(35)),
+        500 * np.sin(np.radians(35)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# angle res
+target_8 = dict(
+    location=(
+        500 * np.cos(np.radians(40)),
+        500 * np.sin(np.radians(40)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+
+targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
+# targets = [target_1, target_3]
 
 data = sim_radar(radar, targets)
 timestamp = data["timestamp"]
-baseband = data["baseband"]+data["noise"]
+baseband = data["baseband"] #+ data["noise"]
 
-
-range_window = signal.windows.chebwin(radar.sample_prop["samples_per_pulse"], at=80)
-doppler_window = signal.windows.chebwin(
-    radar.radar_prop["transmitter"].waveform_prop["pulses"], at=60
-)
-
-range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=1024)
-
-doppler_bins = range_doppler.shape[1]
-range_bins = range_doppler.shape[2]
-
-shifted = np.abs(fft.fftshift(range_doppler[0], axes=(0,)))
-results = 10 * np.log10(shifted)
-
-cfar = proc.cfar_ca_2d(shifted, guard=2, trailing=10, pfa=0.8e-3)
-cfar_db = 10 * np.log10(cfar)
-cfar_diff = shifted - cfar
-# cfar_diff = results - cfar_db
-
-# Compute range axis
-range_axis = np.arange(range_bins) * delta_R  # Convert bin index to meters
-doppler_axis = np.linspace(-doppler_max, doppler_max, doppler_bins)
-
-print(f"range bin count: {range_bins}, max range: {range_axis[-1]} m")
-print(f"doppler bin count: {doppler_bins}, max velocity: {doppler_axis[-1]} m/s")
-
-remove_firs_range_bins = 5
-targets = np.argwhere(cfar_diff[:, remove_firs_range_bins:] > 2)
-targets[:,1] += remove_firs_range_bins # fix indexes 
-print(f"targets:")
-for target in targets:
-    print(f"conf: {round(cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
-
-# Plot the 2D array
-plt.figure(1)
-plt.imshow(shifted, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map Raw')
-
-plt.figure(2)
-plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map with CFAR')
-
-# plt.figure(3)
-# plt.plot(range_axis, shifted[len(shifted)//2], label='radar')
-# plt.plot(range_axis, cfar[len(shifted)//2], label='cfar')
-# plt.xlabel('Range (m)')
-# plt.legend()
-# plt.show()
-
-exit()
-
-det_idx = [np.argmax(np.mean(np.abs(range_doppler[:, 0, :]), axis=0))]
-
-bv = range_doppler[:, 0, det_idx[0]]
-bv = bv / linalg.norm(bv)
-
-# snapshots = 20
-
-# bv_snapshot = np.zeros((N_tx * N_rx - snapshots, snapshots), dtype=complex)
-
-# for idx in range(0, snapshots):
-#     bv_snapshot[:, idx] = bv[idx : (idx + N_tx * N_rx - snapshots)]
-
-# covmat = np.cov(bv_snapshot.conjugate())
-
-fft_spec = 20 * np.log10(np.abs(fft.fftshift(fft.fft(bv.conjugate(), n=1024))))
-
-fig = go.Figure()
-
-fig.add_trace(
-    go.Scatter(
-        x=np.arcsin(np.linspace(-1, 1, 1024, endpoint=False)) / np.pi * 180,
-        y=fft_spec,
-        name="FFT",
-    )
-)
-
-fig.update_layout(
-    title="FFT",
-    yaxis=dict(title="Amplitude (dB)"),
-    xaxis=dict(title="Angle (deg)"),
-    margin=dict(l=10, r=10, b=10, t=40),
-)
-
-# uncomment this to display interactive plot
-fig.show()
-
-# display static image to reduce size on radarsimx.com
-# img_bytes = fig.to_image(format="jpg", scale=2)
-# display(Image(img_bytes))
+# Save data to file
+with open('radarBaseband.npy', 'wb') as f:
+    np.save(f, baseband)

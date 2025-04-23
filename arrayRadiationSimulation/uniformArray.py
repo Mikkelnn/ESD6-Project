@@ -48,7 +48,7 @@ def array_factor(frequency, spacing_factor, beam_angle, num_elements, sidelobe_l
     # Compute array factor with amplitude tapering and phase shifts
     AF = np.zeros_like(theta, dtype=complex)
     for n in range(num_elements):
-        AF += amplitude_weights[n] * np.exp(1j * (n * k * d * np.sin(theta) + phase_shifts[n]))
+        AF += np.exp(1j * (n * k * d * np.sin(theta) + phase_shifts[n])) # amplitude_weights[n] *
     AF = np.abs(AF)
     
     # Normalize to max value (convert to dB scale)
@@ -78,8 +78,8 @@ def array_factor(frequency, spacing_factor, beam_angle, num_elements, sidelobe_l
 
 
 # Example usage
-frequency = 10e9  # 10 GHz
-spacing_factor = 1/8 # Half-wavelength spacing (λ/2)
+frequency = 5.8e9  # 10 GHz
+spacing_factor = 1/2 # Half-wavelength spacing (λ/2)
 beam_angle = 15  # Steering the main lobe to 30 degrees
 num_elements = 4
 sidelobe_level_dB = 45
