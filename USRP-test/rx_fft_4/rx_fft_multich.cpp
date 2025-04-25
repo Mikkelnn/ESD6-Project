@@ -39,15 +39,23 @@ int main() {
         auto usrp = uhd::usrp::multi_usrp::make(device_addr);
         usrp->set_time_now(uhd::time_spec_t(0.0));
 
+        // uhd::usrp::subdev_spec_t spec = uhd::usrp::subdev_spec_t("A:0 A:1 B:0 B:1");
+        // usrp->set_rx_subdev_spec(spec, uhd::usrp::multi_usrp::ALL_MBOARDS);
+
+
+        uhd::usrp::subdev_spec_t spec("A:0 A:1 B:0 B:1");
+        usrp->set_rx_subdev_spec(spec, uhd::usrp::multi_usrp::ALL_MBOARDS);
+
         // Set sample rate and frequency
-        double rate = 20.48e6;
+        // double rate = 20.48e6;
+        double rate = 2e6;
         double freq = 5.8e9;
         double rx_gain = 10; // gain in dB
 
-        // size_t num_channels = 4;
-        // std::vector<size_t> channel_nums = {0, 1, 2, 3};
-        size_t num_channels = 2;
-        std::vector<size_t> channel_nums = {0, 1};
+        size_t num_channels = 4;
+        std::vector<size_t> channel_nums = {0, 1, 2, 3};
+        // size_t num_channels = 2;
+        // std::vector<size_t> channel_nums = {0, 1};
 
         usrp->set_rx_rate(rate);
         for (size_t ch = 0; ch < num_channels; ch++) {
@@ -73,9 +81,9 @@ int main() {
         uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE);
         stream_cmd.num_samps = num_samps;
         stream_cmd.stream_mode = uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE;
+        stream_cmd.stream_now = false;
         stream_cmd.time_spec = usrp->get_time_now() + uhd::time_spec_t(0.1); // 100ms in future
         rx_stream->issue_stream_cmd(stream_cmd);
-
 
         uhd::rx_metadata_t md;
         size_t samps_received = rx_stream->recv(buff_ptrs, num_samps, md, 3.0);
