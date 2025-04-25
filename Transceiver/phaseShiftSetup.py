@@ -7,7 +7,7 @@
 # GNU Radio Python Flow Graph
 # Title: Not titled yet
 # Author: theil
-# GNU Radio version: 3.10.12.0
+# GNU Radio version: 3.10.11.0
 
 from PyQt5 import Qt
 from gnuradio import qtgui
@@ -64,16 +64,16 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 10*10**6
+        self.samp_rate = samp_rate = 500*10**3
         self.fc = fc = 5.8*10**9
-        self.bw = bw = 10*10**6
+        self.bw = bw = 500000
 
         ##################################################
         # Blocks
         ##################################################
 
         self.uhd_usrp_source_0 = uhd.usrp_source(
-            ",".join(("addr=192.168.1.5", '')),
+            ",".join(("addr=192.168.1.2", '')),
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
