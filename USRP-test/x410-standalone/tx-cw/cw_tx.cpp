@@ -1,11 +1,13 @@
 #include <uhd/usrp/multi_usrp.hpp>
 #include <uhd/types/tune_request.hpp>
 #include <uhd/utils/thread.hpp>
+#include <uhd/stream.hpp>
 #include <iostream>
 #include <complex>
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <cmath>
 
 int main() {
     uhd::set_thread_priority_safe();
@@ -18,7 +20,7 @@ int main() {
     usrp->set_tx_rate(rate);
 
     // Set TX frequency
-    double freq = 915e6; // 915 MHz, for example
+    double freq = 915e6; // 915 MHz
     usrp->set_tx_freq(freq);
 
     // Set TX gain
@@ -27,14 +29,17 @@ int main() {
     // Set TX antenna
     usrp->set_tx_antenna("TX/RX");
 
-    // Set TX stream args
+    // Set up TX stream
     uhd::stream_args_t stream_args("fc32"); // complex floats
     auto tx_stream = usrp->get_tx_stream(stream_args);
 
-    // Create a CW signal buffer
-    std::vector<std::complex<float>> buffer(tx_stream->get_max_num_samps());
-    for (auto& sample : buffer) {
-        sample = std::complex<float>(1.0, 0.0); // constant signal (CW)
+    // Generate a CW tone: 1 kHz sine wave at baseband
+    const size_t buffer_len = tx_stream->get_max_num_samps();
+    std::vector<std::complex<float>> buffer(buffer_len);
+    double tone_freq = 1e3; // 1 kHz
+    for (size_t n = 0; n < buffer.size(); ++n) {
+        float phase = 2 * M_PI * tone_freq * n / rate;
+        buffer[n] = std::complex<float>(std::cos(phase), std::sin(phase));
     }
 
     // Set metadata
@@ -43,7 +48,7 @@ int main() {
     md.end_of_burst = false;
     md.has_time_spec = false;
 
-    // Transmit for a while
+    // Transmit CW for some time
     std::cout << "Transmitting CW..." << std::endl;
     for (int i = 0; i < 1000; ++i) {
         tx_stream->send(&buffer.front(), buffer.size(), md);
@@ -51,9 +56,9 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
-    // Send end of burst
+    // Send end-of-burst
     md.end_of_burst = true;
-    tx_stream->send("", 0, md);
+    tx_stream->send(&buffer.front(), 0, md);
 
     std::cout << "Transmission complete." << std::endl;
     return 0;
