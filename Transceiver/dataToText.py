@@ -13,7 +13,7 @@ n_channels = 4
 reshaped = data_deg.reshape((-1, n_channels))
 
 # Save as CSV with 4 columns
-np.savetxt("c:/Users/theil/OneDrive/Skrivebord/ESD6-Project/Transceiver/phaseShiftFiles/phaseShiftDataWRef3.csv",
+np.savetxt("c:/Users/theil/OneDrive/Skrivebord/ESD6-Project/Transceiver/phaseShiftFilesV2/phaseShiftData0.csv",
            reshaped,
            delimiter=",",
            fmt="%.6f",

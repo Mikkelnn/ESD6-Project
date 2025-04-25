@@ -94,7 +94,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1496, 376.0]
+    coordinate: [528, 328.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_arg_0_0
@@ -110,7 +110,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1496, 448.0]
+    coordinate: [528, 400.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_arg_1
@@ -126,7 +126,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1496, 520.0]
+    coordinate: [528, 472.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_arg_2
@@ -142,67 +142,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1496, 592.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_0
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [656, 296.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_0_0
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [656, 512.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_1
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [648, 392.0]
-    rotation: 0
-    state: enabled
-- name: blocks_conjugate_cc_1_0
-  id: blocks_conjugate_cc
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [648, 640.0]
+    coordinate: [528, 544.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_0
@@ -220,79 +160,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2472, 236.0]
-    rotation: 0
-    state: enabled
-- name: blocks_file_sink_0_0
-  id: blocks_file_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    append: 'True'
-    comment: ''
-    file: phaseShift.dat
-    type: float
-    unbuffered: 'False'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2472, 348.0]
-    rotation: 0
-    state: enabled
-- name: blocks_file_sink_0_0_0
-  id: blocks_file_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    append: 'True'
-    comment: ''
-    file: phaseShift.dat
-    type: float
-    unbuffered: 'False'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2472, 452.0]
-    rotation: 0
-    state: enabled
-- name: blocks_file_sink_0_0_0_0
-  id: blocks_file_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    append: 'True'
-    comment: ''
-    file: phaseShift.dat
-    type: float
-    unbuffered: 'False'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2472, 572.0]
-    rotation: 0
-    state: enabled
-- name: blocks_file_sink_0_0_0_1
-  id: blocks_file_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    append: 'True'
-    comment: ''
-    file: phaseShift.dat
-    type: float
-    unbuffered: 'False'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2472, 700.0]
+    coordinate: [1768, 388.0]
     rotation: 0
     state: enabled
 - name: blocks_head_0
@@ -303,86 +171,14 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: 1024*4
+    num_items: samp_rate*10*4
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2200, 256.0]
-    rotation: 0
-    state: enabled
-- name: blocks_head_0_0
-  id: blocks_head
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_items: 1024*4
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2200, 368.0]
-    rotation: 0
-    state: enabled
-- name: blocks_head_0_0_0
-  id: blocks_head
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_items: 1024*4
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2200, 472.0]
-    rotation: 0
-    state: enabled
-- name: blocks_head_0_0_0_0
-  id: blocks_head
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_items: 1024*4
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2200, 592.0]
-    rotation: 0
-    state: enabled
-- name: blocks_head_0_0_0_1
-  id: blocks_head
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_items: 1024*4
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [2200, 720.0]
+    coordinate: [1496, 408.0]
     rotation: 0
     state: enabled
 - name: blocks_interleave_0
@@ -401,79 +197,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1776, 432.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [960, 264.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_0_0
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [960, 480.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_1
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [960, 384.0]
-    rotation: 0
-    state: enabled
-- name: blocks_multiply_xx_1_0
-  id: blocks_multiply_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [960, 600.0]
+    coordinate: [1032, 368.0]
     rotation: 0
     state: enabled
 - name: blocks_skiphead_0
@@ -491,197 +215,81 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1976, 256.0]
+    coordinate: [1272, 408.0]
     rotation: 0
     state: enabled
-- name: blocks_skiphead_0_0
-  id: blocks_skiphead
+- name: blocks_sub_xx_0
+  id: blocks_sub_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: 4*20000
+    num_inputs: '2'
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1976, 368.0]
+    coordinate: [776, 312.0]
     rotation: 0
     state: enabled
-- name: blocks_skiphead_0_0_0
-  id: blocks_skiphead
+- name: blocks_sub_xx_0_0
+  id: blocks_sub_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: 4*200000
+    num_inputs: '2'
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1976, 472.0]
+    coordinate: [776, 384.0]
     rotation: 0
     state: enabled
-- name: blocks_skiphead_0_0_0_0
-  id: blocks_skiphead
+- name: blocks_sub_xx_0_1
+  id: blocks_sub_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: 4*2000000
+    num_inputs: '2'
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1976, 592.0]
+    coordinate: [776, 456.0]
     rotation: 0
     state: enabled
-- name: blocks_skiphead_0_0_0_1
-  id: blocks_skiphead
+- name: blocks_sub_xx_0_2
+  id: blocks_sub_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: 4*20000000
+    num_inputs: '2'
     type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1976, 720.0]
+    coordinate: [776, 528.0]
     rotation: 0
     state: enabled
-- name: qtgui_sink_x_0
-  id: qtgui_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    bw: bw
-    comment: ''
-    fc: fc
-    fftsize: '128'
-    gui_hint: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
-    showports: 'False'
-    showrf: 'False'
-    type: complex
-    wintype: window.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1248, 228.0]
-    rotation: 0
-    state: disabled
-- name: qtgui_sink_x_0_0
-  id: qtgui_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    bw: bw
-    comment: ''
-    fc: fc
-    fftsize: '128'
-    gui_hint: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
-    showports: 'False'
-    showrf: 'False'
-    type: complex
-    wintype: window.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1256, 372.0]
-    rotation: 0
-    state: disabled
-- name: qtgui_sink_x_0_1
-  id: qtgui_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    bw: bw
-    comment: ''
-    fc: fc
-    fftsize: '128'
-    gui_hint: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
-    showports: 'False'
-    showrf: 'False'
-    type: complex
-    wintype: window.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1240, 524.0]
-    rotation: 0
-    state: disabled
-- name: qtgui_sink_x_0_2
-  id: qtgui_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    bw: bw
-    comment: ''
-    fc: fc
-    fftsize: '128'
-    gui_hint: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    plotconst: 'True'
-    plotfreq: 'True'
-    plottime: 'True'
-    plotwaterfall: 'True'
-    rate: '10'
-    showports: 'False'
-    showrf: 'False'
-    type: complex
-    wintype: window.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1224, 668.0]
-    rotation: 0
-    state: disabled
 - name: uhd_usrp_source_0
   id: uhd_usrp_source
   parameters:
@@ -1120,45 +728,25 @@ blocks:
     state: enabled
 
 connections:
-- [blocks_complex_to_arg_0, '0', blocks_interleave_0, '0']
-- [blocks_complex_to_arg_0_0, '0', blocks_interleave_0, '1']
-- [blocks_complex_to_arg_1, '0', blocks_interleave_0, '2']
-- [blocks_complex_to_arg_2, '0', blocks_interleave_0, '3']
-- [blocks_conjugate_cc_0, '0', blocks_multiply_xx_0, '1']
-- [blocks_conjugate_cc_0_0, '0', blocks_multiply_xx_0_0, '1']
-- [blocks_conjugate_cc_1, '0', blocks_multiply_xx_1, '1']
-- [blocks_conjugate_cc_1_0, '0', blocks_multiply_xx_1_0, '1']
+- [blocks_complex_to_arg_0, '0', blocks_sub_xx_0, '0']
+- [blocks_complex_to_arg_0, '0', blocks_sub_xx_0, '1']
+- [blocks_complex_to_arg_0, '0', blocks_sub_xx_0_0, '0']
+- [blocks_complex_to_arg_0, '0', blocks_sub_xx_0_1, '0']
+- [blocks_complex_to_arg_0, '0', blocks_sub_xx_0_2, '0']
+- [blocks_complex_to_arg_0_0, '0', blocks_sub_xx_0_0, '1']
+- [blocks_complex_to_arg_1, '0', blocks_sub_xx_0_1, '1']
+- [blocks_complex_to_arg_2, '0', blocks_sub_xx_0_2, '1']
 - [blocks_head_0, '0', blocks_file_sink_0, '0']
-- [blocks_head_0_0, '0', blocks_file_sink_0_0, '0']
-- [blocks_head_0_0_0, '0', blocks_file_sink_0_0_0, '0']
-- [blocks_head_0_0_0_0, '0', blocks_file_sink_0_0_0_0, '0']
-- [blocks_head_0_0_0_1, '0', blocks_file_sink_0_0_0_1, '0']
 - [blocks_interleave_0, '0', blocks_skiphead_0, '0']
-- [blocks_interleave_0, '0', blocks_skiphead_0_0, '0']
-- [blocks_interleave_0, '0', blocks_skiphead_0_0_0, '0']
-- [blocks_interleave_0, '0', blocks_skiphead_0_0_0_0, '0']
-- [blocks_interleave_0, '0', blocks_skiphead_0_0_0_1, '0']
-- [blocks_multiply_xx_0, '0', blocks_complex_to_arg_0, '0']
-- [blocks_multiply_xx_0, '0', qtgui_sink_x_0, '0']
-- [blocks_multiply_xx_0_0, '0', blocks_complex_to_arg_1, '0']
-- [blocks_multiply_xx_0_0, '0', qtgui_sink_x_0_1, '0']
-- [blocks_multiply_xx_1, '0', blocks_complex_to_arg_0_0, '0']
-- [blocks_multiply_xx_1, '0', qtgui_sink_x_0_0, '0']
-- [blocks_multiply_xx_1_0, '0', blocks_complex_to_arg_2, '0']
-- [blocks_multiply_xx_1_0, '0', qtgui_sink_x_0_2, '0']
 - [blocks_skiphead_0, '0', blocks_head_0, '0']
-- [blocks_skiphead_0_0, '0', blocks_head_0_0, '0']
-- [blocks_skiphead_0_0_0, '0', blocks_head_0_0_0, '0']
-- [blocks_skiphead_0_0_0_0, '0', blocks_head_0_0_0_0, '0']
-- [blocks_skiphead_0_0_0_1, '0', blocks_head_0_0_0_1, '0']
-- [uhd_usrp_source_0, '0', blocks_conjugate_cc_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_0_0, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_1, '0']
-- [uhd_usrp_source_0, '0', blocks_multiply_xx_1_0, '0']
-- [uhd_usrp_source_0, '1', blocks_conjugate_cc_1, '0']
-- [uhd_usrp_source_0, '2', blocks_conjugate_cc_0_0, '0']
-- [uhd_usrp_source_0, '3', blocks_conjugate_cc_1_0, '0']
+- [blocks_sub_xx_0, '0', blocks_interleave_0, '0']
+- [blocks_sub_xx_0_0, '0', blocks_interleave_0, '1']
+- [blocks_sub_xx_0_1, '0', blocks_interleave_0, '2']
+- [blocks_sub_xx_0_2, '0', blocks_interleave_0, '3']
+- [uhd_usrp_source_0, '0', blocks_complex_to_arg_0, '0']
+- [uhd_usrp_source_0, '1', blocks_complex_to_arg_0_0, '0']
+- [uhd_usrp_source_0, '2', blocks_complex_to_arg_1, '0']
+- [uhd_usrp_source_0, '3', blocks_complex_to_arg_2, '0']
 
 metadata:
   file_format: 1

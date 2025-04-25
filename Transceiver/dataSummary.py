@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # Folder containing your CSVs
-folder = "c:/Users/theil/OneDrive/Skrivebord/ESD6-Project/Transceiver/phaseShiftFiles"
+folder = "c:/Users/theil/OneDrive/Skrivebord/ESD6-Project/Transceiver/phaseShiftFilesV2"
 results = []
 
 # Loop over all csv files
@@ -24,7 +24,7 @@ for file in sorted(os.listdir(folder)):
 summary_df = pd.DataFrame(results)
 
 # Save summary to a new CSV
-summary_df.to_csv("phaseStatsSummary.csv", index=False)
+summary_df.to_csv("phaseStatsSummaryLong.csv", index=False)
 
 # Also print it
 print(summary_df)
