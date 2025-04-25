@@ -13,8 +13,8 @@ Obtain the binaries of radarsimpy and place it in this folder i.e. 'pythonRadarS
    - Required packages: ´matplotlib plotly kaleido ipython numpy scipy´
 2. Run script:
    1. DSP:
-      - Windows: `py -m .\dsp.py`
+      - Windows: `py -m dsp.py`
       - Linux: `python3 dsp.py`
    2. Simulation:
-      - Windows: `py -m .\simulation.py`
+      - Windows: `py -m simulation.py`
       - Linux: `python3 simulation.py`
