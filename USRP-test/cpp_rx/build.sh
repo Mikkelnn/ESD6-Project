@@ -1,0 +1,1 @@
+ g++ rx_fft_multich.cpp -o rx_fft_multich -luhd -I/usr/include/python3.13 -lpython3.13 -I/usr/lib/python3/dist-packages/numpy/core/include -I matplotlibcpp -std=c++11
