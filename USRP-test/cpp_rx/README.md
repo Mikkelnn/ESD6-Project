@@ -1,3 +1,12 @@
 
 ## install
- - linux: `sudo apt install python3-dev libuhd-dev`
+ - linux: `sudo apt install libuhd-dev`
+
+
+## Build
+  - `cd` into this dir
+  - linux: `./build.sh` OR `make`
+  - windows: `make`
+
+## Run
+- `./main`
