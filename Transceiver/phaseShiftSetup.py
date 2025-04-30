@@ -63,10 +63,10 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 2000000
+        self.samp_rate = samp_rate = 40000000
         self.gain = gain = 10
-        self.fc = fc = 5.8*10**9
-        self.bw = bw = 500000
+        self.fc = fc = 100*10**6
+        self.bw = bw = 5*10**6
 
         ##################################################
         # Blocks
@@ -109,7 +109,7 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
         self.blocks_sub_xx_0 = blocks.sub_ff(1)
         self.blocks_skiphead_0 = blocks.skiphead(gr.sizeof_float*1, (4*2000))
         self.blocks_interleave_0 = blocks.interleave(gr.sizeof_float*1, 1)
-        self.blocks_head_0 = blocks.head(gr.sizeof_float*1, (samp_rate*10*4))
+        self.blocks_head_0 = blocks.head(gr.sizeof_float*1, 10000)
         self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, 'phaseShift.dat', False)
         self.blocks_file_sink_0.set_unbuffered(False)
         self.blocks_complex_to_arg_2 = blocks.complex_to_arg(1)
@@ -155,7 +155,6 @@ class phaseShiftSetup(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.blocks_head_0.set_length((self.samp_rate*10*4))
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
 
     def get_gain(self):
