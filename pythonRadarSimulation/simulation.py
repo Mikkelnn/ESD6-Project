@@ -17,8 +17,8 @@ f_c = 5.8e9 # center frequency
 wavelength = c / f_c
 
 bw = 0.02e9 # bandwidth
-t_chirp = 10e-6 # chirp time
-prp=12e-6 # Pulse Repetition Period
+t_chirp = 4.6e-6 # chirp time
+prp=5e-6 # Pulse Repetition Period
 pulses = 128
 
 fs = 46e6 # 50e6 # IF fs
@@ -54,7 +54,7 @@ for idx in range(0, N_rx):
 tx = Transmitter(
     f=[f_c - (bw/2), f_c + (bw/2)],
     t=[0, t_chirp],
-    tx_power=40,
+    tx_power=40, # 40
     prp=prp,
     pulses=pulses,
     channels=tx_channels
@@ -64,7 +64,7 @@ rx = Receiver(
     fs=fs,
     noise_figure=0, # 8
     rf_gain=20,
-    load_resistor=500,
+    load_resistor=50,
     baseband_gain=30,
     channels=rx_channels
 )
@@ -108,31 +108,48 @@ fig.update_layout(
 # img_bytes = fig.to_image(format="jpg", scale=2)
 # display(Image(img_bytes))
 
-# true_theta = [-5, -4, 45]
+rcs = 10
 
+
+# velocity resolution
 target_1 = dict(
     location=(
-        #10 * np.cos(np.radians(true_theta[0])),
-        #10 * np.sin(np.radians(true_theta[0])),
         0,
         500,
         0,
     ),
-    speed=(0, 10, 0),
-    rcs=9,
+    speed=(0, 0.5, 0),
+    rcs=rcs,
     phase=0,
 )
-# target_2 = dict(
-#     location=(
-#         40 * np.cos(np.radians(true_theta[1])),
-#         40 * np.sin(np.radians(true_theta[1])),
-#         0,
-#     ),
-#     speed=(0, 0, 0),
-#     rcs=np.pi/9,
-#     phase=0,
-# )
+
+# velocity resolution
+target_2 = dict(
+    location=(
+        0,
+        500,
+        0,
+    ),
+    speed=(0, 0.55, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# max velocity towards radar
 target_3 = dict(
+    location=(
+        0,
+        500,
+        0,
+    ),
+    speed=(0, -15000.25, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+
+# range
+target_4 = dict(
     location=(
         #40 * np.cos(np.radians(true_theta[2])),
         #40 * np.sin(np.radians(true_theta[2])),
@@ -141,140 +158,66 @@ target_3 = dict(
         0,
     ),
     speed=(0, 0, 0),
-    rcs=4.5,
+    rcs=rcs,
     phase=0,
 )
 
-targets = [target_1, target_3] #, target_2
+# angle max
+target_5 = dict(
+    location=(
+        500 * np.cos(np.radians(80)),
+        500 * np.sin(np.radians(80)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
 
+# angle max
+target_6 = dict(
+    location=(
+        500 * np.cos(np.radians(-80)),
+        500 * np.sin(np.radians(-80)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# angle res
+target_7 = dict(
+    location=(
+        500 * np.cos(np.radians(35)),
+        500 * np.sin(np.radians(35)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+# angle res
+target_8 = dict(
+    location=(
+        500 * np.cos(np.radians(40)),
+        500 * np.sin(np.radians(40)),
+        0,
+    ),
+    speed=(0, 0, 0),
+    rcs=rcs,
+    phase=0,
+)
+
+
+targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
+# targets = [target_1, target_3]
 
 data = sim_radar(radar, targets)
 timestamp = data["timestamp"]
-baseband = data["baseband"] # + data["noise"]
+baseband = data["baseband"] #+ data["noise"]
 
-
-range_window = signal.windows.chebwin(radar.sample_prop["samples_per_pulse"], at=80)
-doppler_window = signal.windows.chebwin(radar.radar_prop["transmitter"].waveform_prop["pulses"], at=60)
-
-# baseband = np.ndarray.mean(baseband, axis=0, keepdims=True)
-
-# print(f"shape: {baseband.shape}, rw: {len(range_window)}, dw: {len(doppler_window)}")
-
-
-range_doppler = proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window)# , rn=1024
-
-
-# range_doppler = np.sum(range_doppler, axis=0, keepdims=True)
-
-doppler_bins = range_doppler.shape[1]
-range_bins = range_doppler.shape[2]
-
-shifted = np.abs(fft.fftshift(range_doppler[0], axes=(0,)))
-results = 10 * np.log10(shifted)
-
-cfar = proc.cfar_ca_2d(shifted, guard=2, trailing=10, pfa=0.8e-3)
-cfar_db = 10 * np.log10(cfar)
-cfar_diff = shifted - cfar
-# cfar_diff = results - cfar_db
-
-# Compute range axis
-range_axis = np.arange(range_bins) * delta_R # (r_max / range_bins)  # Convert bin index to meters
-doppler_axis = np.linspace(-doppler_max, doppler_max, doppler_bins)
-
-print(f"range bin count: {range_bins}, max range: {range_axis[-1]} m")
-print(f"doppler bin count: {doppler_bins}, max velocity: {doppler_axis[-1]} m/s")
-
-remove_firs_range_bins = 5
-targets = np.argwhere(cfar_diff[:, remove_firs_range_bins:] > 2)
-targets[:,1] += remove_firs_range_bins # fix indexes 
-print(f"targets:")
-for target in targets:
-    print(f"conf: {round(cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
-
-# Plot the 2D array
-plt.figure(1)
-plt.imshow(shifted, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map Raw')
-
-plt.figure(2)
-plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map with CFAR')
-
-plt.figure(3)
-plt.plot(range_axis, shifted[len(shifted)//2], label='radar')
-plt.plot(range_axis, cfar[len(shifted)//2], label='cfar')
-plt.xlabel('Range (m)')
-plt.legend()
-
-plt.show()
-
-exit()
-
-range_window = signal.windows.chebwin(radar.sample_prop["samples_per_pulse"], at=60)
-range_profile = proc.range_fft(baseband, range_window)
-
-
-max_range = (
-    3e8
-    * radar.radar_prop["receiver"].bb_prop["fs"]
-    * radar.radar_prop["transmitter"].waveform_prop["pulse_length"]
-    / radar.radar_prop["transmitter"].waveform_prop["bandwidth"]
-    / 2
-)
-range_axis = np.linspace(
-    0, max_range, radar.sample_prop["samples_per_pulse"], endpoint=False
-)
-
-
-azimuth = np.arange(-90, 90, 1)
-
-array_loc_x = np.zeros((1, len(radar.array_prop["virtual_array"])))
-for va_idx, va in enumerate(radar.array_prop["virtual_array"]):
-    array_loc_x[0, va_idx] = va[1] * f_c / c
-
-azimuth_grid, array_loc_grid = np.meshgrid(azimuth, array_loc_x)
-
-A = np.transpose(
-    np.exp(1j * 2 * np.pi * array_loc_grid * np.sin(azimuth_grid / 180 * np.pi))
-)
-
-bf_window = np.transpose(
-    np.array([signal.windows.chebwin(len(radar.array_prop["virtual_array"]), at=50)])
-)
-AF = np.matmul(
-    A,
-    range_profile[:, 0, :]
-    * np.repeat(bf_window, radar.sample_prop["samples_per_pulse"], axis=1),
-)
-
-range_axis = np.linspace(
-    0, max_range, radar.sample_prop["samples_per_pulse"], endpoint=False
-)
-
-fig = go.Figure()
-fig.add_trace(
-    go.Surface(
-        x=range_axis, y=azimuth, z=20 * np.log10(np.abs(AF) + 0.1), colorscale="Rainbow"
-    )
-)
-
-fig.update_layout(
-    title="Range-Azimuth Map",
-    height=600,
-    scene=dict(
-        xaxis=dict(title="Range (m)"),
-        yaxis=dict(title="Azimuth (deg)"),
-        zaxis=dict(title="Amplitude (dB)"),
-        aspectmode="data",
-    ),
-    margin=dict(l=0, r=0, b=60, t=100),
-)
-
-# uncomment this to display interactive plot
-fig.show()
+# Save data to file
+with open('radarBaseband.npy', 'wb') as f:
+    np.save(f, baseband)

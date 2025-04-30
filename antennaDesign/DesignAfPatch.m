@@ -1,25 +1,29 @@
 % Given constants
-f_0 = 5e9; % Design frequency (mid-point of Bluetooth range), in Hz
+f_0 = 5.6e9; % Design frequency (mid-point of Bluetooth range), in Hz
 c = 3e8; % Speed of light, m/s
-epsilon_r = 2.2; % Dielectric constant for PP
-h = 3e-3; % Substrate thickness, in meters
-Z_edge = 240; % Impedance at edge, in ohms
+epsilon_r = 3; % Dielectric constant for PP
+h = 1.6e-3; % Substrate thickness, in meters
 Z_0 = 50; % Desired impedance, in ohms
+lambda=c/f_0;
 
 % Step 1: Calculate the width W of the patch
 W = (c / (2 * f_0)) * sqrt(2 / (epsilon_r + 1));
 
+
 % Step 2: Calculate the effective dielectric constant (epsilon_eff)
-epsilon_eff = (epsilon_r + 1) / 2 + (epsilon_r - 1) / 2 * (1 + 12 * h / W)^(-0.5);
+epsilon_eff = (epsilon_r + 1) / 2 + (epsilon_r - 1) / 2* (1 + 12 * h / W)^(-0.5);
 
 % Step 3: Calculate the effective length L_eff
 L_eff = c / (2 * f_0 * sqrt(epsilon_eff));
+
 
 % Step 4: Calculate the length extension (Delta L)
 delta_L = h * 0.412 * ((epsilon_eff + 0.3) * (W / h + 0.264)) / ((epsilon_eff - 0.258) * (W / h + 0.8));
 
 % Step 5: Calculate the actual length L
 L = L_eff - 2 * delta_L;
+
+Z_edge = 90*((epsilon_r^2)/(epsilon_r-1))*L/W;% Impedance at edge, in ohms
 
 % Step 6: Calculate the position for 50 Ohm impedance
 x = (L / pi) * acos(sqrt(Z_0 / Z_edge));
@@ -60,6 +64,7 @@ patch = patchMicrostripInsetfed(...
     'Substrate', substrate, ...
     'GroundPlaneLength', 1.5 * L, ...
     'GroundPlaneWidth', 1.5 * W, ...
+
     'FeedOffset', [-x, 0]); % Inset feed location for 50Ω matching
 
 % Plot the 3D radiation pattern
