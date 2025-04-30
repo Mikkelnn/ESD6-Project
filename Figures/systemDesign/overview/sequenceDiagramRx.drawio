@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.2.12">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.2.14">
   <diagram name="Page-1" id="fxBPO_asNIkTs4WO12ik">
-    <mxGraphModel dx="1190" dy="633" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="983" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -93,6 +93,164 @@
         </mxCell>
         <mxCell id="qFYUxvNGJUN21l_IDKZt-40" value="Rx channels in parallel" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="20" y="139" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-1" value="RADAR" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="400" width="100" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="FF3zKVaIwsKxGb81Dd7P-1">
+          <mxGeometry x="45" y="60" width="10" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-3" value="START_SWEEP" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" edge="1" parent="FF3zKVaIwsKxGb81Dd7P-1" target="FF3zKVaIwsKxGb81Dd7P-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-80" y="65" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-4" value="Time module&lt;br&gt;(On satellite)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="250" y="400" width="100" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="FF3zKVaIwsKxGb81Dd7P-4">
+          <mxGeometry x="45" y="90" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-6" value="Beam seering" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="400" width="100" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-7" value="Transmitter" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="100" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-8" value="GET_CURRENT_TIME" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-2" target="FF3zKVaIwsKxGb81Dd7P-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="495" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-9" value="CURRENT_TIME" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-5" target="FF3zKVaIwsKxGb81Dd7P-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="565" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-10" value="for N sweep_angles" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=110;height=30;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="140" y="540" width="460" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-11" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="425" y="590" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-12" value="for N frame_chirps" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=110;height=30;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="140" y="640" width="450" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-13" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="555" y="675" width="10" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-14" value="SEND_CHIRP" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-2" target="FF3zKVaIwsKxGb81Dd7P-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="305" y="680" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-15" value="CHIRP_DONE" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;fontFamily=modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;fontSize=12;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-13" target="FF3zKVaIwsKxGb81Dd7P-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="305" y="705" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-16" value="&lt;span style=&quot;font-family: modern; font-size: 12px;&quot;&gt;GET_BEAM_AT_ANGLE&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="145" y="595" as="sourcePoint" />
+            <mxPoint x="424" y="595" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-17" value="&lt;span style=&quot;font-family: modern; font-size: 12px;&quot;&gt;PHASED_CHIRPS&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;entryX=1.138;entryY=0.57;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="616" as="sourcePoint" />
+            <mxPoint x="146.3800000000001" y="615.3" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-20" value="Receiver" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="60" y="800" width="100" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-21" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="FF3zKVaIwsKxGb81Dd7P-20">
+          <mxGeometry x="45" y="180" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-22" value="CHIRP_TX" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" edge="1" parent="FF3zKVaIwsKxGb81Dd7P-20" target="FF3zKVaIwsKxGb81Dd7P-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-25" y="185" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-23" value="Target localization" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="470" y="800" width="100" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-26" value="RADAR&lt;br&gt;CUBE" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="310" y="800" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-27" value="RRADAR" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="170" y="800" width="100" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-28" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="FF3zKVaIwsKxGb81Dd7P-27">
+          <mxGeometry x="45" y="190" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-51" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="FF3zKVaIwsKxGb81Dd7P-27">
+          <mxGeometry x="45" y="260" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-52" value="BUFFER_FILLED" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="FF3zKVaIwsKxGb81Dd7P-51" parent="FF3zKVaIwsKxGb81Dd7P-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="50" y="240" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="80" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-31" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="355" y="1090" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-33" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="515" y="1040" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-34" value="SINGLE FRAME" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="415" y="1045" as="sourcePoint" />
+            <mxPoint x="515" y="1045" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-35" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="625" y="1050" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-36" value="START" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" edge="1" parent="1" target="FF3zKVaIwsKxGb81Dd7P-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="1055" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-37" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="735" y="1060" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-38" value="START" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" edge="1" parent="1" target="FF3zKVaIwsKxGb81Dd7P-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="635" y="1065" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-39" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="845" y="1070" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-40" value="ADD TARGETS" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" edge="1" parent="1" target="FF3zKVaIwsKxGb81Dd7P-39">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="745" y="1075" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-41" value="for N chirps in frame" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=130;height=30;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="25" y="930" width="195" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-42" value="&amp;nbsp; for N sweeps&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;for N angles in sweep" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=150;height=40;align=left;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;" vertex="1" parent="1">
+          <mxGeometry x="10" y="850" width="230" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-44" value="Rx channels in parallel" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="25" y="909" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-45" value="WRITE_BUFFER" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" edge="1" parent="1" source="FF3zKVaIwsKxGb81Dd7P-21" target="FF3zKVaIwsKxGb81Dd7P-28">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="124" y="994" as="sourcePoint" />
+            <mxPoint x="204" y="994" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FF3zKVaIwsKxGb81Dd7P-46" value="PROCESS_CUBE" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;fontFamily=latex;fontSource=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2Ffiles%2FOldFiles%2Fcm-unicode-fix-0.6.3.tar.bz2%2Fdownload;entryPerimeter=0;" edge="1" parent="1" target="FF3zKVaIwsKxGb81Dd7P-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="1095" as="sourcePoint" />
+            <mxPoint x="325" y="1095" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
