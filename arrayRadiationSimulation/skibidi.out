@@ -1,0 +1,583 @@
+Altair Feko - Solver (par) Version 2023.1.2-10713 from 2024-03-28
+          Altair Feko - PREFEKO Version 2023-2564 from 2023-05-25 [FEK: default 193; used 193] BINARY
+          CADFEKO version 2023.1.2-10713 from 2024-03-28
+          Copyright (c) 1999-2014 Altair Engineering (Pty) Ltd
+          Copyright (c) 2014-2023 Altair Engineering Inc.
+          Intel(R) MKL version 2023.0.2 (build 20230613) on Intel(R) Architecture processors, Intel(R) 64 architecture (1 thread)
+Computer: PC WIN64 EM64T MKL IMPI -- LAPTOP-L8D4OJSJ
+          Microsoft Windows 10  (Build 19045), Version 10.0.19045 x64 (SP 0.0)
+          AMD Ryzen 7 4800H with Radeon Graphics         ; AuthenticAMD family 23 model 96 stepping 1 brand id 0
+          1 physical CPU with a total of 16 processors found (multi-core CPU with max. 8 cores per physical CPU)
+Threads:  OpenMP threading not used
+Date:     2025-04-29 13:59:57
+File:     skibidi
+Memory:   Limited to physical available memory of 1.897 GByte per process
+          Installed memory 15.372 GByte, thereof free 5.422 GByte on LAPTOP-L8D4OJSJ
+MD5 check:A4F3006E1DBFAFF92DA5CBBC4DFA88C5
+MD5 total:945AF6DF04B3187F3B948453D3989343
+Licence:  Student Edition
+
+ NOTE    33113: This is a Student Version of Feko
+MPI-lib:  Intel(R) MPI Library 2021.2 for Windows* OS
+Number of parallel processes:       8 on 1 CPUs
+------------------------------------------------------------------------------------
+ Process |                    Hostname                    | No. of  | Shared memory
+         |                                                | threads | rank | group
+------------------------------------------------------------------------------------
+       0 | LAPTOP-L8D4OJSJ                                |       1 |    0 |     0
+       1 | LAPTOP-L8D4OJSJ                                |       1 |    1 |     0
+       2 | LAPTOP-L8D4OJSJ                                |       1 |    2 |     0
+       3 | LAPTOP-L8D4OJSJ                                |       1 |    3 |     0
+       4 | LAPTOP-L8D4OJSJ                                |       1 |    4 |     0
+       5 | LAPTOP-L8D4OJSJ                                |       1 |    5 |     0
+       6 | LAPTOP-L8D4OJSJ                                |       1 |    6 |     0
+       7 | LAPTOP-L8D4OJSJ                                |       1 |    7 |     0
+------------------------------------------------------------------------------------
+
+
+Spice Engine:  PollEx Spice Version 2023.1-01301739-6f27ebdc from 2023-01-30
+
+          Surface of all triangles in m*m:     2.13263E-02
+
+                    Linear segments are used
+
+          Length of the segments in m:         1.28000E-02
+
+
+                                DATA FOR MEMORY USAGE
+
+ Number of metallic triangles:            4386                                max. triangles:    MAXNDR    =    10326
+ Number of dielectric triangles:          5940
+ Number of aperture triangles:               0
+ Number of RL-GO triangles:                  0
+ Number of windscreen triangles:             0
+ Number of FEM surface triangles:            0
+ Number of modal port triangles:             0
+ Number of metallic segments:                8                                max. segments:     MAXNSEG   =        8
+ Number of combined MoM/MTL segments:        0
+ Number of dielectr./magnet. cuboids:        0                                max. cuboids:      MAXNQUA   =        0
+ Number of tetrahedra:                       0                                max. tetrahedra:   MAXNTETRA =        0
+ Number of edges in PO region:               0                                max. edges:        MAXPOKA   =        0
+ Number of wedges in PO region:              0                                max. wedges:       MAXPOKL   =        0
+ Number of Fock regions:                     0                                max. Fock regions: MAXFOGE   =        0
+ Number of UTD triangles:                    0
+ Number of polygonal surfaces:               0                                max. surfaces:     MAXPOLYF  =        0
+                                                                              max. corner pts.:  MAXPOLYP  =        0
+ Number of UTD cylinders:                    0
+
+ Number of metallic edges (MoM):         12640  unknown:    12640 (electr.)   max. edges:        MAXNKA    =    21809
+                                             0  unknown:        0 (magnet.)
+ Number of metallic edges (PO):              0  unknown:        0 (electr.)
+                                                unknown:        0 (magnet.)
+ Number of dielectric edges (MoM):        9169  unknown:     9169 (electr.)
+                                          8651               8651 (magnet.)
+ Number of dielectric edges (PO):            0  unknown:        0 (electr.)
+                                                unknown:        0 (magnet.)
+ Number of aperture edges (MoM):             0  unknown:        0 (magnet.) 
+ Number of edges FEM/MoM surface:            0  unknown:        0 (electr.)
+                                             0                  0 (magnet.)
+ Number of nodes between segments:           0  unknown:        0             max. nodes:        MAXNKNO   =       22
+ Number of connection points:               16  unknown:       16             max. conn.:        MAXNV     =       21
+ Number of dielectric cuboids:               0  unknown:        0             max. cuboids:      MAXNQUA   =        0
+ Number of magnetic cuboids:                 0  unknown:        0
+ Number of dielectric faces (VEP):           0  unknown:        0
+ Number of magnetic faces (VEP):             0  unknown:        0
+
+ Number of basis functions for MoM:      30476  unknown:    30476             max. basisf.       MAXNZEILE =    30476
+ Number of basis functions for PO:           0  unknown:        0             max. basisf.       MAXNKAPO  =        0
+
+ read from input file:
+PS       0    0    3    1    0 1.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from input file:
+CG      -1    0   -1    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00-1.000E+00-1.000E+00 0.000E+00 0.000E+00
+ read from input file:
+DI       1    0   -1    0    0 3.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 1.000E+03 0.000E+00 0.000E+00
+ read from input file:
+DI       0    0   -1    0    0 1.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 1.000E+03 0.000E+00 0.000E+00
+ read from input file:
+FR      20    0    0    0    0 5.200E+09 0.000E+00 6.200E+09 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ NOTE    48595: Fast-forwarding a frequency setting without requests
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LZ       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+L2       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LE       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LF       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LP       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LS       0    0    0   -1    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LN      -1    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+LC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+PW       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+NC       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+DA       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+ read from buffer:
+EN       0    0    0    0    0 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
+
+
+                    SUMMARY OF REQUIRED TIMES IN SECONDS
+
+                                                   CPU-time       runtime
+ Reading and constructing the geometry                0.194         0.194
+ Checking the geometry                                0.019         0.019
+ Initialisation of the Green's function               0.000         0.000
+ Calculation of coupling for PO/Fock                  0.000         0.000
+ Transformation to equivalent sources                 0.000         0.000
+ Ray launching/tracing phase of RL-GO                 0.000         0.000
+ Ray tracing phase of faceted UTD                     0.000         0.000
+ Calculation of matrix elements                       0.000         0.000
+ Calculation of right-hand side vector                0.000         0.000
+ Preconditioning system of linear equations           0.000         0.000
+ Solution of the system of linear equations           0.000         0.000
+ Calculation of characteristic modes                  0.000         0.000
+ Write/Read solution coefficients (.str file)         0.000         0.000
+ Determination of surface currents                    0.000         0.000
+ Calculation of impedances/powers/losses              0.000         0.000
+ Calculation of averaged SAR values                   0.000         0.000
+ Calculation of power receiving antenna               0.000         0.000
+ Calculation of cable coupling                        0.000         0.000
+ Calculation of error estimates                       0.000         0.000
+ Calculation of electric near field                   0.000         0.000
+ Calculation of magnetic near field                   0.000         0.000
+ Calculation of far field                             0.000         0.000
+                                    other             0.036         0.036
+                                               ------------  ------------
+                                 total times:         0.249         0.249
+                       (total times in hours:         0.000         0.000)
+
+ Specified CPU-times are referring to the master process only
+ Sum of the CPU-times of all processes:         1.997 seconds (     0.001 hours)
+ On average per process:                        0.250 seconds (     0.000 hours)
+
+ Peak memory usage during the whole solution: 1.801 MByte
+ (refers to the master process only)
+ Sum of the peak memory of all processes:     7.189 MByte
+ On average per process:                      920.190 kByte
+
+Finished: 2025-04-29 13:59:57
