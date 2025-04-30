@@ -38,6 +38,11 @@ phase_shift_rad = deg2rad(phase_shift_deg);
 % betaSamlet=numerator1/denominator1*(180/pi)
 % angleShift=mod(betaSamlet,360)
 
+%%
+
+%%
+
+
 
 % Calculate Array Factor using the normalized formula
 beta = phase_shift_rad;
@@ -50,7 +55,7 @@ array_factor_dB = 20 * log10(array_factor_magnitude);
 
 % Combine with Radiation Pattern
 %total_pattern_dB = directivity_total + array_factor_dB;
-%total_pattern_dB = array_factor_dB;
+total_pattern_dB_AF = array_factor_dB;
 
 % Ensure theta_data is unique by averaging duplicate values
 [theta_unique, ia, ic] = unique(theta_data); % Get unique theta values
@@ -78,10 +83,10 @@ title('Radiation Pattern in Cartesian Coordinates');
 grid on;
 
 % Plot arrayFactor 
-% figure;
-% polarplot(deg2rad(theta), db2mag(total_pattern_dB), 'LineWidth', 1.5);
-% title(['4-Element Linear Array Radiation Pattern with Phase Shift = ', num2str(phase_shift_deg), '°']);
-% rlim([0 1]);
+figure;
+polarplot(deg2rad(theta), db2mag(total_pattern_dB_AF), 'LineWidth', 1.5);
+title(['4-Element Linear Array Radiation Pattern with Phase Shift = ', num2str(phase_shift_deg), '°']);
+rlim([0 1]);
 
 % Additional Plot (Cartesian)
 % figure;
