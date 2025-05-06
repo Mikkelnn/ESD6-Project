@@ -1,0 +1,33 @@
+
+% Determine the azimuth and elevation grid dimensions
+unique_az = unique(az);
+unique_el = unique(el);
+num_az = numel(unique_az);
+num_el = numel(unique_el);
+
+% Reshape the data accordingly
+Xr = reshape(X .* AF_norm, num_el, num_az);
+Yr = reshape(Y .* AF_norm, num_el, num_az);
+Zr = reshape(Z .* AF_norm, num_el, num_az);
+AF_norm_r = reshape(AF_norm, num_el, num_az);
+
+% Plot normalized 3D
+figure;
+surf(Xr, Yr, Zr, AF_norm_r, 'EdgeColor', 'none');
+title('Normalized 3D Beamforming Pattern');
+xlabel('X'); ylabel('Y'); zlabel('Z');
+axis equal; colormap jet; colorbar;
+view(45, 30);
+
+% Unnormalized plot
+Xru = reshape(X .* AF_mag, num_el, num_az);
+Yru = reshape(Y .* AF_mag, num_el, num_az);
+Zru = reshape(Z .* AF_mag, num_el, num_az);
+AF_mag_r = reshape(AF_mag, num_el, num_az);
+
+figure;
+surf(Xru, Yru, Zru, AF_mag_r, 'EdgeColor', 'none');
+title('Unnormalized 3D Beamforming Pattern');
+xlabel('X'); ylabel('Y'); zlabel('Z');
+axis equal; colormap jet; colorbar;
+view(45, 30);

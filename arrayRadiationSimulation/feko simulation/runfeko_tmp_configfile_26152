@@ -1,0 +1,1 @@
+ -machinefile runfeko_tmp_machinesfile_26152 -delegate -envall -mapall "C:\Program Files\Altair\2023.1-edu\feko\bin\feko_mkl.csv.impi.exe" "skibidi" "--run-from-gui"
