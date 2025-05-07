@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.typing import NDArray
 from scipy import signal, linalg, fft
 import matplotlib.pyplot as plt
 
@@ -19,19 +20,74 @@ wavelength = c / f_c
 bw = 0.02e9 # bandwidth
 t_chirp = 4.6e-6 # chirp time
 prp=5e-6 # Pulse Repetition Period
-pulses = 128
 angleBins = int(180 / 5)
 
 fs = 46e6 # 50e6 # IF fs
 
-range_window = signal.windows.chebwin(int(fs * t_chirp), at=90)
-doppler_window = signal.windows.chebwin(pulses, at=60)
+rx_channels, chirps, range_samples = baseband.shape
 
+range_window = signal.windows.chebwin(range_samples, at=90)
+doppler_window = signal.windows.chebwin(chirps, at=60)
+angle_window = signal.windows.chebwin(rx_channels, at=6)
 
 # baseband = np.ndarray.mean(baseband, axis=0, keepdims=True)
 
 # print(f"shape: {baseband.shape}, rw: {len(range_window)}, dw: {len(doppler_window)}")
-angle_doppler_range  = np.abs(fft.fft(proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256), axis=0, n=angleBins))
+# proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256, dn=200000)
+
+def range_fft(data: NDArray, rwin: NDArray = None, n: int = None) -> NDArray:
+    shape = np.shape(data)
+
+    if rwin is None:
+        rwin = 1
+    else:
+        rwin = np.tile(rwin[np.newaxis, np.newaxis, ...], (shape[0], shape[1], 1))
+
+    return fft.fft(data * rwin, n=n, axis=2)
+
+def doppler_fft(data: NDArray, dwin: NDArray = None, n: int = None) -> NDArray:
+    shape = np.shape(data)
+
+    if dwin is None:
+        dwin = 1
+    else:
+        dwin = np.tile(dwin[np.newaxis, ..., np.newaxis], (shape[0], 1, shape[2]))
+
+    return fft.fft(data * dwin, n=n, axis=1)
+
+def angle_fft(data: NDArray, awin: NDArray = None, n: int = None) -> NDArray:
+    shape = np.shape(data)
+
+    if awin is None:
+        awin = 1
+    else:
+        awin = np.tile(awin[..., np.newaxis, np.newaxis], (1, shape[1], shape[2]))
+
+    return fft.fft(data * awin, n=n, axis=0)
+
+def range_doppler_angle_fft(data: NDArray, rwin: NDArray = None, dwin: NDArray = None, awin: NDArray = None, rn: int = None, dn: int = None, an: int = None) -> NDArray:
+    return angle_fft(doppler_fft(range_fft(data, rwin=rwin, n=rn), dwin=dwin, n=dn), awin=awin, n=an)
+
+angle_doppler_range  = np.abs(range_doppler_angle_fft(np.array(baseband, dtype=np.complex64), rwin=range_window, dwin=doppler_window, awin=angle_window, rn=256, dn=1024, an=angleBins))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 doppler_range_map = np.sum(angle_doppler_range, axis=0) # Sum over angle bins
 angle_range_map = np.sum(angle_doppler_range, axis=1)  # Sum over Doppler bins
