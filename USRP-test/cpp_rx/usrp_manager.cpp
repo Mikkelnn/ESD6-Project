@@ -8,17 +8,36 @@
 
 class USRPManager {
 public:
-    USRPManager(const std::string& device_addr)
-        : device_addr_(device_addr), num_channels_(4)
+    USRPManager(const std::string& device_addr, const unsigned int num_channels)
+        : device_addr_(device_addr), num_channels_(num_channels)
     {}
+
+    uhd::time_spec_t Usrp_future_time(uhd::time_spec_t from_mow) {
+        return usrp_->get_time_now() + from_mow;
+    }
 
     void setup_usrp() {
         usrp_ = uhd::usrp::multi_usrp::make(device_addr_);
-        usrp_->set_time_now(uhd::time_spec_t(0.0));
+        
+        // Set clock source to external 10 MHz
+        usrp_->set_clock_source("external");
+
+        // Sleep to allow locking
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        // Optional: Check if clock is locked
+        if (usrp_->get_mboard_sensor("ref_locked").to_bool()) {
+            std::cout << "External 10 MHz clock locked." << std::endl;
+        } else {
+            std::cerr << "WARNING: 10 MHz reference not locked!" << std::endl;
+        }
 
         uhd::usrp::subdev_spec_t spec("A:0 A:1 B:0 B:1");
         usrp_->set_rx_subdev_spec(spec, uhd::usrp::multi_usrp::ALL_MBOARDS);
         usrp_->set_tx_subdev_spec(spec, uhd::usrp::multi_usrp::ALL_MBOARDS);
+        
+         // Sync hardware time
+        usrp_->set_time_now(uhd::time_spec_t(0.0));
 
         channel_nums_ = {0, 1, 2, 3};
 
@@ -32,14 +51,33 @@ public:
             throw std::runtime_error("USRP not initialized. Call setup_usrp() first.");
         }
 
-        usrp_->set_rx_rate(sample_rate);
+        // Assume that `usrp` is a multi_usrp object
+        // 1) Set a command time in the future, e.g. 500ms from now:
+        usrp_->set_command_time(usrp_->get_time_now() + .5);
+
+        // 2) Tune to a new frequency on all channels, e.g., 2 GHz:
+        usrp_->set_rx_rate(sample_rate, uhd::usrp::multi_usrp::ALL_CHANS);
+                
         for (size_t ch = 0; ch < num_channels_; ch++) {
             usrp_->set_rx_freq(uhd::tune_request_t(center_freq), ch);
             usrp_->set_rx_gain(rx_gain, ch);
             usrp_->set_rx_antenna("RX2", ch);
         }
 
-        uhd::stream_args_t rx_stream_args("fc32");
+        // usrp_->set_rx_rate(sample_rate, uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_rx_freq(uhd::tune_request_t(center_freq), uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_rx_gain(rx_gain, uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_rx_antenna("RX2", uhd::usrp::multi_usrp::ALL_CHANS);
+        
+        // 3) Wait until we're past the command time:
+        std::this_thread::sleep_for(std::chrono::milliseconds(700));
+        // Channel phases are now at a deterministic offset. Repeating this procedure
+        // will lead to the same offset.
+
+        // Clear command time for subsequent API calls
+        usrp_->clear_command_time();
+
+        uhd::stream_args_t rx_stream_args(streamType);
         rx_stream_args.channels = channel_nums_;
         rx_stream_ = usrp_->get_rx_stream(rx_stream_args);
 
@@ -51,25 +89,41 @@ public:
             throw std::runtime_error("USRP not initialized. Call setup_usrp() first.");
         }
 
-        usrp_->set_tx_rate(sample_rate);
-        for (size_t ch = 0; ch < num_channels_; ch++) {
-            usrp_->set_tx_freq(uhd::tune_request_t(center_freq), ch);
-            usrp_->set_tx_gain(tx_gain, ch);
-            usrp_->set_tx_antenna("TX/RX", ch);
-        }
 
-        uhd::stream_args_t tx_stream_args("fc32");
+        // Assume that `usrp` is a multi_usrp object
+        // 1) Set a command time in the future, e.g. 500ms from now:
+        usrp_->set_command_time(usrp_->get_time_now() + .5);
+
+        // 2) Tune to a new frequency on all channels, e.g., 2 GHz:
+        usrp_->set_tx_rate(sample_rate, uhd::usrp::multi_usrp::ALL_CHANS);
+        usrp_->set_tx_freq(uhd::tune_request_t(center_freq), uhd::usrp::multi_usrp::ALL_CHANS);
+        usrp_->set_tx_gain(tx_gain, uhd::usrp::multi_usrp::ALL_CHANS);
+        usrp_->set_tx_antenna("TX/RX", uhd::usrp::multi_usrp::ALL_CHANS);
+        
+        // 3) Wait until we're past the command time:
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        // Channel phases are now at a deterministic offset. Repeating this procedure
+        // will lead to the same offset.
+
+        // usrp_->set_tx_rate(sample_rate);
+        // for (size_t ch = 0; ch < num_channels_; ch++) {
+        //     usrp_->set_tx_freq(uhd::tune_request_t(center_freq), ch);
+        //     usrp_->set_tx_gain(tx_gain, ch);
+        //     usrp_->set_tx_antenna("TX/RX", ch);
+        // }
+
+        uhd::stream_args_t tx_stream_args(streamType);
         tx_stream_args.channels = channel_nums_;
         tx_stream_ = usrp_->get_tx_stream(tx_stream_args);
 
         std::cout << "[setup_tx] TX configured: rate = " << sample_rate << ", freq = " << center_freq << "\n";
     }
 
-    size_t receive_samples(const uhd::rx_streamer::buffs_type &buffs, size_t num_samps) {
+    size_t receive_samples(const uhd::rx_streamer::buffs_type &buffs, size_t num_samps, uhd::time_spec_t time_spec) {
         uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE);
         stream_cmd.num_samps = num_samps;
         stream_cmd.stream_now = false;
-        stream_cmd.time_spec = usrp_->get_time_now() + uhd::time_spec_t(0.1);
+        stream_cmd.time_spec = time_spec;
         rx_stream_->issue_stream_cmd(stream_cmd);
 
         uhd::rx_metadata_t md;
@@ -83,7 +137,7 @@ public:
         return samples_received;
     }
 
-    size_t transmit_samples(const uhd::tx_streamer::buffs_type &buffs, size_t num_samps) {
+    size_t transmit_samples(const uhd::tx_streamer::buffs_type &buffs, size_t num_samps, uhd::time_spec_t time_spec) {
         if (!tx_stream_) {
             std::cerr << "TX stream not initialized!\n";
             return 0;
@@ -92,7 +146,8 @@ public:
         uhd::tx_metadata_t md;
         md.start_of_burst = true;
         md.end_of_burst = true;
-        md.has_time_spec = false; // Immediate send
+        md.has_time_spec = true;
+        md.time_spec = time_spec;
 
         // uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE);
         // stream_cmd.num_samps = num_samps;
@@ -150,11 +205,12 @@ public:
     size_t num_channels() const { return num_channels_; }
 
 // private:
-public:
+private:
     std::string device_addr_;
     uhd::usrp::multi_usrp::sptr usrp_;
     uhd::rx_streamer::sptr rx_stream_;
     uhd::tx_streamer::sptr tx_stream_;
     std::vector<size_t> channel_nums_;
     size_t num_channels_;
+    std::string streamType = "sc16"; // "fc32" "sc16"; // complex<int16_t>
 };

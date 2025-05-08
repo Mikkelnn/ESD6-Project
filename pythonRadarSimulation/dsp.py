@@ -116,7 +116,7 @@ max_range = (c * fs * t_chirp / bw / 2)
 range_axis = np.linspace(0, max_range, range_bins, endpoint=False)
 # range_axis = np.arange(range_bins) * delta_R # np.linspace(0, r_max, range_bins) # (r_max / range_bins)  # Convert bin index to meters
 
-unambiguous_speed = (c / prp / f_c / 2)
+unambiguous_speed = (c / (prp * f_c * 4)) #(c / prp / f_c / 2)
 doppler_axis = np.linspace(-unambiguous_speed, unambiguous_speed, doppler_bins)
 
 # CFAR

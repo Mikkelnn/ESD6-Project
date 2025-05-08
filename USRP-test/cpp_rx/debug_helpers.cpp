@@ -52,7 +52,7 @@ void save_rx_buffers_to_csv_phase_diff(const std::vector<std::vector<std::comple
     size_t num_channels = rx_buffers.size();
     size_t num_samples = rx_buffers[0].size();
 
-    std::ofstream outfile(filename);
+    std::ofstream outfile(filename, std::ios::app);
     if (!outfile.is_open()) {
         std::cerr << "Error opening file: " << filename << "\n";
         return;

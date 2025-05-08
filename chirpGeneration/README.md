@@ -7,4 +7,4 @@ The primary use of this is for use in the beamforming module as static data.
    - Required packages: ´matplotlib numpy scipy´
 2. Run script:
    - Windows: `py -m .\chirps.py`
-   - Linux: `py .\chirps.py`
+   - Linux: `python3 chirps.py`
