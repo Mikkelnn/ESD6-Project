@@ -1,0 +1,3 @@
+FONTS:
+- Normal characters: Palatino Roman (LaTeX Font)
+- Special characters: Linux Libertine Italics
