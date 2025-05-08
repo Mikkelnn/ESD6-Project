@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from scipy.signal import stft
 import re
 
-fs = 200 * 1e6 # MHz
+fs = 245.760 * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
-chirpTime = 2.4 * 1e-6 # micro seconds
+chirpTime = 10 * 1e-6 # micro seconds
 bitRes = 16 # bit resolution, used for scaling
 
 # determine length of array
@@ -30,7 +30,8 @@ Q_chirp = ', '.join(str(x) for x in Q).removesuffix(', ')
 windowsSize = 128
 overlapFrac = 7/10 # 1/2 = 50% windows overlap
 
-f, t, Zxx = stft(I, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac, nfft=4096)
+carr = I + 1j*Q
+f, t, Zxx = stft(carr, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac, nfft=4096)
 f /= 1e6
 t *= 1e6
 
@@ -67,5 +68,5 @@ if (res.lower() == 'y'):
       return Q_chirp
 
   content = open(path, "r").read()
-  content = re.sub("(?<=[I]_chirp\[\] = {)([\d,\s]+)(?=};)|(?<=[Q]_chirp\[\] = {)([\d,\s]+)(?=};)", newChirp, content)
+  content = re.sub("(?<=[I]_chirp\[\] = {)([\d,\s,-]+)(?=};)|(?<=[Q]_chirp\[\] = {)([\d,\s,-]+)(?=};)", newChirp, content)
   open(path, "w").write(content)
