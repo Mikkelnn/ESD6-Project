@@ -38,8 +38,10 @@ public:
         
          // Sync hardware time
         usrp_->set_time_now(uhd::time_spec_t(0.0));
-
-        channel_nums_ = {0, 1, 2, 3};
+        
+        channel_nums_.resize(num_channels_);
+        for (int i = 0; i < num_channels_; i++)
+            channel_nums_[i] = i;
 
         std::cout << "[setup_usrp] USRP device created and basic configuration done.\n";
 
@@ -95,23 +97,23 @@ public:
         usrp_->set_command_time(usrp_->get_time_now() + .5);
 
         // 2) Tune to a new frequency on all channels, e.g., 2 GHz:
-        usrp_->set_tx_rate(sample_rate, uhd::usrp::multi_usrp::ALL_CHANS);
-        usrp_->set_tx_freq(uhd::tune_request_t(center_freq), uhd::usrp::multi_usrp::ALL_CHANS);
-        usrp_->set_tx_gain(tx_gain, uhd::usrp::multi_usrp::ALL_CHANS);
-        usrp_->set_tx_antenna("TX/RX", uhd::usrp::multi_usrp::ALL_CHANS);
+        usrp_->set_tx_rate(sample_rate);
+        for (size_t ch = 0; ch < num_channels_; ch++) {
+            usrp_->set_tx_freq(uhd::tune_request_t(center_freq), ch);
+            usrp_->set_tx_gain(tx_gain, ch);
+            usrp_->set_tx_antenna("TX/RX", ch);
+        }
+        // usrp_->set_tx_rate(sample_rate, uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_tx_freq(uhd::tune_request_t(center_freq), uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_tx_gain(tx_gain, uhd::usrp::multi_usrp::ALL_CHANS);
+        // usrp_->set_tx_antenna("TX/RX", uhd::usrp::multi_usrp::ALL_CHANS);
         
         // 3) Wait until we're past the command time:
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         // Channel phases are now at a deterministic offset. Repeating this procedure
         // will lead to the same offset.
 
-        // usrp_->set_tx_rate(sample_rate);
-        // for (size_t ch = 0; ch < num_channels_; ch++) {
-        //     usrp_->set_tx_freq(uhd::tune_request_t(center_freq), ch);
-        //     usrp_->set_tx_gain(tx_gain, ch);
-        //     usrp_->set_tx_antenna("TX/RX", ch);
-        // }
-
+        
         uhd::stream_args_t tx_stream_args(streamType);
         tx_stream_args.channels = channel_nums_;
         tx_stream_ = usrp_->get_tx_stream(tx_stream_args);

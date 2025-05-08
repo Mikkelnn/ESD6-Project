@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import stft
 import re
 
-fs = 400 * 1e6 # MHz
+fs = 200 * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
 chirpTime = 2.4 * 1e-6 # micro seconds
 bitRes = 16 # bit resolution, used for scaling

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-void save_rx_buffers_to_csv_complex(const std::vector<std::vector<std::complex<float>>>& rx_buffers, const std::string& filename) {
+void save_rx_buffers_to_csv_complex(const std::vector<std::vector<std::complex<int16_t>>>& rx_buffers, const std::string& filename) {
     if (rx_buffers.empty()) {
         std::cerr << "No data to save.\n";
         return;
@@ -30,7 +30,7 @@ void save_rx_buffers_to_csv_complex(const std::vector<std::vector<std::complex<f
     // Write data
     for (size_t samp = 0; samp < num_samples; ++samp) {
         for (size_t ch = 0; ch < num_channels; ++ch) {
-            const std::complex<float>& sample = rx_buffers[ch][samp];
+            const std::complex<int16_t>& sample = rx_buffers[ch][samp];
             outfile << sample.real() << "," << sample.imag();
             if (ch != num_channels - 1) {
                 outfile << ",";
