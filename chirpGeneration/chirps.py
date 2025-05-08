@@ -27,6 +27,8 @@ print(f"samples: {chirpLength}, scale: {scale}, max_val: {max(max(Q), max(I))}, 
 I_chirp = ', '.join(str(x) for x in I).removesuffix(', ')
 Q_chirp = ', '.join(str(x) for x in Q).removesuffix(', ')
 
+# print(f"comma count: {I_chirp.count(',')}")
+
 windowsSize = 128
 overlapFrac = 7/10 # 1/2 = 50% windows overlap
 
@@ -61,12 +63,16 @@ plt.show()
 res = input(f"Save to chirps.h? [Y/n]: ")
 if (res.lower() == 'y'):
   path = "./chirp.h"
-  def newChirp(match_obj):
-    if match_obj.group(1) is not None:
-      return I_chirp
-    if match_obj.group(2) is not None:
-      return Q_chirp
-
-  content = open(path, "r").read()
-  content = re.sub("(?<=[I]_chirp\[\] = {)([\d,\s,-]+)(?=};)|(?<=[Q]_chirp\[\] = {)([\d,\s,-]+)(?=};)", newChirp, content)
+  content = "#include <stdint.h>\n"
+  content += "int16_t I_chirp[] = {" + I_chirp + "};\n"
+  content += "int16_t Q_chirp[] = {" + Q_chirp + "};\n"
   open(path, "w").write(content)
+  # def newChirp(match_obj):
+  #   if match_obj.group(1) is not None:
+  #     return I_chirp
+  #   if match_obj.group(2) is not None:
+  #     return Q_chirp
+
+  # content = open(path, "r").read()
+  # content = re.sub("(?<=[I]_chirp\[\] = {)([\d,\s,-]+)(?=};)|(?<=[Q]_chirp\[\] = {)([\d,\s,-]+)(?=};)", newChirp, content)
+  # open(path, "w").write(content)

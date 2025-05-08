@@ -65,8 +65,8 @@ int tx_test() {
 int tx_rx_test() {
     USRPManager usrp_mgr("addr=192.168.1.2", 1);
 
-    double rx_sample_rate = 45e6;
-    double tx_sample_rate = 200e6;
+    double rx_sample_rate = 49.152e6;
+    double tx_sample_rate = 245.760e6;
     double center_freq = 5.8e9;
 
     // Step 1: General device setup
@@ -74,12 +74,12 @@ int tx_rx_test() {
     size_t num_channels = usrp_mgr.num_channels();
 
     // Step 2: Specific RX / TX setup
-    usrp_mgr.setup_rx(rx_sample_rate, center_freq, 0.0);
+    usrp_mgr.setup_rx(rx_sample_rate, center_freq, 20.0);
     usrp_mgr.setup_tx(tx_sample_rate, center_freq, 0.0); // Low TX gain for safety
 
     // setup buffers    
-    size_t num_samps_tx = 480; // sampels in chirp
-    size_t num_samps_rx = 256; // should only fill first 211
+    size_t num_samps_tx = 2457; // sampels in chirp
+    size_t num_samps_rx = 512; // should only fill first 211
 
     std::vector<std::vector<std::complex<int16_t>>> tx_buffers(num_channels, std::vector<std::complex<int16_t>>(num_samps_tx, std::complex<int16_t>()));
     std::vector<void*> tx_buffer_ptrs;
