@@ -12,8 +12,8 @@ public:
         : device_addr_(device_addr), num_channels_(num_channels)
     {}
 
-    uhd::time_spec_t Usrp_future_time(uhd::time_spec_t from_mow) {
-        return usrp_->get_time_now() + from_mow;
+    auto usrp_future_time(double from_mow_seconds) {
+        return usrp_->get_time_now() + from_mow_seconds;
     }
 
     void setup_usrp() {
@@ -79,7 +79,7 @@ public:
         // Clear command time for subsequent API calls
         usrp_->clear_command_time();
 
-        uhd::stream_args_t rx_stream_args(streamType);
+        uhd::stream_args_t rx_stream_args(streamType, streamType); // maybe fix so ower the wire uses same type... https://uhd.readthedocs.io/en/latest/page_configuration.html
         rx_stream_args.channels = channel_nums_;
         rx_stream_ = usrp_->get_rx_stream(rx_stream_args);
 
@@ -114,7 +114,7 @@ public:
         // will lead to the same offset.
 
         
-        uhd::stream_args_t tx_stream_args(streamType);
+        uhd::stream_args_t tx_stream_args(streamType, streamType);
         tx_stream_args.channels = channel_nums_;
         tx_stream_ = usrp_->get_tx_stream(tx_stream_args);
 
@@ -133,7 +133,7 @@ public:
 
         if (md.error_code != uhd::rx_metadata_t::ERROR_CODE_NONE) {
             std::cerr << "Receive error: " << md.strerror() << std::endl;
-            return 0;
+            return 1;
         }
 
         return samples_received;

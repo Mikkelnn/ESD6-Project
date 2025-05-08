@@ -2,6 +2,8 @@
 #include "debug_helpers.cpp"
 #include "chirp.h"
 
+#include "fmcw_radar.cpp"
+
 int rx_test() {
     USRPManager usrp_mgr("addr=192.168.1.2", 4);
 
@@ -21,7 +23,7 @@ int rx_test() {
     std::vector<void*> rx_buffer_ptrs;
     for (auto& buf : rx_buffers) rx_buffer_ptrs.push_back(buf.data());
     
-    uhd::time_spec_t time_spec = usrp_mgr.Usrp_future_time(uhd::time_spec_t(0.1)); // 100ms from now
+    auto time_spec = usrp_mgr.usrp_future_time(0.1); // 100ms from now
     size_t samples_received = usrp_mgr.receive_samples(rx_buffer_ptrs, num_samps, time_spec);
     if (samples_received > 0) {
         std::cout << "Successfully received " << samples_received << " samples on " << num_channels << " channels.\n";
@@ -94,7 +96,7 @@ int tx_rx_test() {
         tx_buffers[0][i] = std::complex<int16_t>(I_chirp[i], Q_chirp[i]);
 
     // make test
-    uhd::time_spec_t time_spec = usrp_mgr.Usrp_future_time(uhd::time_spec_t(0.1)); // 100ms from now
+    auto time_spec = usrp_mgr.usrp_future_time(0.1); // 100ms from now
     
     // should transmit and recieve at simultaneously
     size_t samples_sent = usrp_mgr.transmit_samples(tx_buffer_ptrs, num_samps_tx, time_spec);
@@ -114,7 +116,15 @@ int tx_rx_test() {
 int main() {
     try {
         
-        tx_rx_test();
+        FMCMRadar radar();
+        radar.initialize();
+
+        // BIG-TEST
+        radar.startSweep();
+
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_128_data.csv");
+
+        // tx_rx_test();
 
         // rx_test();
 
