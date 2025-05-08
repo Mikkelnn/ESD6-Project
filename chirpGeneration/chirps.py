@@ -5,8 +5,8 @@ import re
 
 fs = 400 * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
-chirpTime = 2 * 1e-6 # micro seconds
-bitRes = 14 # bit resolution, used for scaling
+chirpTime = 2.4 * 1e-6 # micro seconds
+bitRes = 16 # bit resolution, used for scaling
 
 # determine length of array
 chirpLength = int(chirpTime * fs)
@@ -19,8 +19,8 @@ alpha = fmax / chirpTime # Hz/s
 scale = ((2**bitRes) // 2) - 1
 for n in range(chirpLength):
   τ = n / fs  
-  I[n] = scale + scale * np.cos(np.pi * alpha * τ**2) # I
-  Q[n] = scale + scale * np.sin(np.pi * alpha * τ**2) # Q
+  I[n] = scale * np.cos(np.pi * alpha * τ**2) # I
+  Q[n] = scale * np.sin(np.pi * alpha * τ**2) # Q
 
 
 print(f"samples: {chirpLength}, scale: {scale}, max_val: {max(max(Q), max(I))}, min_val: {min(min(Q), min(I))}")
