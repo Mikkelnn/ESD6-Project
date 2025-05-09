@@ -1,5 +1,5 @@
 % ===========================
-% Beamforming Simulation Script
+% Beamforming with Real Array Factor from Measured Data (Patch Antennas)
 % ===========================
 
 clc; clear;
@@ -7,207 +7,137 @@ clc; clear;
 % ---------------------------
 % CONFIGURATION
 % ---------------------------
-frequency = 5.8e9;                     % Operating frequency (Hz)
-lambda = 3e8 / frequency;             % Wavelength (m)
-element_spacing = lambda / 2;        % Spacing between Tx elements
-num_elements = 4;                    % Number of Tx antennas
-
-% Antenna file names (assumed format)
+frequency = 5.8e9;
+lambda = 3e8 / frequency;
+element_spacing = lambda / 2;
+num_elements = 4;
+for i = 1:num_elements
+    positions(i,:) = [(i-1)*element_spacing, 0, 0];
+end
 antenna_files = {'ant1.txt', 'ant2.txt', 'ant3.txt', 'ant4.txt'};
+% Posiciones: arreglo lineal en eje X con separación lambda/2
 
-% Beamforming weights (adjust phases here)
-phase_shifts_deg = [0, 90, 180, 270]; % Phase shifts in degrees
+
+
+% Observation direction to extract excitation (boresight)
+theta0_deg = 0;  % azimuth
+phi0_deg = 90;   % elevation
+
+% Steering weights (for beamforming)
+phase_shifts_deg = [0, 0, 0, 0];
 weights = exp(1j * deg2rad(phase_shifts_deg));
 
+% Calibration offset
+calibration_offset_dB = 1.4516;
+
 % ---------------------------
-% LOAD FAR FIELD DATA
+% LOAD ANTENNA DATA AND EXTRACT EXCITATION a_i
 % ---------------------------
 for i = 1:num_elements
     data = readmatrix(antenna_files{i});
-    freq_mask = data(:,3) == frequency;
-    data = data(freq_mask, :);
-    
-    azimuth = data(:,1);          % Theta (Azimuth)
-    elevation = data(:,2);        % Phi (Elevation)
-    EH = data(:,4) + 1j*data(:,5); 
-    EV = data(:,6) + 1j*data(:,7); 
+    data = data(data(:,3) == frequency, :);  % Only 5.8 GHz
+
+    az = data(:,1); % theta
+    el = data(:,2); % phi
+    EH = data(:,4) + 1j * data(:,5);
+    EV = data(:,6) + 1j * data(:,7);
+
     E_total = sqrt(abs(EH).^2 + abs(EV).^2);
-    
-    ant(i).azimuth = azimuth;
-    ant(i).elevation = elevation;
+
+    ant(i).theta = az;
+    ant(i).phi = el;
+    ant(i).EH = EH;
+    ant(i).EV = EV;
     ant(i).E = E_total;
-    ant(i).position = [(i-1)*element_spacing, 0, 0];  % Linear x-axis array
+    ant(i).position = positions(i,:);  % ← Corrección importante
+
+    % Interpolation to find excitation at (theta0, phi0)
+    theta0 = deg2rad(theta0_deg);
+    phi0 = deg2rad(phi0_deg);
+    a_idx = abs(az - theta0) < 1e-3 & abs(el - phi0) < 1e-3;
+
+    if ~any(a_idx)
+        error('Direction (theta0, phi0) not found in file %s', antenna_files{i});
+    end
+
+    a_i = E_total(a_idx);  % Complex excitation
+    ant(i).a = a_i;
+
+    % Normalize pattern
+    ant(i).Enorm = E_total / a_i;
 end
 
 % ---------------------------
-% BEAMFORMING CALCULATION
+% COMPUTE ARRAY FACTOR (IDEAL)
 % ---------------------------
-theta = ant(1).azimuth;
-phi = ant(1).elevation;
-num_points = length(theta);
-AF = zeros(num_points, 1);
+theta = ant(1).theta;
+phi = ant(1).phi;
+N = length(theta);
+k = 2*pi/lambda;
 
+kx = sin(phi) .* cos(theta);
+ky = sin(phi) .* sin(theta);
+kz = cos(phi);
+
+AF = zeros(N,1);
 for i = 1:num_elements
-    kx = sin(phi) .* cos(theta);
-    ky = sin(phi) .* sin(theta);
-    kz = cos(phi);
-    
-    pos = ant(i).position;
-    phase_shift = exp(1j * 2*pi/lambda * (kx*pos(1) + ky*pos(2) + kz*pos(3)));
-    AF = AF + weights(i) * ant(i).E .* phase_shift;
+    r_i = ant(i).pos;
+    phase_term = exp(1j * k * (kx*r_i(1) + ky*r_i(2) + kz*r_i(3)));
+    AF = AF + ant(i).a * phase_term;
 end
-
-AF_mag = abs(AF);
-AF_norm = AF_mag / max(AF_mag); % Normalize
-AF_dB = 20 * log10(AF_norm);
-AF_mag_dB = 20 * log10(AF_mag); % Unnormalized dB
+AF_mag = abs(AF).^2;
+AF_dB = 10*log10(AF_mag);
 
 % ---------------------------
-% RESHAPE GRIDS
+% COMPUTE REALISTIC ARRAY RADIATION PATTERN
+% ---------------------------
+E_array = zeros(N,1);
+for i = 1:num_elements
+    r_i = ant(i).pos;
+    phase_term = exp(1j * k * (kx*r_i(1) + ky*r_i(2) + kz*r_i(3)));
+    E_array = E_array + ant(i).a * ant(i).Enorm .* phase_term;
+end
+
+E_mag = abs(E_array).^2;
+E_mag_dB = 10 * log10(E_mag) + calibration_offset_dB;
+E_mag_dB(E_mag_dB == -Inf) = -100;
+
+% ---------------------------
+% RESHAPE TO GRID
 % ---------------------------
 [unique_theta, ~, ~] = unique(theta);
 [unique_phi, ~, ~] = unique(phi);
+Nphi = length(unique_phi);
 
-try
-    theta_grid = reshape(theta, length(unique_phi), []);
-    phi_grid = reshape(phi, length(unique_phi), []);
-    AF_norm_grid = reshape(AF_norm, length(unique_phi), []);
-    AF_mag_grid = reshape(AF_mag, length(unique_phi), []);
-    AF_dB_grid = reshape(AF_dB, length(unique_phi), []);
-    AF_mag_dB_grid = reshape(AF_mag_dB, length(unique_phi), []);
-catch
-    error('Could not reshape. The angular sampling is likely not uniform or rectangular.');
-end
+theta_grid = reshape(theta, Nphi, []);
+phi_grid = reshape(phi, Nphi, []);
+E_mag_grid = reshape(E_mag, Nphi, []);
+E_mag_dB_grid = reshape(E_mag_dB, Nphi, []);
+AF_dB_grid = reshape(AF_dB, Nphi, []);
 
 % ---------------------------
-% 3D NORMALIZED PATTERN (LINEAR)
+% MAXIMUM GAIN INFO
 % ---------------------------
-[X,Y,Z] = sph2cart(theta_grid, pi/2 - phi_grid, AF_norm_grid);
+[max_gain, idx_max] = max(E_mag);
+max_gain_dB = 10*log10(max_gain) + calibration_offset_dB;
 
-figure;
-surf(X, Y, Z, AF_norm_grid, 'EdgeColor', 'none');
-title('3D Normalized Radiation Pattern (Linear)');
-xlabel('X'); ylabel('Y'); zlabel('Z');
-colorbar; axis equal; view(3);
-camlight; lighting gouraud;
+fprintf('Max gain (realistic pattern): %.2f dB\n', max_gain_dB);
+fprintf('At theta = %.2f deg, phi = %.2f deg\n', rad2deg(theta(idx_max)), rad2deg(phi(idx_max)));
 
 % ---------------------------
-% 3D UNNORMALIZED PATTERN (LINEAR)
-% ---------------------------
-[X2,Y2,Z2] = sph2cart(theta_grid, pi/2 - phi_grid, AF_mag_grid);
-
-figure;
-surf(X2, Y2, Z2, AF_mag_grid, 'EdgeColor', 'none');
-title('3D Unnormalized Radiation Pattern (Linear)');
-xlabel('X'); ylabel('Y'); zlabel('Z');
-colorbar; axis equal; view(3);
-camlight; lighting gouraud;
-
-% ---------------------------
-% 3D UNNORMALIZED PATTERN (dB)
-% ---------------------------
-AF_mag_dB_grid(AF_mag_dB_grid == -Inf) = -100;  % Avoid -Inf
-AF_mag_shifted = AF_mag_dB_grid - min(AF_mag_dB_grid(:));  % Shift to positive values for radius
-
-[X3, Y3, Z3] = sph2cart(theta_grid, pi/2 - phi_grid, AF_mag_shifted);
-
-figure;
-surf(X3, Y3, Z3, AF_mag_dB_grid, 'EdgeColor', 'none');
-title('3D Unnormalized Radiation Pattern (dB)');
-xlabel('X'); ylabel('Y'); zlabel('Z');
-colorbar; axis equal; view(3);
-camlight; lighting gouraud;
-caxis([-40 0]);  % Adjust based on dynamic range
-
-% ---------------------------
-% POLAR CUTS
+% PLOTS
 % ---------------------------
 figure;
+subplot(1,2,1);
+imagesc(rad2deg(unique_theta), rad2deg(unique_phi), E_mag_dB_grid);
+axis xy;
+xlabel('\theta (deg)'); ylabel('\phi (deg)');
+title('Realistic Array Radiation Pattern (dB)');
+colorbar;
 
-% Cut at phi = 0°
-subplot(2,2,1);
-cut_phi = 0;
-mask_phi = abs(phi_grid(:,1) - deg2rad(cut_phi)) < 1e-3;
-polarplot(unique_theta, AF_norm_grid(mask_phi,:)');
-title('Normalized Polar Plot at \phi = 0');
-
-subplot(2,2,2);
-polarplot(unique_theta, AF_mag_dB_grid(mask_phi,:)');
-title('Unnormalized dB Polar Plot at \phi = 0');
-
-% Cut at theta = 0°
-subplot(2,2,3);
-cut_theta = 0;
-mask_theta = abs(theta_grid(1,:) - deg2rad(cut_theta)) < 1e-3;
-polarplot(unique_phi, AF_norm_grid(:,mask_theta));
-title('Normalized Polar Plot at \theta = 0');
-
-subplot(2,2,4);
-polarplot(unique_phi, AF_mag_dB_grid(:,mask_theta));
-title('Unnormalized dB Polar Plot at \theta = 0');
-
-% ---------------------------
-% MAXIMUM GAIN
-% ---------------------------
-[max_gain, idx_max] = max(AF_mag);
-max_gain_dB = 20 * log10(max_gain);
-fprintf('Maximum unnormalized gain: %.2f dB\n', max_gain_dB);
-fprintf('At theta = %.2f°, phi = %.2f°\n', ...
-        rad2deg(theta(idx_max)), rad2deg(phi(idx_max)));
-
-% ---------------------------
-% DIRECTIVITY CALCULATION
-% ---------------------------
-% Convert linear gain to power pattern
-U = AF_mag_grid.^2;
-
-% Integration steps (assume uniform angular grid)
-dtheta = abs(theta_grid(1,2) - theta_grid(1,1));
-dphi   = abs(phi_grid(2,1) - phi_grid(1,1));
-
-% Compute radiated power Prad (∬ U * sin(phi) dtheta dphi)
-Prad = sum(sum(U .* sin(phi_grid))) * dtheta * dphi;
-
-% Maximum radiation intensity
-U_max = max(U(:));
-
-% Directivity
-D = 4 * pi * U_max / Prad;
-D_dB = 10 * log10(D);
-
-fprintf('Directivity (linear): %.2f\n', D);
-fprintf('Directivity (dB): %.2f dB\n', D_dB);
-
-% ---------------------------
-% 3D DIRECTIVITY PATTERN (dB)
-% ---------------------------
-
-% Assume your AF_mag already includes element pattern
-% Compute total radiated power
-dtheta = abs(theta_grid(1,2) - theta_grid(1,1));
-dphi   = abs(phi_grid(2,1) - phi_grid(1,1));
-
-% Convert spherical to solid angle weight
-dOmega = sin(phi_grid) * dtheta * dphi;  % Element-wise sin(phi) * dθ * dφ
-Prad = sum(sum((AF_mag_grid.^2) .* dOmega));  % Radiated power (integrated over sphere)
-
-% Directivity = 4*pi * |E|^2 / Prad
-D_linear = (4 * pi) * (AF_mag_grid.^2) ./ Prad;
-D_dB = 10 * log10(D_linear);
-D_dB(D_dB == -Inf | isnan(D_dB)) = -100;  % Avoid display issues
-
-% Shift directivity magnitude to positive radius for plotting
-D_shifted = D_dB - min(D_dB(:));  % Shift to positive radii
-
-% Convert to 3D surface
-[Xd, Yd, Zd] = sph2cart(theta_grid, pi/2 - phi_grid, D_shifted);
-
-figure;
-surf(Xd, Yd, Zd, D_dB, 'EdgeColor', 'none');
-title('3D Directivity Pattern (dB)');
-xlabel('X'); ylabel('Y'); zlabel('Z');
-colorbar; axis equal; view(3);
-camlight; lighting gouraud;
-caxis([-40 max(D_dB(:))]);  % Adjust dynamic range
-
-
+subplot(1,2,2);
+imagesc(rad2deg(unique_theta), rad2deg(unique_phi), AF_dB_grid);
+axis xy;
+xlabel('\theta (deg)'); ylabel('\phi (deg)');
+title('Ideal Array Factor (dB)');
+colorbar;

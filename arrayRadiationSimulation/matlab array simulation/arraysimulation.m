@@ -1,5 +1,7 @@
+% ---------------------------
 % Beamforming simulation from measured far-field patterns
 % Adaptado al formato de archivo ant1.txt, ant2.txt, etc.
+% ---------------------------
 
 clear; clc;
 
@@ -12,23 +14,16 @@ d = lambda / 2;                         % Separación entre antenas (m)
 N = 4;                                  % Número de antenas transmisoras
 positions = [0:d:(N-1)*d; 0 0 0 0; 0 0 0 0]; % Alineadas en X
 
-% Fases relativas en grados (puedes modificarlas)
-phases_deg = [0 90 180 270];
+% Fases relativas en grados
+phases_deg = [0 -90 -180 -270];
 phases_rad = deg2rad(phases_deg);
 
 % Archivos de far-field individuales
-files = {
-    'ant1.txt',
-    'ant2.txt',
-    'ant3.txt',
-    'ant4.txt'
-};
-
-% Inicialización de estructuras
-theta_all = [];
-phi_all = [];
+files = {'ant1.txt', 'ant2.txt', 'ant3.txt', 'ant4.txt'};
 
 % Inicializar campo total
+theta_all = [];
+phi_all = [];
 E_total = [];
 
 for i = 1:N
@@ -39,8 +34,7 @@ for i = 1:N
     az = data_5800(:,1);                % Azimuth (phi)
     el = data_5800(:,2);                % Elevation (theta)
     phi = az; theta = el;
-    
-    % Guardar rejilla angular (solo en primera iteración)
+
     if i == 1
         phi_unique = unique(phi);
         theta_unique = unique(theta);
@@ -48,38 +42,93 @@ for i = 1:N
         E_total = zeros(size(Phi));
     end
 
-    % Crear mapa de Etheta (usamos EH = componente H)
     EH_re = data_5800(:,4);
     EH_im = data_5800(:,5);
     Eth = EH_re + 1i * EH_im;
-
-    % Reorganizar a matriz 2D
     Eth_matrix = reshape(Eth, length(theta_unique), length(phi_unique));
 
-    % Factor de fase de posición y excitación
     k = 2 * pi / lambda;
     r = positions(:,i);
     phase_shift = exp(1i * (k * (r(1)*sin(Theta).*cos(Phi) + ...
                                  r(2)*sin(Theta).*sin(Phi) + ...
                                  r(3)*cos(Theta)) + phases_rad(i)));
 
-    % Sumar al campo total
     E_total = E_total + Eth_matrix .* phase_shift;
 end
 
-%% Visualización 3D del patrón
+%% Magnitud y ganancia
 E_mag = abs(E_total);
-E_mag_norm = E_mag / max(E_mag(:));
-R = E_mag_norm;
+[max_val, idx_max] = max(E_mag(:));
+max_gain_dB = 20*log10(max_val);
 
-[X,Y,Z] = sph2cart(Phi, pi/2 - Theta, R);
+fprintf('Max Field Magnitude: %.3f (rel. units)\n', max_val);
+fprintf('Estimated Maximum Gain: %.2f dB\n', max_gain_dB);
+
+%% Patrón 3D sin normalizar
+[X,Y,Z] = sph2cart(Phi, pi/2 - Theta, E_mag);
 
 figure;
-surf(X, Y, Z, E_mag_norm, 'EdgeColor', 'none');
+surf(X, Y, Z, E_mag, 'EdgeColor', 'none');
 axis equal;
 xlabel('X'); ylabel('Y'); zlabel('Z');
 title('Patrón de radiación combinado - Beamforming (5.8 GHz)');
 colorbar;
 view(30,30);
-lighting gouraud
-camlight headlight
+lighting gouraud;
+camlight headlight;
+
+%% ---------------------------
+% 3D PATRÓN EN dB UMBRALIZADO
+% ---------------------------
+
+umbral_dB = -30; % Umbral de dB
+E_mag_dB_grid = 20 * log10(E_mag);
+E_mag_dB_grid(isinf(E_mag_dB_grid)) = -100;
+E_mag_dB_grid(E_mag_dB_grid < umbral_dB) = umbral_dB;
+
+r_db = E_mag_dB_grid;
+[X2,Y2,Z2] = sph2cart(Phi, pi/2 - Theta, r_db);
+
+figure;
+surf(real(X2), real(Y2), real(Z2), r_db, 'EdgeColor', 'none');
+title('3D Radiation Pattern (dB - Thresholded)');
+xlabel('X (dB)'); ylabel('Y (dB)'); zlabel('Z (dB)');
+axis equal; view(3); colorbar; camlight; lighting gouraud;
+caxis([umbral_dB max(r_db(:))]);
+
+%% Cortes polares
+threshold_dB = -30;
+
+% Corte en phi = 0 (theta variable)
+cut_phi_deg = 0;
+[~, idx_phi] = min(abs(rad2deg(phi_unique) - cut_phi_deg));
+E_cut_theta = E_mag(:, idx_phi);
+E_cut_theta_dB = 20 * log10(E_cut_theta);
+E_cut_theta_dB(~isfinite(E_cut_theta_dB)) = -100;
+E_cut_theta_dB = max(E_cut_theta_dB, threshold_dB);
+
+% Corte en theta = 90 (phi variable)
+cut_theta_deg = 90;
+[~, idx_theta] = min(abs(rad2deg(theta_unique) - cut_theta_deg));
+E_cut_phi = E_mag(idx_theta, :);
+E_cut_phi_dB = 20 * log10(E_cut_phi);
+E_cut_phi_dB(~isfinite(E_cut_phi_dB)) = -50;
+E_cut_phi_dB = max(E_cut_phi_dB, threshold_dB);
+
+% Polar plots corregidos con ángulos explícitos
+figure;
+subplot(2,2,1);
+polarplot(deg2rad(rad2deg(theta_unique)), E_cut_theta);
+title('Corte \phi = 0° (lineal)');
+
+subplot(2,2,2);
+polarplot(deg2rad(rad2deg(theta_unique)), E_cut_theta_dB);
+title('Corte \phi = 0° (dB)');
+
+subplot(2,2,3);
+polarplot(deg2rad(rad2deg(phi_unique)), E_cut_phi);
+title('Corte \theta = 90° (lineal)');
+
+subplot(2,2,4);
+polarplot(deg2rad(rad2deg(phi_unique)), E_cut_phi_dB);
+title('Corte \theta = 90° (dB)');
