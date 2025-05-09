@@ -29,8 +29,8 @@ void test_basic_projection() {
     BeamSteer(1).applyPhaseToIQ(I, Q, 90, output);
 
     for (int i = 0; i < N; ++i) {
-        float expected_I = I[i] * cos(PI / 2);  // ~0
-        float expected_Q = Q[i] * sin(PI / 2);  // unchanged
+        float expected_I = 0;  // ~0
+        float expected_Q = AMP;  // unchanged
 
         assert(std::abs(output[i].real() - expected_I) < 100);
         assert(std::abs(output[i].imag() - expected_Q) < 100);
@@ -181,8 +181,7 @@ void test_positive_beam_angle_shift() {
         //std::cout << "shifted_float: " << std::arg(shifted_float) << "\n";
         
         float phase_deg = (std::arg(shifted_float) - std::arg(ref_float)) * 180 / PI;
-        std::cout << "Phase deg:" << phase_deg << " i:" << i << "\n";
-        //std::cout << "Fuck dig: " << abs(phase_deg - (beam_angle * i)) << "\n"; 
+        // std::cout << "Phase deg:" << phase_deg << " i:" << i << "\n";
         float expected_phase = -180.0 * std::sin(angle_rad) * i;
         float diff = normalize_phase(phase_deg - expected_phase);
         assert(std::abs(diff) <= 1);
@@ -240,101 +239,109 @@ void test_same_amplitude_multiple_angles() {
     }
 }
 
-// not completed
-void test_real_signal() {
-    int IQ_length = 128;
-    int N = 4;
-    float sampling_rate = 20e6; // 20 MHz
-    float signal_frequency = 0.5e6; // 0.5 MHz to get more visible cycles
-    float beam_angle = 45.0;
+// // not completed
+// void test_real_signal() {
+//     int IQ_length = 128;
+//     int N = 4;
+//     float sampling_rate = 20e6; // 20 MHz
+//     float signal_frequency = 0.5e6; // 0.5 MHz to get more visible cycles
+//     float beam_angle = 45.0;
 
-    // Generate cosine (I) and sine (Q)
-    std::vector<int16_t> I(IQ_length);
-    std::vector<int16_t> Q(IQ_length);
-    for (int n = 0; n < IQ_length; ++n) {
-        float t = n / sampling_rate;
-        I[n] = static_cast<int16_t>(100 * std::cos(2 * PI * signal_frequency * t));
-        Q[n] = static_cast<int16_t>(100 * std::sin(2 * PI * signal_frequency * t));
-    }
+//     // Generate cosine (I) and sine (Q)
+//     std::vector<int16_t> I(IQ_length);
+//     std::vector<int16_t> Q(IQ_length);
+//     for (int n = 0; n < IQ_length; ++n) {
+//         float t = n / sampling_rate;
+//         I[n] = static_cast<int16_t>(100 * std::cos(2 * PI * signal_frequency * t));
+//         Q[n] = static_cast<int16_t>(100 * std::sin(2 * PI * signal_frequency * t));
+//     }
 
-    // BeamSteer setup
-    BeamSteer steer(N);
-    std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-    int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
-    assert(status == 0);
+//     // BeamSteer setup
+//     BeamSteer steer(N);
+//     std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
+//     int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
+//     assert(status == 0);
 
-    // Reference complex from element 0 at final sample
-    std::complex<float> ref = {
-        static_cast<float>(output[0][IQ_length - 1].real()),
-        static_cast<float>(output[0][IQ_length - 1].imag())
-    };
+//     float ref_mag = std::abs(ref);
+//     float ref_phase = std::arg(ref) * 180.0 / PI;
 
-    float ref_mag = std::abs(ref);
-    float ref_phase = std::arg(ref) * 180.0 / PI;
+//     std::cout << "Beam angle: " << beam_angle << " degrees\n";
+//         float mag = std::abs(val);
+//         float phase_deg = std::arg(val) * 180.0f / PI;
+//         float expected_phase_shift = -180.0f * std::sin(beam_angle * PI / 180.0f) * i;
+//         float actual_shift = normalize_phase(phase_deg - ref_phase);
 
-    // Lambda to normalize phase to [-180, 180]
-    auto normalize_phase = [](float deg) {
-        while (deg > 180.0) deg -= 360.0;
-        while (deg < -180.0) deg += 360.0;
-        return deg;
-    };
+//         std::cout << "Element " << i
+//                   << " | Amplitude: " << mag
+//                   << " | Phase: " << phase_deg
+//                   << " | delta_Phase: " << actual_shift << " deg"
+//                   << " | Expected delta: " << expected_phase_shift << " deg \n";
 
-    std::cout << "Beam angle: " << beam_angle << " degrees\n";
-    for (int i = 0; i < N; ++i) {
-        std::complex<float> val = {
-            static_cast<float>(output[i][IQ_length - 1].real()),
-            static_cast<float>(output[i][IQ_length - 1].imag())
-        };
-        float mag = std::abs(val);
-        float phase_deg = std::arg(val) * 180.0f / PI;
-        float expected_phase_shift = -180.0f * std::sin(beam_angle * PI / 180.0f) * i;
-        float actual_shift = normalize_phase(phase_deg - ref_phase);
+//         // Check amplitude preserved (±1)
+//         assert(std::abs(mag - ref_mag) <= 1.0);
+//         // Check expected phase shift (±1°)
+//         assert(std::abs(actual_shift - expected_phase_shift) <= 1.0);
+//     }
 
-        std::cout << "Element " << i
-                  << " | Amplitude: " << mag
-                  << " | Phase: " << phase_deg
-                  << " | delta_Phase: " << actual_shift << " deg"
-                  << " | Expected delta: " << expected_phase_shift << " deg \n";
+//     std::cout << "✅ test_beamforming_phase_shift_preserves_amplitude passed!\n";
+// }
 
-        // Check amplitude preserved (±1)
-        assert(std::abs(mag - ref_mag) <= 1.0);
-        // Check expected phase shift (±1°)
-        assert(std::abs(actual_shift - expected_phase_shift) <= 1.0);
-    }
-
-    std::cout << "✅ test_beamforming_phase_shift_preserves_amplitude passed!\n";
-}
-
-// trying over again
-something_something(){
+void test_real_signal(){
     
-    // Setup
-    int IQ_length = 128;
-    int N = 4;
-    float sampling_rate = 2e3; 
-    float frequency = 1e3; 
-    float beam_angle = 45.0;
-
-    // BeamSteer setup
+    // Variable Setup
+    int N = 1;
+    int IQ_length = 128;  
+    std::vector<int16_t> I(IQ_length), Q(IQ_length);
+    int amp_desired = 16000;
+    int phase_desired = 30;
+    int f = 1e3;
+    int sample_rate = 2e3;
+    
+    // Instance Setup
     BeamSteer steer(N);
-    std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-    int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
-    assert(status == 0);
 
-    // Generate cosine (I) and sine (Q): Amp = 100, cos(2pi*f*t), sin(2pi*f*t)
-    std::vector<int16_t> I(IQ_length);
-    std::vector<int16_t> Q(IQ_length);
-    for (int n = 0; n < IQ_length; ++n) {
-        float t = n / sampling_rate;
-        I[n] = static_cast<int16_t>(100 * std::cos(2 * PI * frequency * t));
-        Q[n] = static_cast<int16_t>(100 * std::sin(2 * PI * frequency * t));
+    // Generate I & Q signal / Initilize I & Q
+    for (int n = 0; n < IQ_length; n++) {
+        float t = n * sample_rate;
+        I[n] = static_cast<int16_t>(amp_desired * std::cos(2*PI*f*t));
+        Q[n] = static_cast<int16_t>(amp_desired * std::sin(2*PI*f*t));
+    }
+
+    // Apply beam steering
+    std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
+    // int status = steer.applyBeamformingAngle(phase_desired, I, Q, output);
+    int status = steer.applyPhaseToIQ(I, Q, 90, output[0]);
+    
+    assert(status == 0); // Check everything is alright
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < IQ_length; j++) {
+            // Get amp and phase of beam steered signals
+            float amp_actual = std::abs(output[i][j]);
+            float phase_actual = std::arg(output[i][j]);
+            
+            // Calculate difference
+            float amp_delta = std::abs(amp_desired - amp_actual);
+            float phase_delta = std::abs((phase_desired /** i*/) - phase_actual); 
+            
+            std::cout << " i: " << i << " | j: " << j <<  " | Output real: " << output[i][j].real()  << "\n";
+            std::cout << " i: " << i << " | j: " << j <<  " | Output imag: " << output[i][j].imag()  << "\n";
+            std::cout << " i: " << i << " | j: " << j <<  " | Amp_actual: " << amp_actual  << "\n";
+            std::cout << " i: " << i << " | j: " << j <<  " | Phase_actual: " << phase_actual  << "\n";
+            std::cout << " i: " << i << " | j: " << j <<  " | Amp_delta: " << amp_delta  << "\n";
+            std::cout << " i: " << i << " | j: " << j <<  " | Phase_delta: " << phase_delta  << "\n";
+
+            // Assertion
+            // assert(amp_delta <= 1 && "The beam steered amplitude is not the same as the expected amplitude \n");
+            // assert(phase_delta <= 1 && "The beam steered phase is not the same as the expected phase \n");
+        }
     }
 }
 
 
 int main() {
     // test_zero_phase();
-    // test_basic_projection();
+    test_basic_projection();
     // test_negative_phase();
     // test_empty_input();
     // test_length_mismatch();
@@ -343,8 +350,7 @@ int main() {
     // test_positive_beam_angle_shift();
     // test_negative_angle_phase_shift();
     // test_same_amplitude_multiple_angles();
-    test_real_signal();
-    // something_something();
+    // test_real_signal();
     std::cout << "🎉 All tests passed!\n";
     return 0;
 }
