@@ -3,7 +3,7 @@ from numpy.typing import NDArray
 from scipy import signal, linalg, fft
 import matplotlib.pyplot as plt
 
-import radarsimpy.processing as proc
+#import radarsimpy.processing as proc
 
 # load data
 baseband = []
@@ -26,14 +26,171 @@ fs = 46e6 # 50e6 # IF fs
 
 rx_channels, chirps, range_samples = baseband.shape
 
-range_window = signal.windows.chebwin(range_samples, at=90)
-doppler_window = signal.windows.chebwin(chirps, at=60)
-angle_window = signal.windows.chebwin(rx_channels, at=6)
+windowIndex = 6 #Use this to index which window in the switch case you want. 6 is chebyshev
 
-# baseband = np.ndarray.mean(baseband, axis=0, keepdims=True)
+window = signal.windows.barthann(51) 
+windowType = 'Bartlett-hann'
 
-# print(f"shape: {baseband.shape}, rw: {len(range_window)}, dw: {len(doppler_window)}")
-# proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256, dn=200000)
+range_window = signal.windows.barthann(range_samples) 
+doppler_window = signal.windows.barthann(chirps) 
+angle_window = signal.windows.barthann(rx_channels) 
+
+# Choose the window function
+
+match windowIndex:
+    case 0:
+        window = signal.windows.barthann(51) #To display the window function and fourier transform of it
+        windowType = 'Bartlett-hann'
+
+        range_window = signal.windows.barthann(range_samples) 
+        doppler_window = signal.windows.barthann(chirps) 
+        angle_window = signal.windows.barthann(rx_channels) 
+
+
+    case 1:
+        window = signal.windows.bartlett(51)  
+        windowType = 'Bartlett'
+
+        range_window = signal.windows.bartlett(range_samples) 
+        doppler_window = signal.windows.bartlett(chirps) 
+        angle_window = signal.windows.bartlett(rx_channels) 
+    
+    case 2:
+        window = signal.windows.blackman(51)  
+        windowType = 'Blackman'
+
+        range_window = signal.windows.blackman(range_samples) 
+        doppler_window = signal.windows.blackman(chirps) 
+        angle_window = signal.windows.blackman(rx_channels) 
+
+    case 3:
+        window = signal.windows.blackmanharris(51)
+        windowType = 'Blackman-Harris'
+
+        range_window = signal.windows.blackmanharris(range_samples) 
+        doppler_window = signal.windows.blackmanharris(chirps) 
+        angle_window = signal.windows.blackmanharris(rx_channels) 
+
+    case 4:
+        window = signal.windows.bohman(51)  
+        windowType = 'Bohman'
+
+        range_window = signal.windows.bohman(range_samples) 
+        doppler_window = signal.windows.bohman(chirps) 
+        angle_window = signal.windows.bohman(rx_channels) 
+    
+    case 5:
+        window = signal.windows.boxcar(51)  
+        windowType = 'Boxcar'
+
+        range_window = signal.windows.boxcar(range_samples) 
+        doppler_window = signal.windows.boxcar(chirps) 
+        angle_window = signal.windows.boxcar(rx_channels) 
+
+    case 6:
+        window = signal.windows.chebwin(100, at=90)  
+        windowType = 'Dolph-Chebyshev'
+
+        range_window = signal.windows.chebwin(range_samples, at=90) 
+        doppler_window = signal.windows.chebwin(chirps, at=60) 
+        angle_window = signal.windows.chebwin(rx_channels, at=15) 
+
+    case 7:
+        window = signal.windows.cosine(51)  
+        windowType = 'Cosine'
+
+        range_window = signal.windows.cosine(range_samples) 
+        doppler_window = signal.windows.cosine(chirps) 
+        angle_window = signal.windows.cosine(rx_channels) 
+
+    case 8:
+        window = signal.windows.flattop(51) 
+        windowType = 'Flattop'
+
+        range_window = signal.windows.flattop(range_samples) 
+        doppler_window = signal.windows.flattop(chirps) 
+        angle_window = signal.windows.flattop(rx_channels) 
+
+
+    case 9:
+        window = signal.windows.hamming(51) 
+        windowType = 'Hamming'
+
+        range_window = signal.windows.hamming(range_samples) 
+        doppler_window = signal.windows.hamming(chirps) 
+        angle_window = signal.windows.hamming(rx_channels) 
+
+
+    case 10:
+        window = signal.windows.hann(51) 
+        windowType = 'Hann'
+
+        range_window = signal.windows.hann(range_samples) 
+        doppler_window = signal.windows.hann(chirps) 
+        angle_window = signal.windows.hann(rx_channels) 
+
+
+    case 11:
+        window = signal.windows.kaiser(51,10) 
+        windowType = 'Kaiser, beta=10'
+
+        range_window = signal.windows.kaiser(range_samples,10) 
+        doppler_window = signal.windows.kaiser(chirps,10) 
+        angle_window = signal.windows.kaiser(rx_channels,10) 
+
+
+    case 12:
+        window = signal.windows.lanczos(51) 
+        windowType = 'Lanczos'
+
+        range_window = signal.windows.lanczos(range_samples) 
+        doppler_window = signal.windows.lanczos(chirps) 
+        angle_window = signal.windows.lanczos(rx_channels) 
+
+        
+    case 13:
+        window = signal.windows.nuttall(51) 
+        windowType = 'Nutall'
+
+        range_window = signal.windows.nuttall(range_samples) 
+        doppler_window = signal.windows.nuttall(chirps) 
+        angle_window = signal.windows.nuttall(rx_channels) 
+
+        
+    case 14:
+        window = signal.windows.parzen(51) 
+        windowType = 'Parzen'
+
+        range_window = signal.windows.parzen(range_samples) 
+        doppler_window = signal.windows.parzen(chirps) 
+        angle_window = signal.windows.parzen(rx_channels) 
+
+        
+    case 15:
+        window = signal.windows.taylor(51) 
+        windowType = 'Taylor'
+
+        range_window = signal.windows.taylor(range_samples) 
+        doppler_window = signal.windows.taylor(chirps) 
+        angle_window = signal.windows.taylor(rx_channels) 
+
+        
+    case 16:
+        window = signal.windows.triang(51) 
+        windowType = 'Triangular'
+
+        range_window = signal.windows.triang(range_samples) 
+        doppler_window = signal.windows.triang(chirps) 
+        angle_window = signal.windows.triang(rx_channels) 
+        
+        
+    case 17:
+        window = signal.windows.tukey(51) 
+        windowType = 'Tukey'
+
+        range_window = signal.windows.tukey(range_samples) 
+        doppler_window = signal.windows.tukey(chirps) 
+        angle_window = signal.windows.tukey(rx_channels) 
 
 def range_fft(data: NDArray, rwin: NDArray = None, n: int = None) -> NDArray:
     shape = np.shape(data)
@@ -74,15 +231,31 @@ angle_doppler_range  = np.abs(range_doppler_angle_fft(np.array(baseband, dtype=n
 
 
 
+# Time-domain plot
+plt.figure(0, figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.plot(window, color='teal')
+plt.title(windowType)
+plt.ylabel('amplitude')
+plt.xlabel('samples')
+plt.grid(True)
 
+# Frequency-domain plot (dB)
+plt.subplot(1, 2, 2)
+A = np.fft.fft(window, 2048) / 25.5
+freq = np.fft.fftfreq(len(A), 1.0)
+response = 20 * np.log10(np.abs(np.fft.fftshift(A)))
+response = response - np.max(response)  # Normalize to 0 dB
 
+plt.plot(np.fft.fftshift(freq), response, color='orange')
+plt.title('Fourier Transform')
+plt.ylabel('decibels')
+plt.xlabel('bins')
+plt.xlim(-0.5, 0.5)
+plt.ylim(-140, 0)
+plt.grid(True)
 
-
-
-
-
-
-
+plt.tight_layout()
 
 
 
@@ -120,32 +293,32 @@ unambiguous_speed = (c / (prp * f_c * 4)) #(c / prp / f_c / 2)
 doppler_axis = np.linspace(-unambiguous_speed, unambiguous_speed, doppler_bins)
 
 # CFAR
-doppler_range_shifted_cfar = proc.cfar_ca_2d(doppler_range_shifted, guard=2, trailing=10, pfa=0.8e-6)
-doppler_range_shifted_cfar_db = 20 * np.log10(doppler_range_shifted_cfar)
-doppler_range_shifted_cfar_diff = doppler_range_shifted - doppler_range_shifted_cfar
+# doppler_range_shifted_cfar = proc.cfar_ca_2d(doppler_range_shifted, guard=2, trailing=10, pfa=0.8e-6)
+# doppler_range_shifted_cfar_db = 20 * np.log10(doppler_range_shifted_cfar)
+# doppler_range_shifted_cfar_diff = doppler_range_shifted - doppler_range_shifted_cfar
 
-angle_range_cfar = proc.cfar_ca_2d(angle_range_map, guard=2, trailing=10, pfa=0.8e-6)
-angle_range_cfar_db = 20 * np.log10(angle_range_cfar)
-angle_range_cfar_diff = angle_range_map - angle_range_cfar
+# angle_range_cfar = proc.cfar_ca_2d(angle_range_map, guard=2, trailing=10, pfa=0.8e-6)
+# angle_range_cfar_db = 20 * np.log10(angle_range_cfar)
+# angle_range_cfar_diff = angle_range_map - angle_range_cfar
 
 
 print(f"range bin count: {range_bins}, max range: {round(range_axis[-1], 2)} m, res: {round(range_axis[-1] / range_bins, 2)} m")
 print(f"doppler bin count: {doppler_bins}, max velocity: {round(doppler_axis[-1], 2)} m/s, res: {round(doppler_axis[-1]*2 / doppler_bins, 3)} m/s")
 
-remove_firs_range_bins = 5
-targets = np.argwhere(doppler_range_shifted_cfar_diff[:, remove_firs_range_bins:] > 2)
-targets[:,1] += remove_firs_range_bins # fix indexes 
-print(f"targets (range doppler):")
+# remove_firs_range_bins = 5
+# targets = np.argwhere(doppler_range_shifted_cfar_diff[:, remove_firs_range_bins:] > 2)
+# targets[:,1] += remove_firs_range_bins # fix indexes 
+# print(f"targets (range doppler):")
 # for target in targets:
 #     print(f"conf: {round(doppler_range_shifted_cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
 
 # Plot the 2D array
-plt.figure(1)
-plt.imshow(doppler_range_shifted_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Range (m)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Range-Doppler Map (sum over angle)')
+# plt.figure(1)
+# plt.imshow(doppler_range_shifted_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
+# plt.colorbar(label='Amplitude (dB)')
+# plt.xlabel('Range (m)')
+# plt.ylabel('Velocity (m/s)')
+# plt.title('Range-Doppler Map (sum over angle)')
 
 # plt.figure(2)
 # plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
@@ -163,19 +336,19 @@ plt.title('Range-Doppler Map (sum over angle)')
 
 # Plot
 # angle_doppler_range[:,0,:]
-plt.figure(4)
-plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
-plt.colorbar(label="Power (dB)")
-plt.xlabel("Range bin")
-plt.ylabel("Angle (degrees)")
-plt.title("Range-Angle Map (sum over doppler)")
+# plt.figure(4)
+# plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
+# plt.colorbar(label="Power (dB)")
+# plt.xlabel("Range bin")
+# plt.ylabel("Angle (degrees)")
+# plt.title("Range-Angle Map (sum over doppler)")
 
-plt.figure(5)
-plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
-plt.colorbar(label='Amplitude (dB)')
-plt.xlabel('Velocity (m/s)')
-plt.ylabel('Angle (degrees)')
-plt.title('Angle-Doppler Map (sum over range)')
+# plt.figure(5)
+# plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
+# plt.colorbar(label='Amplitude (dB)')
+# plt.xlabel('Velocity (m/s)')
+# plt.ylabel('Angle (degrees)')
+# plt.title('Angle-Doppler Map (sum over range)')
 
 # plt.figure(6)
 # plt.plot(angle_axis, angle_range_map[:,114], label='radar')
@@ -184,7 +357,7 @@ plt.title('Angle-Doppler Map (sum over range)')
 # plt.title('Angle Range (range = 500)')
 
 
-# Plot
+#Plot
 fig = plt.figure(7)
 ax = fig.add_subplot(111, projection='3d')
 # Scatter plot
@@ -204,4 +377,11 @@ cbar = plt.colorbar(sc)
 cbar.set_label("Intensity")
 
 plt.legend()
+
+
+# baseband = np.ndarray.mean(baseband, axis=0, keepdims=True)
+
+# print(f"shape: {baseband.shape}, rw: {len(range_window)}, dw: {len(doppler_window)}")
+# proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256, dn=200000)
+
 plt.show()
