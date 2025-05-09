@@ -40,7 +40,7 @@ class BeamSteer {
         }
 
         int applyPhaseToIQ(const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, int phase_deg, std::vector<std::complex<int16_t>>& output) {
-            if (I_chirp.size() != Q_chirp.size() || output.size() != I_chirp.size()) {
+            if (I_chirp.size() != Q_chirp.size() || output.size() < I_chirp.size()) {
                 return 1; // Mismatched input lengths
             }
 

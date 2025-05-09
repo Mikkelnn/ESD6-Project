@@ -1,6 +1,6 @@
-#include "usrp_manager.cpp"
+// #include "usrp_manager.cpp"
 #include "debug_helpers.cpp"
-#include "chirp.h"
+// #include "chirp.h"
 
 #include "fmcw_radar.cpp"
 
@@ -116,13 +116,13 @@ int tx_rx_test() {
 int main() {
     try {
         
-        FMCMRadar radar();
+        FMCWRadar radar = FMCWRadar();
         radar.initialize();
 
         // BIG-TEST
         radar.startSweep();
 
-        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_128_data.csv");
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_128_data_local.csv");
 
         // tx_rx_test();
 

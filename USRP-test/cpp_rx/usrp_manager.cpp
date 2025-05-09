@@ -6,17 +6,130 @@
 #include <complex>
 #include <chrono>
 
-class USRPManager {
+
+class IUSRPManager {
+    public:    
+        virtual ~IUSRPManager() = default;
+
+        virtual uhd::time_spec_t usrp_future_time(double from_mow_seconds) = 0;
+    
+        virtual void setup_usrp() = 0;
+    
+        virtual void setup_rx(double sample_rate, double center_freq, double rx_gain = 10.0) = 0;
+    
+        virtual void setup_tx(double sample_rate, double center_freq, double tx_gain = 0.0) = 0;
+    
+        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) = 0;
+    
+        virtual size_t transmit_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) = 0;
+    
+        virtual size_t num_channels() = 0;
+};
+
+
+class USRPManager_Mock : public IUSRPManager {
+    private:
+        std::vector<std::vector<std::complex<int16_t>>> internalBuffer;
+        double rx_sample_rate = 0, tx_sample_rate = 0;
+
+    public:
+        virtual uhd::time_spec_t usrp_future_time(double from_mow_seconds) override {
+            return uhd::time_spec_t(from_mow_seconds);
+        }
+
+        virtual void setup_usrp() override {
+            std::cout << "[USRPManager_Mock] setup_usrp called...." << std::endl;
+        }
+    
+        virtual void setup_rx(double sample_rate, double center_freq, double rx_gain = 10.0) override {
+            rx_sample_rate = sample_rate;
+
+            std::cout << "[USRPManager_Mock] setup_rx called.... params: sample_rate: " << sample_rate << " center_freq:" << center_freq << " rx_gain:" << rx_gain  << std::endl;
+        }
+    
+        virtual void setup_tx(double sample_rate, double center_freq, double tx_gain = 0.0) override {
+            tx_sample_rate = sample_rate;
+
+            std::cout << "[USRPManager_Mock] setup_tx called.... params: sample_rate: " << sample_rate << " center_freq:" << center_freq << " tx_gain:" << tx_gain  << std::endl;
+        }
+    
+        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {
+            // Ensure internalBuffer has enough sub-vectors
+            if (buffs.size() > internalBuffer.size()) {
+                internalBuffer.resize(buffs.size());
+            }
+
+            // calculate downconversion to simulate actual resampling of baseband signal
+            int DDC = 1;
+            if (rx_sample_rate != 0 && rx_sample_rate < tx_sample_rate)
+                DDC = tx_sample_rate / rx_sample_rate;
+
+            for (size_t i = 0; i < buffs.size(); ++i) {
+                // Make sure the internal buffer has enough samples
+                if (internalBuffer[i].size() < num_samps)
+                    num_samps = internalBuffer[i].size();
+
+                // Cast the void* pointer to a writable sample buffer
+                std::complex<int16_t>* out = static_cast<std::complex<int16_t>*>(buffs[i]);
+                
+                if (DDC != 1) {
+                    // write down sampled signal into out
+                    // set num_samps to actual "read" samples - the internal buffer might be empty before desired number is reached
+
+                    // Check if downsampled_samples is smaller than the size of internalBuffer[i]
+                    size_t downsampled_samples = std::min(num_samps, internalBuffer[i].size() / DDC);
+
+                    // Downsample by picking every DDC-th sample from internalBuffer
+                    for (size_t j = 0; j < downsampled_samples; ++j) {
+                        out[j] = internalBuffer[i][j * DDC]; // Take every DDC-th sample
+                    }
+
+                    // Update num_samps to the downsampled sample count
+                    num_samps = downsampled_samples;
+                }
+                else {
+                    // Copy from internal buffer to output buffer
+                    std::copy_n(internalBuffer[i].begin(), num_samps, out);
+                }
+
+            }
+        
+            return num_samps;
+        }
+    
+        virtual size_t transmit_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {          
+            // Ensure internalBuffer has enough sub-vectors
+            if (buffs.size() > internalBuffer.size()) {
+                internalBuffer.resize(buffs.size());
+            }
+  
+            for (int i = 0; i < buffs.size(); i++) {
+                // Cast the void* pointer to the correct type
+                std::complex<int16_t>* samples = static_cast<std::complex<int16_t>*>(buffs[i]);
+
+                // Insert the actual sample data into the internal buffer
+                internalBuffer[i].insert(internalBuffer[i].begin(), samples, samples + num_samps);
+            }
+
+            return num_samps;
+        }
+    
+        virtual size_t num_channels() override { return 1; }
+};
+
+
+
+class USRPManager : public IUSRPManager {
 public:
     USRPManager(const std::string& device_addr, const unsigned int num_channels)
         : device_addr_(device_addr), num_channels_(num_channels)
     {}
 
-    auto usrp_future_time(double from_mow_seconds) {
+    virtual uhd::time_spec_t usrp_future_time(double from_mow_seconds) override {
         return usrp_->get_time_now() + from_mow_seconds;
     }
 
-    void setup_usrp() {
+    virtual void setup_usrp() override {
         usrp_ = uhd::usrp::multi_usrp::make(device_addr_);
         
         // Set clock source to external 10 MHz
@@ -48,7 +161,7 @@ public:
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
-    void setup_rx(double sample_rate, double center_freq, double rx_gain = 10.0) {
+    virtual void setup_rx(double sample_rate, double center_freq, double rx_gain = 10.0) override {
         if (!usrp_) {
             throw std::runtime_error("USRP not initialized. Call setup_usrp() first.");
         }
@@ -86,7 +199,7 @@ public:
         std::cout << "[setup_rx] RX configured: rate = " << sample_rate << ", freq = " << center_freq << "\n";
     }
 
-    void setup_tx(double sample_rate, double center_freq, double tx_gain = 0.0) {
+    virtual void setup_tx(double sample_rate, double center_freq, double tx_gain = 0.0) override {
         if (!usrp_) {
             throw std::runtime_error("USRP not initialized. Call setup_usrp() first.");
         }
@@ -121,7 +234,7 @@ public:
         std::cout << "[setup_tx] TX configured: rate = " << sample_rate << ", freq = " << center_freq << "\n";
     }
 
-    size_t receive_samples(const uhd::rx_streamer::buffs_type &buffs, size_t num_samps, uhd::time_spec_t time_spec) {
+    virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {
         uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE);
         stream_cmd.num_samps = num_samps;
         stream_cmd.stream_now = false;
@@ -129,7 +242,7 @@ public:
         rx_stream_->issue_stream_cmd(stream_cmd);
 
         uhd::rx_metadata_t md;
-        size_t samples_received = rx_stream_->recv(buffs, num_samps, md, 3.0);
+        size_t samples_received = rx_stream_->recv(buffs, num_samps, md, 15.0);
 
         if (md.error_code != uhd::rx_metadata_t::ERROR_CODE_NONE) {
             std::cerr << "Receive error: " << md.strerror() << std::endl;
@@ -139,7 +252,7 @@ public:
         return samples_received;
     }
 
-    size_t transmit_samples(const uhd::tx_streamer::buffs_type &buffs, size_t num_samps, uhd::time_spec_t time_spec) {
+    virtual size_t transmit_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {
         if (!tx_stream_) {
             std::cerr << "TX stream not initialized!\n";
             return 0;
@@ -166,7 +279,7 @@ public:
         return samples_sent;
     }
 
-    size_t transmit_carrier_continuous(const uhd::tx_streamer::buffs_type &buffs, size_t num_samps, double duration_seconds) {
+    size_t transmit_carrier_continuous(const std::vector<void*> &buffs, size_t num_samps, double duration_seconds) {
         if (!tx_stream_) {
             std::cerr << "TX stream not initialized!\n";
             return 0;
@@ -204,9 +317,8 @@ public:
     }
 
 
-    size_t num_channels() const { return num_channels_; }
+    virtual size_t num_channels() override { return num_channels_; }
 
-// private:
 private:
     std::string device_addr_;
     uhd::usrp::multi_usrp::sptr usrp_;
