@@ -28,12 +28,21 @@ print(f"data shape: {data.shape}")
 print(data.shape)
 
 # Separate real and imaginary parts
-real_parts = data[:, 0] #data[0]
-imag_parts = data[:, 1] #data[1]
+real_parts = data[:618*3, 0] #data[0]
+imag_parts = data[:618*3, 1] #data[1]
 
-# carr = np.abs(real_parts + 1j*imag_parts)
+# singleChirp = 618
+# real_parts = data[:singleChirp, 0] #data[0]
+# imag_parts = data[:singleChirp, 1] #data[1]
 
-f, t, Zxx = stft(real_parts, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac, nfft=4096)
+carr = real_parts + 1j*imag_parts
+
+# # delayed rx
+# delay = 1
+# delayed_rx = np.pad(carr[:singleChirp-delay], (delay, 0), 'constant', constant_values=0)
+# mixed = delayed_rx * np.conjugate(carr)
+
+f, t, Zxx = stft(carr, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapFrac, nfft=4096)
 f /= 1e6
 t *= 1e6
 
@@ -56,6 +65,6 @@ plt.xlabel('Sample (Q)')
 plt.subplot(313)
 plt.pcolormesh(t, f, np.abs(Zxx), shading='gouraud')
 plt.ylabel('MHz')
-plt.xlabel('mus (I)')
+plt.xlabel('$\mu$s')
 
 plt.show()
