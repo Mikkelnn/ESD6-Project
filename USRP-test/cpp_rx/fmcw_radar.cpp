@@ -207,6 +207,13 @@ private:
 
             std::cout << "[DEBUG] [FMCWRdar:calibrate_rx_phase] calculated phase offset channel: " << ch << " is (deg): " << (phase_offsets[ch] * 180.0 / PI) << std::endl;
         }
+
+        // // for testing...
+        // time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
+        // _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
+        // recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
+        // // try applying phase fix...
+        // apply_phase_correction(flat_rx_frame_buffer, phase_offsets);
     }
 
     void calibrate_rx_sample_offset() {
@@ -252,8 +259,7 @@ private:
     }
 
     // Cross-correlation for complex int16_t signals
-    int compute_sample_offset(const std::vector<std::complex<int16_t>>& rx_signal,
-                            const std::vector<std::complex<int16_t>>& ref_signal) {
+    int compute_sample_offset(const std::vector<std::complex<int16_t>>& rx_signal, const std::vector<std::complex<int16_t>>& ref_signal) {
         int ref_size = ref_signal.size();
         int rx_size = rx_signal.size();
 
