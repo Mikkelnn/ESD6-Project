@@ -12,7 +12,7 @@ class BeamSteer {
     public:
         BeamSteer(unsigned int antenna_elements) : antenna_elements_(antenna_elements) {}
 
-        int applyBeamformingAngle(int angle_deg, const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, std::vector<std::vector<std::complex<int16_t>>>& output) {
+        int applyBeamformingAngle(int angle_deg, const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, std::vector<std::vector<std::complex<int16_t>>>& output, std::vector<float>& calibrations) {
             if (output.size() != antenna_elements_) {
                 return 1; // Mismatched input lengths
             }
@@ -25,6 +25,9 @@ class BeamSteer {
                 // Phase shift formula: φ = -π * n * sin(θ)
                 float absolute_phase_shift = relative_phase_shift * (float)antenna;
                 //std::cout << "antenna:" << antenna << " absolute_phase_shift" << absolute_phase_shift << "\n";
+
+                // apply calibration
+                absolute_phase_shift += calibrations[antenna];
 
                 // Rad to Deg
                 float theta_deg = absolute_phase_shift * 180.0 / PI;

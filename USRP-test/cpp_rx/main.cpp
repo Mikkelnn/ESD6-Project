@@ -125,11 +125,18 @@ int main() {
         // BIG-TEST
         // radar.startSweep();
 
+        // calibrate system
         radar.calibrate();
 
         // save_rx_buffers_to_csv_complex(radar.beamBuffer, "calibration_test_tx_buffer.csv");
-        // save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "calibrate_rx_phase_raw_data.csv");
-        // save_rx_buffers_to_csv_phase_diff(radar.flat_rx_frame_buffer, "calibrate_rx_phase.csv");
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "calibrate_tx_phase_raw_data.csv");
+        save_rx_buffers_to_csv_phase_diff(radar.flat_rx_frame_buffer, "calibrate_tx_phase.csv");
+
+        // erify TX phase correction
+        radar.startSweep();
+    
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "after_calibrate_tx_phase_raw_data.csv");
+        save_rx_buffers_to_csv_phase_diff(radar.flat_rx_frame_buffer, "after_calibrate_tx_phase.csv");
 
         // tx_rx_test();
 

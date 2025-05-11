@@ -1,6 +1,10 @@
 #include <string>
 #include <chrono>
 #include <future>  // For std::async
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 // #include <conio.h>
 #include <iostream>
 #include "usrp_manager.cpp"
@@ -37,8 +41,9 @@ private:
     int rx_num_samples_chirp = chirp_time * rx_sample_rate; // samples of single chirp
 
     // calibration settings
-    int offset_rx_samples = 102;
-    std::vector<float> phase_offsets; // per channel phase calibration offset
+    int offset_rx_samples = 102; // should just be 102 - determiined by tests
+    std::vector<float> rx_phase_calibrations; // per RX channel phase calibration offset
+    std::vector<float> tx_phase_calibrations; // per TX channel phase calibration offset
 
 public:
     // tx and rx buffers
@@ -60,7 +65,8 @@ public:
         // setup buffers
         beamBuffer = std::vector<std::vector<std::complex<int16_t>>>(num_channels, std::vector<std::complex<int16_t>>(tx_num_samples_chirp_repetition, std::complex<int16_t>(0,0)));
         flat_rx_frame_buffer = std::vector<std::vector<std::complex<int16_t>>>(num_channels, std::vector<std::complex<int16_t>>(rx_num_samples_frame));
-        phase_offsets = std::vector<float>(num_channels, 0.0f);
+        rx_phase_calibrations = std::vector<float>(num_channels, 0.0f);
+        tx_phase_calibrations = std::vector<float>(num_channels, 0.0f);
 
         // Allocate pointer-to-pointer-to-pointer view
         rx_buffer_view = new std::complex<int16_t>**[chirpsInFrame];
@@ -78,7 +84,7 @@ public:
 
         // Step 2: Specific RX / TX setup
         _usrp_mgr->setup_rx(rx_sample_rate, center_freq, 30.0);
-        // _usrp_mgr->setup_tx(tx_sample_rate, center_freq, 0.0); // Low TX gain for safety
+        _usrp_mgr->setup_tx(tx_sample_rate, center_freq, 0.0); // Low TX gain for safety
     }
 
     void startSweep(/*std::chrono::steady_clock currentTime*/) {
@@ -87,7 +93,7 @@ public:
 
         for (int beamAngle = startSweepAngleDeg; beamAngle <= endSweepAngleDeg; beamAngle += sweepResolutionDeg) {
             // steer beam and write to buffer
-            int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
+            int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer, tx_phase_calibrations);
             if (status != 0)
                 std::cerr << "Error while steering beam!" << std::endl;
 
@@ -95,17 +101,21 @@ public:
             startFrame(beamBuffer, flat_rx_frame_buffer);
 
             // correct RX phase
-            apply_phase_correction(flat_rx_frame_buffer, phase_offsets);
+            apply_phase_correction(flat_rx_frame_buffer, rx_phase_calibrations);
         }
     }
 
     void calibrate() {
         // calibrate_rx_sample_offset();
+
         calibrate_rx_phase();
 
+        calibrate_tx_phase();
+
         std::cout << "[FMCWRdar:Calibration] Plase connect antennas to TX/RX ports" << std::endl;
-        std::cout << "Press any key to continue..." << std::endl;
-        std::cin.get(); // wait for user response
+        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        // std::cout << "Press any key to continue..." << std::endl;
+        // std::cin.get(); // wait for user response
     }
 
 private:
@@ -164,7 +174,7 @@ private:
             
             if (phase_offset == 0.0f) continue;
 
-            std::complex<float> rotator = std::polar(1.0f, -phase_offset);  // e^{-jθ}
+            std::complex<float> rotator = std::polar(1.0f, phase_offset);  // e^{-jθ}
 
             for (std::complex<int16_t>& sample : buffer[i]) {
                 std::complex<float> corrected = std::complex<float>(sample.real(), sample.imag()) * rotator;
@@ -174,53 +184,12 @@ private:
     }
 
     // calibration
-    void calibrate_rx_phase() {
-        // tell user to hookup cabels, wait for user OK
-        std::cout << "[FMCWRdar:calibrate_rx_phase] Plase connect signal generator [" << center_freq + 10e6 << " Hz] with splitter to each RX port" << std::endl;
-        std::cout << "Press any key to continue..." << std::endl;
-        // std::cin.get(); // wait for user response
-
-        // sample in data
-        std::vector<void*> rx_buffer_ptrs;
-        for (auto& buf : flat_rx_frame_buffer) rx_buffer_ptrs.push_back(buf.data());
-
-        auto time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
-
-        int test_samples = 1000;
-
-        _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
-        int recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
-        if (recieved < test_samples)
-            std::cout << "[FMCWRdar:calibrate_rx_phase] Error only received: " << recieved << " of " << test_samples << std::endl;
-
-        // determin phase correction
-        for (size_t ch = 1; ch < num_channels; ++ch) {
-            std::complex<float> sum = 0.0f;
-
-            for (size_t i = 0; i < test_samples; ++i) {
-                auto ref = std::complex<float>(flat_rx_frame_buffer[0][i].real(), flat_rx_frame_buffer[0][i].imag());
-                auto cur = std::complex<float>(flat_rx_frame_buffer[ch][i].real(), flat_rx_frame_buffer[ch][i].imag());
-                sum += cur * std::conj(ref);
-            }
-
-            phase_offsets[ch] = std::arg(sum); // in radians
-
-            std::cout << "[DEBUG] [FMCWRdar:calibrate_rx_phase] calculated phase offset channel: " << ch << " is (deg): " << (phase_offsets[ch] * 180.0 / PI) << std::endl;
-        }
-
-        // // for testing...
-        // time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
-        // _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
-        // recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
-        // // try applying phase fix...
-        // apply_phase_correction(flat_rx_frame_buffer, phase_offsets);
-    }
-
     void calibrate_rx_sample_offset() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] Plase connect loopback cabels between each TX/RX pair" << std::endl;
-        std::cout << "Press any key to continue..." << std::endl;
-        std::cin.get(); // wait for user response
+        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        // std::cout << "Press any key to continue..." << std::endl;
+        // std::cin.get(); // wait for user response
         
         
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] Starting calibration of " << num_channels << " RX channels.." << std::endl;
@@ -231,7 +200,7 @@ private:
         
         // steer beam and write to buffer
         int beamAngle = 0; // calibrate using zero shift
-        int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
+        int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer, tx_phase_calibrations);
         if (status != 0)
             std::cerr << "Error while steering beam!" << std::endl;
 
@@ -256,6 +225,92 @@ private:
         offset_rx_samples = (int)((double)offset_sum / (double)num_channels);
 
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] offset rx samples: " << offset_rx_samples << std::endl;
+    }
+
+    void calibrate_rx_phase() {
+        // tell user to hookup cabels, wait for user OK
+        std::cout << "[FMCWRdar:calibrate_rx_phase] Plase connect signal generator [" << center_freq + 10e6 << " Hz] with splitter to each RX port" << std::endl;
+        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        // std::cout << "Press any key to continue..." << std::endl;
+        // std::cin.get(); // wait for user response
+
+        // sample in data
+        int test_samples = 1000;
+
+        std::vector<void*> rx_buffer_ptrs;
+        for (auto& buf : flat_rx_frame_buffer) rx_buffer_ptrs.push_back(buf.data());
+
+        auto time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
+
+        _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
+        int recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
+        if (recieved < test_samples)
+            std::cout << "[FMCWRdar:calibrate_rx_phase] Error only received: " << recieved << " of " << test_samples << std::endl;
+
+        // determin phase correction
+        estimate_phase_offsets(flat_rx_frame_buffer, test_samples, rx_phase_calibrations);
+
+        // // for testing...
+        // time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
+        // _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
+        // recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
+        // // try applying phase fix...
+        // apply_phase_correction(flat_rx_frame_buffer, rx_phase_calibrations);
+    }
+
+    void calibrate_tx_phase() {
+        // tell user to hookup cabels, wait for user OK
+        std::cout << "[FMCWRdar:calibrate_tx_phase] Plase connect loopback cabels between each TX/RX pair - IMPORTNT: use actual tx antenna cabels" << std::endl;
+        wait_for_user_input_non_blocking(600); // wait up to 10 minutes
+
+        std::cout << "[DEBUG] started.." << std::endl;
+
+        // get test signal
+        int test_samples = 1000;
+        auto buffer = generate_tone_10mhz(test_samples, tx_sample_rate);
+
+        std::vector<void*> rx_buffer_ptrs;
+        for (auto& buf : flat_rx_frame_buffer) rx_buffer_ptrs.push_back(buf.data());
+
+        // transmit and recieve buffer
+        std::vector<void*> beamBuffer_ptrs;
+        for (int i = 0; i < num_channels; ++i) 
+            beamBuffer_ptrs.push_back(buffer.data()); // point to same buffer
+
+         std::cout << "[DEBUG] before TX/RX..." << std::endl;
+
+        auto time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
+
+        _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
+
+        // Launch RX in async thread and get future
+        auto rx_future = std::async(std::launch::async, [&]() {
+            return _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
+        });
+
+        // Launch TX in async thread and get future
+        auto tx_future = std::async(std::launch::async, [&]() {
+            return _usrp_mgr->transmit_samples(beamBuffer_ptrs, test_samples, time_spec_future);
+        });
+
+        // Wait for results
+        size_t samples_sent = tx_future.get();
+        size_t samples_received = rx_future.get();
+
+        std::cout << "[DEBUG] after TX/RX..." << std::endl;
+
+        if (samples_sent != tx_num_samples_frame) {
+            std::cerr << "[FMCW-RADAR] Warning: Only sent " << samples_sent << " out of " << tx_num_samples_frame << " samples.\n";
+        }
+
+        if (samples_received != rx_num_samples_frame) {
+            std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_received << " samples, expected: " << rx_num_samples_frame << std::endl;
+        }
+
+        // determine calibration values
+        estimate_phase_offsets(flat_rx_frame_buffer, test_samples, tx_phase_calibrations);
+
+        std::cout << "[DEBUG] after estimation..." << std::endl;
     }
 
     // Cross-correlation for complex int16_t signals
@@ -288,4 +343,85 @@ private:
         return peak_index;  // Sample offset in rx_signal
     }
 
+    // used to generate calibration tone for TX phase allignment 
+    std::vector<std::complex<int16_t>> generate_tone_10mhz(size_t length, float sample_rate) {
+        const float freq = 10e6; // 10 MHz
+        const float omega = 2 * M_PI * freq / sample_rate;
+        const size_t amplitude = 32767;
+
+        std::vector<std::complex<int16_t>> buffer(length);
+
+        for (size_t n = 0; n < length; ++n) {
+            float phase = omega * n;
+            float re = std::round(amplitude * std::cos(phase));
+            float im = std::round(amplitude * std::sin(phase));
+
+            buffer[n] = std::complex<int16_t>(re, im);
+        }
+
+        return buffer;
+    }
+
+    // used to determin RX and TX phase calibration values
+    void estimate_phase_offsets(const std::vector<std::vector<std::complex<int16_t>>>& buffers, int test_samples, std::vector<float>& corrections) {
+        for (size_t ch = 1; ch < num_channels; ++ch) {
+            std::complex<float> sum = 0.0f;
+
+            for (size_t i = 0; i < test_samples; ++i) {
+                auto ref = std::complex<float>(buffers[0][i].real(), buffers[0][i].imag());
+                auto cur = std::complex<float>(buffers[ch][i].real(), buffers[ch][i].imag());
+                sum += cur * std::conj(ref);
+            }
+
+            corrections[ch] = -std::arg(sum); // in radians
+
+            std::cout << "[DEBUG] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: " << ch << " is (deg): " << (corrections[ch] * 180.0 / PI) << std::endl;
+        }
+    }
+
+    void set_terminal_nonblocking(bool enable) {
+        static termios oldt;
+        static bool is_enabled = false;
+
+        if (enable && !is_enabled) {
+            termios newt;
+            tcgetattr(STDIN_FILENO, &oldt);
+            newt = oldt;
+            newt.c_lflag &= ~(ICANON | ECHO); // Disable canonical mode & echo
+            tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+            int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+            fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+
+            is_enabled = true;
+        } else if (!enable && is_enabled) {
+            tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Restore terminal
+            int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+            fcntl(STDIN_FILENO, F_SETFL, flags & ~O_NONBLOCK);
+
+            is_enabled = false;
+        }
+    }
+
+    bool wait_for_user_input_non_blocking(int timeout_seconds = 600) {
+        set_terminal_nonblocking(true);
+
+        std::cout << "Press any key to continue setup (or wait " << timeout_seconds << " seconds)..." << std::endl;
+
+        for (int i = 0; i < timeout_seconds; ++i) {
+            char ch;
+            if (read(STDIN_FILENO, &ch, 1) > 0) {
+                std::cout << "\nKey pressed: continuing.\n";
+                set_terminal_nonblocking(false);
+                return true;
+            }
+
+            if (i % 10 == 0) std::cout << "." << std::flush;
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+
+        std::cout << "\nTimeout reached. Continuing anyway.\n";
+        set_terminal_nonblocking(false);
+        return false;
+    }
 };
