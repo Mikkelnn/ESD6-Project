@@ -21,7 +21,7 @@ class IUSRPManager {
 
         virtual void issue_stream_cmd(size_t num_samps, uhd::time_spec_t time_spec) = 0;
 
-        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) = 0;
+        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, size_t skip_samples = 0) = 0;
     
         virtual size_t transmit_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) = 0;
     
@@ -59,7 +59,7 @@ class USRPManager_Mock : public IUSRPManager {
             std::cout << "[USRPManager_Mock] issue_stream_cmd called.." << std::endl;
         }
 
-        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {
+        virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, size_t skip_samples = 0) override {
             // Ensure internalBuffer has enough sub-vectors
             if (buffs.size() > internalBuffer.size()) {
                 internalBuffer.resize(buffs.size());
@@ -278,14 +278,14 @@ public:
         rx_stream_->issue_stream_cmd(stream_cmd);
     }
 
-    virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) override {
+    virtual size_t receive_samples(const std::vector<void*> &buffs, size_t num_samps, size_t skip_samples = 0) override {
         // uhd::rx_metadata_t md;
         // size_t samples_received = rx_stream_->recv(buffs, num_samps, md, 15.0);
 
         const size_t spp = 360;  // samples per packet (tune as needed)
         uhd::rx_metadata_t md;
         size_t samples_received = 0;
-        double timeout = 1.0;  // Increase for large bursts
+        double timeout = 2.0;  // Increase for large bursts
 
         while (samples_received < num_samps) {
             size_t samps_to_recv = std::min(spp, num_samps - samples_received);
@@ -296,6 +296,14 @@ public:
                     static_cast<void*>(static_cast<std::complex<int16_t>*>(buffs[ch]) + samples_received)
                 );
             }
+
+            // skip fris N sampls
+            if (samples_received == 0 && skip_samples > 0) {
+                size_t skipped = rx_stream_->recv(chunk_ptrs, skip_samples, md, timeout);
+                skip_samples -= skipped;
+                continue;
+            }
+
 
             size_t rx_count = rx_stream_->recv(chunk_ptrs, samps_to_recv, md, timeout);
 

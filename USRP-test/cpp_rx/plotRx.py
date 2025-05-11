@@ -9,7 +9,7 @@ windowsSize = 32
 overlapFrac = 7/10 # 1/2 = 50% windows overlap
 
 # Load rx_data from CSV
-rx_data = np.loadtxt('chirps_12_data_tx_rx_ant_20db_tx.csv', delimiter=',', skiprows=1)
+rx_data = np.loadtxt('calibration_test_rx_buf.csv', delimiter=',', skiprows=1)
 tx_data = np.loadtxt('chirps_12_data_tx.csv', delimiter=',', skiprows=1)
 
 # rx_data = []
