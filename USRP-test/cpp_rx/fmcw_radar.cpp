@@ -1,5 +1,6 @@
 #include <string>
 #include <chrono>
+#include <future>  // For std::async
 // #include <iostream>
 #include "usrp_manager.cpp"
 #include "../../Beamforming/beamSteering.cpp"
@@ -9,8 +10,8 @@ class FMCWRadar {
 private:
     // RF settings
     unsigned int num_channels = 1;
-    double rx_sample_rate = 61.440e6; // 49.152e6;
-    double tx_sample_rate = 245.760e6;
+    double rx_sample_rate = 61.440e6;
+    double tx_sample_rate = 61.440e6; // 245.760e6;
     double center_freq = 5.8e9;
 
     // classes used
@@ -18,15 +19,15 @@ private:
     std::unique_ptr<BeamSteer> _beam_steer;
 
     // "user" settings
-    int chirpsInFrame = 128; // 128;
+    int chirpsInFrame = 12; // 128;
     int startSweepAngleDeg = 0; // -60;
     int endSweepAngleDeg = 0; // 60;
     int sweepResolutionDeg = 5;
 
     // timings/settings
-    double chirp_repetition = 11e-6; // 11 micro seconds
-    double chirp_time = 10e-6; // 10 micro seconds
-    int tx_chirp_samples_length = 2457; // static from "chirps.h"
+    double chirp_repetition = 4.8e-6; // micro seconds
+    double chirp_time = 3.2e-6; // 10 micro seconds
+    int tx_chirp_samples_length = 196; // static from "chirps.h"
     int tx_num_samples_chirp_repetition = chirp_repetition * tx_sample_rate; // samples during a single chirp + tailing spaceing
     int tx_num_samples_frame = chirp_repetition * (double)chirpsInFrame * tx_sample_rate;
 
@@ -44,8 +45,8 @@ public:
 
 public:
     FMCWRadar() {
-        // _usrp_mgr = std::make_unique<USRPManager>("addr=192.168.1.2", num_channels);
-        _usrp_mgr = std::make_unique<USRPManager_Mock>();
+        _usrp_mgr = std::make_unique<USRPManager>("addr=192.168.1.2", num_channels, tx_num_samples_frame, rx_num_samples_frame);
+        // _usrp_mgr = std::make_unique<USRPManager_Mock>();
         _beam_steer = std::make_unique<BeamSteer>(num_channels);
 
         if (rx_num_samples_frame % 2 != 0)
@@ -70,11 +71,9 @@ public:
         // Step 1: General device setup
         _usrp_mgr->setup_usrp();
 
-
-
         // Step 2: Specific RX / TX setup
         _usrp_mgr->setup_rx(rx_sample_rate, center_freq, 20.0);
-        _usrp_mgr->setup_tx(tx_sample_rate, center_freq, 0.0); // Low TX gain for safety
+        _usrp_mgr->setup_tx(tx_sample_rate, center_freq, 20.0); // Low TX gain for safety
     }
 
     void startSweep(/*std::chrono::steady_clock currentTime*/) {
@@ -112,33 +111,31 @@ public:
         std::vector<void*> beamBuffer_ptrs;
         for (auto& buf : tx_frame_buffer) beamBuffer_ptrs.push_back(buf.data());
 
-        auto time_spec_100ms_future = _usrp_mgr->usrp_future_time(5); // 100ms from now
+        auto time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
 
-        // for (int i = 0; i < chirpsInFrame; i++) {
-        //     // auto chirp_tx_time = time_spec_100ms_future + ((double)i * chirp_repetition); // schedule chirps
-        //     // schedule chirp TX
-        //     // size_t samples_sent = _usrp_mgr->transmit_samples(beamBuffer_ptrs, tx_chirp_samples_length, chirp_tx_time);
-        //     // size_t samples_sent = _usrp_mgr->transmit_samples(beamBuffer_ptrs, tx_num_samples_chirp_repetition, chirp_tx_time);
+        _usrp_mgr->issue_stream_cmd(rx_num_samples_frame, time_spec_future);
 
-        //     // if (samples_sent != tx_num_samples_chirp_repetition) {
-        //     //     std::cerr << "Warning: Only sent " << samples_sent << " out of " << tx_num_samples_chirp_repetition << " samples.\n";
-        //     // }            
-        // }
+        // Launch RX in async thread and get future
+        auto rx_future = std::async(std::launch::async, [&]() {
+            return _usrp_mgr->receive_samples(rx_buffer_ptrs, rx_num_samples_frame, time_spec_future);
+        });
 
-        size_t samples_sent = _usrp_mgr->transmit_samples(beamBuffer_ptrs, tx_num_samples_frame, time_spec_100ms_future);
-        
+        // Launch TX in async thread and get future
+        auto tx_future = std::async(std::launch::async, [&]() {
+            return _usrp_mgr->transmit_samples(beamBuffer_ptrs, tx_num_samples_frame, time_spec_future);
+        });
+
+        // Wait for results
+        size_t samples_sent = tx_future.get();
+        size_t samples_received = rx_future.get();
+
+
         if (samples_sent != tx_num_samples_frame) {
-                std::cerr << "Warning: Only sent " << samples_sent << " out of " << tx_num_samples_frame << " samples.\n";
+            std::cerr << "[FMCW-RADAR] Warning: Only sent " << samples_sent << " out of " << tx_num_samples_frame << " samples.\n";
         }
 
-
-        // send all chirps by repeating single chirp N times, done by setting num_samples = chirps * single_chirp_repition
-        // _usrp_mgr->transmit_samples(beamBuffer_ptrs, tx_num_samples_frame, time_spec_100ms_future);
-
-        // schedule simultanious rx, continuous over an enire frame
-        int samples_in_frame_recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, rx_num_samples_frame, time_spec_100ms_future);
-        if (samples_in_frame_recieved != rx_num_samples_frame) {
-            std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_in_frame_recieved << " samples, expected: " << rx_num_samples_frame << std::endl;
+        if (samples_received != rx_num_samples_frame) {
+            std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_received << " samples, expected: " << rx_num_samples_frame << std::endl;
         }
     }
 };

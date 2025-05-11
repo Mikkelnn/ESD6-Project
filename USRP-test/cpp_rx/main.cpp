@@ -113,16 +113,18 @@ int tx_rx_test() {
     return 0;
 }
 
+
 int main() {
     try {
-        
+
         FMCWRadar radar = FMCWRadar();
         radar.initialize();
 
         // BIG-TEST
         radar.startSweep();
 
-        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_128_data_local.csv");
+        save_rx_buffers_to_csv_complex(radar.beamBuffer, "chirps_12_data_tx.csv");
+        // save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_12_data_tx_rx_ant.csv");
 
         // tx_rx_test();
 
