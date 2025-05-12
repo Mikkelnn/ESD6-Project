@@ -38,8 +38,11 @@ class BeamSteer {
                 //std::cout << "antenna:" << antenna << " absolute_phase_shift" << absolute_phase_shift << "\n";
 
                 // apply calibration if available
-                if (calibrations_.size() == antenna_elements_)
+                if (calibrations_.size() == antenna_elements_) {
                     absolute_phase_shift += calibrations_[antenna];
+                    std::cout << "Apply correction of (rad): " << calibrations_[antenna] << std::endl;
+                }
+                    
 
                 // Rad to Deg
                 float theta_deg = absolute_phase_shift * 180.0 / PI;

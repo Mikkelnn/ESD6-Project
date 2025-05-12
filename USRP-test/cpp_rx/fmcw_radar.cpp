@@ -41,7 +41,7 @@ private:
     int rx_num_samples_chirp = chirp_time * rx_sample_rate; // samples of single chirp
 
     // calibration settings
-    int offset_rx_samples = 102; // should just be 102 - determiined by tests
+    int offset_rx_samples = 0; // should just be 102 - determiined by tests
     std::vector<float> rx_phase_calibrations; // per RX channel phase calibration offset
     std::vector<float> tx_phase_calibrations; // per TX channel phase calibration offset
 
@@ -91,6 +91,17 @@ public:
         std::vector<int16_t> I_vec(I_chirp, I_chirp + tx_chirp_samples_length);
         std::vector<int16_t> Q_vec(Q_chirp, Q_chirp + tx_chirp_samples_length);
 
+        // auto buffer = generate_tone_10mhz(tx_chirp_samples_length, tx_sample_rate);
+        // for (int i = 0; i < tx_chirp_samples_length; i++) {
+        //     // I_vec[i] = buffer[i].real();
+        //     // Q_vec[i] = buffer[i].imag();
+        //     beamBuffer[0][i] = buffer[i];
+        //     beamBuffer[1][i] = buffer[i];
+        //     beamBuffer[2][i] = buffer[i];
+        //     beamBuffer[3][i] = buffer[i];
+        // }
+        // apply_phase_correction(beamBuffer, tx_phase_calibrations);
+
         for (int beamAngle = startSweepAngleDeg; beamAngle <= endSweepAngleDeg; beamAngle += sweepResolutionDeg) {
             // steer beam and write to buffer
             int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
@@ -106,16 +117,13 @@ public:
     }
 
     void calibrate() {
-        // calibrate_rx_sample_offset();
 
+        calibrate_rx_sample_offset();
         calibrate_rx_phase();
-
         calibrate_tx_phase();
 
         std::cout << "[FMCWRdar:Calibration] Plase connect antennas to TX/RX ports" << std::endl;
-        wait_for_user_input_non_blocking(); // wait up to 5 minutes
-        // std::cout << "Press any key to continue..." << std::endl;
-        // std::cin.get(); // wait for user response
+        wait_for_user_input_non_blocking();
     }
 
 private:
@@ -187,9 +195,7 @@ private:
     void calibrate_rx_sample_offset() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] Plase connect loopback cabels between each TX/RX pair" << std::endl;
-        wait_for_user_input_non_blocking(); // wait up to 5 minutes
-        // std::cout << "Press any key to continue..." << std::endl;
-        // std::cin.get(); // wait for user response
+        wait_for_user_input_non_blocking();
         
         
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] Starting calibration of " << num_channels << " RX channels.." << std::endl;
@@ -230,9 +236,7 @@ private:
     void calibrate_rx_phase() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_rx_phase] Plase connect signal generator [" << center_freq + 10e6 << " Hz] with splitter to each RX port" << std::endl;
-        wait_for_user_input_non_blocking(); // wait up to 5 minutes
-        // std::cout << "Press any key to continue..." << std::endl;
-        // std::cin.get(); // wait for user response
+        wait_for_user_input_non_blocking();
 
         // sample in data
         int test_samples = 1000;
@@ -249,21 +253,12 @@ private:
 
         // determin phase correction
         estimate_phase_offsets(flat_rx_frame_buffer, test_samples, rx_phase_calibrations);
-
-        // // for testing...
-        // time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
-        // _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
-        // recieved = _usrp_mgr->receive_samples(rx_buffer_ptrs, test_samples, offset_rx_samples);
-        // // try applying phase fix...
-        // apply_phase_correction(flat_rx_frame_buffer, rx_phase_calibrations);
     }
 
     void calibrate_tx_phase() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_tx_phase] Plase connect loopback cabels between each TX/RX pair - IMPORTNT: use actual tx antenna cabels" << std::endl;
         wait_for_user_input_non_blocking(); // wait up to 10 minutes
-
-        std::cout << "[DEBUG] started.." << std::endl;
 
         // get test signal
         int test_samples = 1000;
@@ -277,10 +272,7 @@ private:
         for (int i = 0; i < num_channels; ++i) 
             beamBuffer_ptrs.push_back(buffer.data()); // point to same buffer
 
-         std::cout << "[DEBUG] before TX/RX..." << std::endl;
-
         auto time_spec_future = _usrp_mgr->usrp_future_time(1); // 100ms from now
-
         _usrp_mgr->issue_stream_cmd(test_samples + offset_rx_samples, time_spec_future);
 
         // Launch RX in async thread and get future
@@ -297,14 +289,12 @@ private:
         size_t samples_sent = tx_future.get();
         size_t samples_received = rx_future.get();
 
-        std::cout << "[DEBUG] after TX/RX..." << std::endl;
-
-        if (samples_sent != tx_num_samples_frame) {
-            std::cerr << "[FMCW-RADAR] Warning: Only sent " << samples_sent << " out of " << tx_num_samples_frame << " samples.\n";
+        if (samples_sent != test_samples) {
+            std::cerr << "[FMCW-RADAR] Warning: Only sent " << samples_sent << " out of " << test_samples << " samples.\n";
         }
 
-        if (samples_received != rx_num_samples_frame) {
-            std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_received << " samples, expected: " << rx_num_samples_frame << std::endl;
+        if (samples_received != test_samples) {
+            std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_received << " samples, expected: " << test_samples << std::endl;
         }
 
         // apply rx corrections before determin TX corrections
@@ -313,8 +303,6 @@ private:
         // determine calibration values
         estimate_phase_offsets(flat_rx_frame_buffer, test_samples, tx_phase_calibrations);
         _beam_steer->applyCalibrations(tx_phase_calibrations);
-
-        std::cout << "[DEBUG] after estimation..." << std::endl;
     }
 
     // Cross-correlation for complex int16_t signals
@@ -377,9 +365,9 @@ private:
                 sum += cur * std::conj(ref);
             }
 
-            corrections[ch] = -std::arg(sum); // in radians
+            corrections[ch] = -1.0f * std::arg(sum); // in radians
 
-            std::cout << "[DEBUG] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: " << ch << " is (deg): " << (corrections[ch] * 180.0 / PI) << std::endl;
+            std::cout << "[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: " << ch << " is (deg): " << (corrections[ch] * 180.0 / PI) << std::endl;
         }
     }
 
