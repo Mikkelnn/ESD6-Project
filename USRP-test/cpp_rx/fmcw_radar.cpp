@@ -93,7 +93,7 @@ public:
 
         for (int beamAngle = startSweepAngleDeg; beamAngle <= endSweepAngleDeg; beamAngle += sweepResolutionDeg) {
             // steer beam and write to buffer
-            int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer, tx_phase_calibrations);
+            int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
             if (status != 0)
                 std::cerr << "Error while steering beam!" << std::endl;
 
@@ -200,7 +200,7 @@ private:
         
         // steer beam and write to buffer
         int beamAngle = 0; // calibrate using zero shift
-        int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer, tx_phase_calibrations);
+        int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
         if (status != 0)
             std::cerr << "Error while steering beam!" << std::endl;
 
@@ -312,6 +312,7 @@ private:
 
         // determine calibration values
         estimate_phase_offsets(flat_rx_frame_buffer, test_samples, tx_phase_calibrations);
+        _beam_steer->applyCalibrations(tx_phase_calibrations);
 
         std::cout << "[DEBUG] after estimation..." << std::endl;
     }
