@@ -113,7 +113,7 @@ public:
         calibrate_tx_phase();
 
         std::cout << "[FMCWRdar:Calibration] Plase connect antennas to TX/RX ports" << std::endl;
-        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        wait_for_user_input_non_blocking(); // wait up to 5 minutes
         // std::cout << "Press any key to continue..." << std::endl;
         // std::cin.get(); // wait for user response
     }
@@ -187,7 +187,7 @@ private:
     void calibrate_rx_sample_offset() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_rx_sample_offset] Plase connect loopback cabels between each TX/RX pair" << std::endl;
-        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        wait_for_user_input_non_blocking(); // wait up to 5 minutes
         // std::cout << "Press any key to continue..." << std::endl;
         // std::cin.get(); // wait for user response
         
@@ -230,7 +230,7 @@ private:
     void calibrate_rx_phase() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_rx_phase] Plase connect signal generator [" << center_freq + 10e6 << " Hz] with splitter to each RX port" << std::endl;
-        wait_for_user_input_non_blocking(300); // wait up to 5 minutes
+        wait_for_user_input_non_blocking(); // wait up to 5 minutes
         // std::cout << "Press any key to continue..." << std::endl;
         // std::cin.get(); // wait for user response
 
@@ -261,7 +261,7 @@ private:
     void calibrate_tx_phase() {
         // tell user to hookup cabels, wait for user OK
         std::cout << "[FMCWRdar:calibrate_tx_phase] Plase connect loopback cabels between each TX/RX pair - IMPORTNT: use actual tx antenna cabels" << std::endl;
-        wait_for_user_input_non_blocking(600); // wait up to 10 minutes
+        wait_for_user_input_non_blocking(); // wait up to 10 minutes
 
         std::cout << "[DEBUG] started.." << std::endl;
 
@@ -406,16 +406,19 @@ private:
         }
     }
 
-    bool wait_for_user_input_non_blocking(int timeout_seconds = 600) {
+    bool wait_for_user_input_non_blocking() {
+        _usrp_mgr->start_keepalive();
         set_terminal_nonblocking(true);
 
-        std::cout << "Press any key to continue setup (or wait " << timeout_seconds << " seconds)..." << std::endl;
-
-        for (int i = 0; i < timeout_seconds; ++i) {
+        std::cout << "Press any key to continue setup..." << std::endl;
+        
+        int i = 0;
+        while (true) { // wait indefenetly for user
             char ch;
             if (read(STDIN_FILENO, &ch, 1) > 0) {
                 std::cout << "\nKey pressed: continuing.\n";
                 set_terminal_nonblocking(false);
+                _usrp_mgr->stop_keepalive();
                 return true;
             }
 
@@ -423,9 +426,10 @@ private:
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
 
-        std::cout << "\nTimeout reached. Continuing anyway.\n";
-        set_terminal_nonblocking(false);
-        return false;
+        // std::cout << "\nTimeout reached. Continuing anyway.\n";
+        // set_terminal_nonblocking(false);
+        // _usrp_mgr->stop_keepalive();
+        // return false;
     }
 
 };
