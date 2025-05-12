@@ -403,16 +403,16 @@ void test_real_signal(){
 
 
 int main() {
-    // test_zero_phase();
-    // test_basic_projection();
-    // test_negative_phase();
-    // test_empty_input();
-    // test_length_mismatch();
-    // test_tx_buffer_size();
-    // test_zero_angle_preserves_IQ();
-    // test_positive_beam_angle_shift();
-    // test_negative_angle_phase_shift();
-    // test_same_amplitude_multiple_angles();
+    test_zero_phase();
+    test_basic_projection();
+    test_negative_phase();
+    test_empty_input();
+    test_length_mismatch();
+    test_tx_buffer_size();
+    test_zero_angle_preserves_IQ();
+    test_positive_beam_angle_shift();
+    test_negative_angle_phase_shift();
+    test_same_amplitude_multiple_angles();
     test_real_signal();
     std::cout << "🎉 All tests passed!\n";
     return 0;
