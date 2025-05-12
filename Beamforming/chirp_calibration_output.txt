@@ -1,0 +1,79 @@
+[INFO] [UHD] linux; GNU C++ version 14.2.0; Boost_108300; UHD_4.8.0.0+ds1-2
+[INFO] [MPMD] Initializing 1 device(s) in parallel with args: mgmt_addr=192.168.1.2,type=x4xx,product=x410,serial=322ED53,name=ni-x4xx-322ED53,fpga=X4_200,claimed=False,addr=192.168.1.2,recv_buff_size=816000,send_buff_size=307200
+[INFO] [MPM.PeriphManager.ClkMgr] Using Clock Configuration:
+DB0: Master Clock Rate: 245.76 MSps @Converter Rate 2.94912 GHz
+DB1: Master Clock Rate: 245.76 MSps @Converter Rate 2.94912 GHz
+[INFO] [MPM.PeriphManager] init() called with device args `fpga=X4_200,mgmt_addr=192.168.1.2,name=ni-x4xx-322ED53,product=x410,recv_buff_size=816000,send_buff_size=307200,clock_source=internal,time_source=internal,initializing=True'.
+[INFO] [0/Radio#0] Clocking reconfigured, running ADC Self Cal on DB0...
+[INFO] [0/Radio#0] Calibrating channel 0...
+[INFO] [0/Radio#0] Calibrating channel 1...
+[INFO] [0/Radio#0] Calibrated 2 channels.
+[INFO] [0/Radio#1] Clocking reconfigured, running ADC Self Cal on DB1...
+[INFO] [0/Radio#1] Calibrating channel 2...
+[INFO] [0/Radio#1] Calibrating channel 3...
+[INFO] [0/Radio#1] Calibrated 2 channels.
+[USRPManager] usrp made with args: addr=192.168.1.2,recv_buff_size=816000,send_buff_size=307200
+[INFO] [MPM.PeriphManager.ClkMgr] Using Clock Configuration:
+DB0: Master Clock Rate: 245.76 MSps @Converter Rate 2.94912 GHz
+DB1: Master Clock Rate: 245.76 MSps @Converter Rate 2.94912 GHz
+[INFO] [0/Radio#0] Clocking reconfigured, running ADC Self Cal on DB0...
+[INFO] [0/Radio#0] Calibrating channel 0...
+[INFO] [0/Radio#0] Calibrating channel 1...
+[INFO] [0/Radio#0] Calibrated 2 channels.
+[INFO] [0/Radio#1] Clocking reconfigured, running ADC Self Cal on DB1...
+[INFO] [0/Radio#1] Calibrating channel 2...
+[INFO] [0/Radio#1] Calibrating channel 3...
+[INFO] [0/Radio#1] Calibrated 2 channels.
+External 10 MHz clock locked.
+[setup_usrp] USRP device created and basic configuration done.
+[INFO] [0/Radio#0::RFDC] Resetting 1 gearbox(es)...
+[INFO] [0/Radio#1::RFDC] Resetting 1 gearbox(es)...
+[WARNING] [0/Radio#0] Attempting to set tick rate to 0. Skipping.
+[WARNING] [0/Radio#1] Attempting to set tick rate to 0. Skipping.
+[setup_rx] RX configured: rate = 6.144e+07, freq = 5.8e+09
+[INFO] [0/Radio#0::RFDC] Resetting 1 gearbox(es)...
+[INFO] [0/Radio#1::RFDC] Resetting 1 gearbox(es)...
+[WARNING] [0/Radio#1] Attempting to set tick rate to 0. Skipping.
+[WARNING] [0/Radio#0] Attempting to set tick rate to 0. Skipping.
+[setup_tx] TX configured: rate = 6.144e+07, freq = 5.8e+09
+[FMCWRdar:calibrate_rx_sample_offset] Plase connect loopback cabels between each TX/RX pair
+Press any key to continue setup...
+...............
+Key pressed: continuing.
+[FMCWRdar:calibrate_rx_sample_offset] Starting calibration of 4 RX channels..
+Apply correction of (rad): 0
+Apply correction of (rad): 0
+Apply correction of (rad): 0
+Apply correction of (rad): 0
+DEBUG] [FMCWRdar:calibrate_rx_sample_offset] window_size: 590
+[DEBUG] [FMCWRdar:calibrate_rx_sample_offset] calculated offset channel: 0 is (samples): 102
+[DEBUG] [FMCWRdar:calibrate_rx_sample_offset] calculated offset channel: 1 is (samples): 102
+[DEBUG] [FMCWRdar:calibrate_rx_sample_offset] calculated offset channel: 2 is (samples): 102
+[DEBUG] [FMCWRdar:calibrate_rx_sample_offset] calculated offset channel: 3 is (samples): 102
+[FMCWRdar:calibrate_rx_sample_offset] offset rx samples: 102
+[FMCWRdar:calibrate_rx_phase] Plase connect signal generator [5.81e+09 Hz] with splitter to each RX port
+Press any key to continue setup...
+.......................................................................................................................................................................................................................
+Key pressed: continuing.
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 1 is (deg): 160.918
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 2 is (deg): -21.6761
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 3 is (deg): -29.9845
+[FMCWRdar:calibrate_tx_phase] Plase connect loopback cabels between each TX/RX pair - IMPORTNT: use actual tx antenna cabels
+Press any key to continue setup...
+...........................................................................................................................
+Key pressed: continuing.
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 1 is (deg): 164.571
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 2 is (deg): 103.118
+[INFO] [FMCWRdar:calibrate_rx/tx_phase] calculated phase offset channel: 3 is (deg): -164.307
+[FMCWRdar:Calibration] Plase connect antennas to TX/RX ports
+Press any key to continue setup...
+.......................
+Key pressed: continuing.
+Saved 3540 samples from 4 channels to calibrate_tx_phase_raw_data.csv
+Saved 3540 samples from 4 channels to calibrate_tx_phase.csv
+Apply correction of (rad): 0
+Apply correction of (rad): 2.87231
+Apply correction of (rad): 1.79974
+Apply correction of (rad): -2.86769
+Saved 3540 samples from 4 channels to after_calibrate_tx_phase_raw_data.csv
+Saved 3540 samples from 4 channels to after_calibrate_tx_phase.csv
