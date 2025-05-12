@@ -8,26 +8,38 @@
 class BeamSteer {
     private:
         unsigned int antenna_elements_;
+        std::vector<float> calibrations_;
 
     public:
-        BeamSteer(unsigned int antenna_elements) : antenna_elements_(antenna_elements) {}
+        BeamSteer(unsigned int antenna_elements) : antenna_elements_(antenna_elements) {
+            calibrations_ = std::vector<float>(antenna_elements_, 0.0f);
+        }
 
-        int applyBeamformingAngle(int angle_deg, const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, std::vector<std::vector<std::complex<int16_t>>>& output, std::vector<float>& calibrations) {
+        void applyCalibrations(std::vector<float>& calibrations) {
+            if (calibrations.size() != calibrations_.size())
+                return;
+
+            for (int i = 0; i < calibrations.size(); i++) 
+                calibrations_[i] = calibrations[i];
+        }
+
+        int applyBeamformingAngle(int angle_deg, const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, std::vector<std::vector<std::complex<int16_t>>>& output) {
             if (output.size() != antenna_elements_) {
                 return 1; // Mismatched input lengths
             }
             
             float theta = angle_deg * PI / 180.0;
             float relative_phase_shift = -PI * sinf(theta);
-            //std::cout << "relative_phase_shift:" << relative_phase_shift << "\n";
+            // std::cout << "relative_phase_shift:" << relative_phase_shift << "\n";
 
             for (int antenna = 0; antenna < antenna_elements_; ++antenna) {
                 // Phase shift formula: φ = -π * n * sin(θ)
                 float absolute_phase_shift = relative_phase_shift * (float)antenna;
                 //std::cout << "antenna:" << antenna << " absolute_phase_shift" << absolute_phase_shift << "\n";
 
-                // apply calibration
-                absolute_phase_shift += calibrations[antenna];
+                // apply calibration if available
+                if (calibrations_.size() == antenna_elements_)
+                    absolute_phase_shift += calibrations_[antenna];
 
                 // Rad to Deg
                 float theta_deg = absolute_phase_shift * 180.0 / PI;
