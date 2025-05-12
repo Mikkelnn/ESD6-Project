@@ -26,6 +26,11 @@ class IUSRPManager {
         virtual size_t transmit_samples(const std::vector<void*> &buffs, size_t num_samps, uhd::time_spec_t time_spec) = 0;
     
         virtual size_t num_channels() = 0;
+
+
+        virtual void start_keepalive(std::chrono::milliseconds interval = std::chrono::milliseconds(500)) = 0;
+
+        virtual void stop_keepalive() = 0;
 };
 
 
@@ -121,6 +126,14 @@ class USRPManager_Mock : public IUSRPManager {
         }
     
         virtual size_t num_channels() override { return 1; }
+
+        virtual void start_keepalive(std::chrono::milliseconds interval = std::chrono::milliseconds(500)) override {
+
+        }
+
+        virtual void stop_keepalive() override {
+            
+        }
 };
 
 
@@ -149,6 +162,10 @@ public:
             ss << ",send_buff_size=" << std::max((int)tx_buffer_bytes, 307200);
 
         device_addr_ = ss.str();
+    }
+    
+    ~USRPManager() {
+        stop_keepalive();  // Ensure cleanup
     }
 
     virtual void setup_usrp() override {
@@ -416,6 +433,38 @@ public:
 
     virtual size_t num_channels() override { return num_channels_; }
 
+    // keep alive
+    virtual void start_keepalive(std::chrono::milliseconds interval = std::chrono::milliseconds(500)) override {
+        if (keepalive_thread_.joinable()) return; // Already running
+
+        keepalive_running_ = true;
+        keepalive_thread_ = std::thread([this, interval]() {
+            std::vector<std::complex<int16_t>> dummy_samples(16, {0, 0});
+            std::vector<void*> dummy_ptrs(num_channels_);
+            for (auto& ptr : dummy_ptrs)
+                ptr = dummy_samples.data();
+
+            uhd::rx_metadata_t md;
+
+            while (keepalive_running_) {
+                try {
+                    rx_stream_->recv(dummy_ptrs, dummy_samples.size(), md, 0.05);
+                } catch (const std::exception& ex) {
+                    std::cerr << "[USRPManager] Warning: Exception caught - " << ex.what() << std::endl;
+                } catch (...) {
+                    std::cerr << "[USRPManager] Warning: Unknown exception caught" << std::endl;
+                }
+                std::this_thread::sleep_for(interval);
+            }
+        });
+    }
+
+    virtual void stop_keepalive() override {
+        keepalive_running_ = false;
+        if (keepalive_thread_.joinable())
+            keepalive_thread_.join();
+    }
+
 private:
     std::string device_addr_;
     // std::string full_device_addr_;
@@ -427,4 +476,7 @@ private:
     uhd::tx_streamer::sptr tx_stream_;
     std::vector<size_t> channel_nums_;
     std::string streamType = "sc16"; // "fc32" "sc16"; // complex<int16_t>
+
+    bool keepalive_running_ = false;
+    std::thread keepalive_thread_;
 };
