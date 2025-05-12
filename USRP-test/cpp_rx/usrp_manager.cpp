@@ -445,10 +445,19 @@ public:
                 ptr = dummy_samples.data();
 
             uhd::rx_metadata_t md;
-
             while (keepalive_running_) {
                 try {
-                    rx_stream_->recv(dummy_ptrs, dummy_samples.size(), md, 0.05);
+                    
+                    auto time = usrp_future_time(0.1);
+                    issue_stream_cmd(dummy_samples.size(), time);
+
+                    int recieved = rx_stream_->recv(dummy_ptrs, dummy_samples.size(), md, 0.5);
+                    
+                    if (md.error_code != uhd::rx_metadata_t::ERROR_CODE_NONE) {
+                        std::cerr << "Receive error: " << md.strerror() << std::endl;
+                    }
+                    // std::cout << "dummy: " << recieved << std::endl;
+
                 } catch (const std::exception& ex) {
                     std::cerr << "[USRPManager] Warning: Exception caught - " << ex.what() << std::endl;
                 } catch (...) {
