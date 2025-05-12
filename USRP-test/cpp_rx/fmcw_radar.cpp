@@ -307,6 +307,9 @@ private:
             std::cout << "[FMCW-RADAR] Warning only recieved: " << samples_received << " samples, expected: " << rx_num_samples_frame << std::endl;
         }
 
+        // apply rx corrections before determin TX corrections
+        apply_phase_correction(flat_rx_frame_buffer, rx_phase_calibrations);
+
         // determine calibration values
         estimate_phase_offsets(flat_rx_frame_buffer, test_samples, tx_phase_calibrations);
 
@@ -424,4 +427,5 @@ private:
         set_terminal_nonblocking(false);
         return false;
     }
+
 };
