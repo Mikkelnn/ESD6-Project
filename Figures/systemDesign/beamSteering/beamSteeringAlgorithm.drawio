@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0" version="27.0.3">
   <diagram name="Page-1" id="VmkMqPZusAJ_iYhfGcvL">
-    <mxGraphModel dx="788" dy="477" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="1" shadow="0">
+    <mxGraphModel dx="946" dy="572" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="1" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -49,7 +49,7 @@
         <mxCell id="ishwmYzlXYuHLydgc3fG-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" source="ishwmYzlXYuHLydgc3fG-11" target="ishwmYzlXYuHLydgc3fG-14" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ishwmYzlXYuHLydgc3fG-11" value="$$\textrm{Compute}$$ $$I=I_{chirp}[i] \cdot cos(\varphi)$$ $$Q = Q_{chirp}[i] \cdot sin(\varphi)$$" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
+        <mxCell id="ishwmYzlXYuHLydgc3fG-11" value="$$\textrm{Compute}$$ $$I_n=I_{chirp}[i] \cdot cos(\varphi_n)$$ $$Q_n = Q_{chirp}[i] \cdot sin(\varphi_n)$$" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
           <mxGeometry x="425" y="630" width="185" height="90" as="geometry" />
         </mxCell>
         <mxCell id="ishwmYzlXYuHLydgc3fG-14" value="Pack IQ into complex 32-bit word" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
@@ -58,7 +58,7 @@
         <mxCell id="ishwmYzlXYuHLydgc3fG-36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" source="ishwmYzlXYuHLydgc3fG-18" target="ishwmYzlXYuHLydgc3fG-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ishwmYzlXYuHLydgc3fG-18" value="$$\textrm{Compute} \;\varphi$$" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
+        <mxCell id="ishwmYzlXYuHLydgc3fG-18" value="$$\textrm{Compute} \;\varphi_n$$" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
           <mxGeometry x="425" y="410" width="185" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ishwmYzlXYuHLydgc3fG-19" value="Error" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontFamily=Modern;fontSource=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fcm-unicode%2F;" parent="1" vertex="1">
