@@ -114,12 +114,12 @@ void test_tx_buffer_size() {
 
     // --- Smaller than N elements test
     std::vector<std::vector<std::complex<int16_t>>> output(N - 1); // should have a size < N
-    int status = steer.applyBeamformingAngle(0, I, Q, output);
+    int status = steer.steer(0, I, Q, output);
     assert(status == 1 && "Buffer is smaller than the antenna elements");
 
     // --- Larger than N elements test
     output.resize(N + 1); // should have a size > N
-    status = steer.applyBeamformingAngle(0, I, Q, output);
+    status = steer.steer(0, I, Q, output);
     assert(status == 1 && "Buffer is larger than the antenna elements");
     
 
@@ -135,7 +135,7 @@ void test_zero_angle_preserves_IQ() {
     vector<int16_t> I(IQ_length, 100), Q(IQ_length, 50); // Initialize IQ 
     BeamSteer steer(N);
     std::vector<std::vector<std::complex<int16_t>>> output(N, vector<std::complex<int16_t>>(IQ_length));
-    int status = steer.applyBeamformingAngle(0, I, Q, output);
+    int status = steer.steer(0, I, Q, output);
 
     assert(status == 0);
     for (int i = 0; i < N; ++i) {
@@ -158,7 +158,7 @@ void test_positive_beam_angle_shift() {
     BeamSteer steer(N);
     std::vector<std::vector<std::complex<int16_t>>> output(N, vector<std::complex<int16_t>>(IQ_length));
    
-    int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
+    int status = steer.steer(beam_angle, I, Q, output);
     
     // for (int samples = 0; samples < IQ_length; samples++) {
     //     for (int element = 0; element < N; element++) {
@@ -203,7 +203,7 @@ void test_negative_angle_phase_shift() {
     BeamSteer steer(N);
     std::vector<std::vector<std::complex<int16_t>>> output(N, vector<std::complex<int16_t>>(IQ_length));
    
-    int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
+    int status = steer.steer(beam_angle, I, Q, output);
     
     // for (int samples = 0; samples < IQ_length; samples++) {
     //     for (int element = 0; element < N; element++) {
@@ -257,7 +257,7 @@ void test_same_amplitude_multiple_angles() {
 
     for (int angle : beam_angles) {
         std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-        int status = steer.applyBeamformingAngle(angle, I, Q, output);
+        int status = steer.steer(angle, I, Q, output);
         assert(status == 0);
 
         std::complex<int16_t> ref = output[0][IQ_length - 1];
@@ -288,53 +288,6 @@ void test_same_amplitude_multiple_angles() {
     }
 }
 
-// // not completed
-// void test_real_signal() {
-//     int IQ_length = 128;
-//     int N = 4;
-//     float sampling_rate = 20e6; // 20 MHz
-//     float signal_frequency = 0.5e6; // 0.5 MHz to get more visible cycles
-//     float beam_angle = 45.0;
-
-//     // Generate cosine (I) and sine (Q)
-//     std::vector<int16_t> I(IQ_length);
-//     std::vector<int16_t> Q(IQ_length);
-//     for (int n = 0; n < IQ_length; ++n) {
-//         float t = n / sampling_rate;
-//         I[n] = static_cast<int16_t>(100 * std::cos(2 * PI * signal_frequency * t));
-//         Q[n] = static_cast<int16_t>(100 * std::sin(2 * PI * signal_frequency * t));
-//     }
-
-//     // BeamSteer setup
-//     BeamSteer steer(N);
-//     std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-//     int status = steer.applyBeamformingAngle(beam_angle, I, Q, output);
-//     assert(status == 0);
-
-//     float ref_mag = std::abs(ref);
-//     float ref_phase = std::arg(ref) * 180.0 / PI;
-
-//     std::cout << "Beam angle: " << beam_angle << " degrees\n";
-//         float mag = std::abs(val);
-//         float phase_deg = std::arg(val) * 180.0f / PI;
-//         float expected_phase_shift = -180.0f * std::sin(beam_angle * PI / 180.0f) * i;
-//         float actual_shift = normalize_phase(phase_deg - ref_phase);
-
-//         std::cout << "Element " << i
-//                   << " | Amplitude: " << mag
-//                   << " | Phase: " << phase_deg
-//                   << " | delta_Phase: " << actual_shift << " deg"
-//                   << " | Expected delta: " << expected_phase_shift << " deg \n";
-
-//         // Check amplitude preserved (±1)
-//         assert(std::abs(mag - ref_mag) <= 1.0);
-//         // Check expected phase shift (±1°)
-//         assert(std::abs(actual_shift - expected_phase_shift) <= 1.0);
-//     }
-
-//     std::cout << "✅ test_beamforming_phase_shift_preserves_amplitude passed!\n";
-// }
-
 void test_real_signal(){
     
     // Variable Setup
@@ -361,7 +314,7 @@ void test_real_signal(){
 
     // Apply beam steering
     std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-    // int status = steer.applyBeamformingAngle(phase_desired, I, Q, output);
+    // int status = steer.steer(phase_desired, I, Q, output);
     int status = steer.applyPhaseToIQ(I, Q, phase_desired, output[0]);
     
     assert(status == 0); // Check everything is alright
