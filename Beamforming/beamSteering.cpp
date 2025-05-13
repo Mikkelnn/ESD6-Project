@@ -23,7 +23,7 @@ class BeamSteer {
                 calibrations_[i] = calibrations[i];
         }
 
-        int applyBeamformingAngle(int angle_deg, 
+        int steer(int angle_deg, 
                                   const std::vector<int16_t>& I_chirp, 
                                   const std::vector<int16_t>& Q_chirp, 
                                   std::vector<std::vector<std::complex<int16_t>>>& output) {
@@ -44,7 +44,7 @@ class BeamSteer {
                 // apply calibration if available
                 if (calibrations_.size() == antenna_elements_) {
                     absolute_phase_shift += calibrations_[antenna_index];
-                    std::cout << "Apply correction of (rad): " << calibrations_[antenna_index] << std::endl;
+                    // std::cout << "Apply correction of (rad): " << calibrations_[antenna_index] << std::endl;
                 }
                     
 

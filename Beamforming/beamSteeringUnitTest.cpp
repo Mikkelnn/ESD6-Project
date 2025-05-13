@@ -53,7 +53,7 @@ void test_zero_phase() {
         assert(output[i].real() == I[i] && "zero phase I is the problem child");
         assert(output[i].imag() == 0 && "zero phase Q is the problem child"); // sin(0) * Q = 0
     }
-    std::cout << "✅ test_zero_phase passed\n";
+    std::cout << "test_zero_phase passed\n";
 }
 
 // --- Test of negative phases ---
@@ -69,7 +69,7 @@ void test_negative_phase() {
         assert(std::abs(output[i].imag() - expected_Q) < 50 && "negative_phase Q is the problem child");
     }
 
-    std::cout << "✅ test_negative_phase passed\n";
+    std::cout << "test_negative_phase passed\n";
 }
 
 // --- Test of no input---
@@ -78,7 +78,7 @@ void test_empty_input() {
     vector<complex<int16_t>> output;
     BeamSteer(1).applyPhaseToIQ(I, Q, 45, output);
     assert(output.empty() && "empty test is the problem child");
-    std::cout << "✅ test_empty_input passed\n";
+    std::cout << "test_empty_input passed\n";
 }
 
 // --- Test of length of I, Q, and output ---
@@ -106,7 +106,7 @@ void test_length_mismatch() {
     output.resize(3);
     status = steer.applyPhaseToIQ(I, Q, 45, output);
     assert(status == 1 && "Did not detect 'Output' smaller than 'I");
-    std::cout << "✅ test_length_mismatch passed (caught size mismatch)\n";
+    std::cout << "test_length_mismatch passed (caught size mismatch)\n";
 }
 
 // --- Test of output buffer has correct size ---
@@ -128,7 +128,7 @@ void test_tx_buffer_size() {
     assert(status == 1 && "Buffer is larger than the antenna elements");
     
 
-    std::cout << "✅ test_tx_buffer_size passed\n";
+    std::cout << "test_tx_buffer_size passed\n";
 }
 
 //--- Test of zero angle = no phase shift ---
@@ -151,7 +151,7 @@ void test_zero_angle_preserves_IQ() {
         }
     }
 
-    std::cout << "✅ test_zero_angle_preserves_IQ passed\n";
+    std::cout << "test_zero_angle_preserves_IQ passed\n";
 }
 
 //--- Test of positive angle applies increasing phase shift ---
@@ -197,7 +197,7 @@ void test_positive_beam_angle_shift() {
     }
     
 
-    std::cout << "✅ test_positive_beam_angle_shift passed (" << beam_angle << "deg)\n";
+    std::cout << "test_positive_beam_angle_shift passed (" << beam_angle << "deg)\n";
 }
 
 void test_negative_angle_phase_shift() {
@@ -242,7 +242,7 @@ void test_negative_angle_phase_shift() {
     }
     
 
-    std::cout << "✅ test_negative_beam_angle_shift passed (" << beam_angle << "deg)\n";
+    std::cout << "test_negative_beam_angle_shift passed (" << beam_angle << "deg)\n";
 }
 
 //--- Test of negative angle applies decreasing phase shift ---
@@ -269,7 +269,7 @@ void test_same_amplitude_multiple_angles() {
         std::complex<float> ref_float(static_cast<float>(ref.real()), static_cast<float>(ref.imag()));
         float angle_rad = angle * PI / 180.0f;
 
-        std::cout << "\n Beam angle = " << angle << " deg\n";
+        // std::cout << "\n Beam angle = " << angle << " deg\n";
 
         for (int i = 0; i < N; i++) {
             std::complex<int16_t> shifted = output[i][IQ_length - 1];
@@ -289,7 +289,7 @@ void test_same_amplitude_multiple_angles() {
             assert(std::abs(diff) <= 1);
         }
 
-        std::cout << "✅ Passed for beam angle: " << angle << " deg\n";
+        std::cout << "Passed for beam angle: " << angle << " deg\n";
     }
 }
 
