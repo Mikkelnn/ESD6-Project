@@ -23,31 +23,37 @@ class BeamSteer {
                 calibrations_[i] = calibrations[i];
         }
 
-        int applyBeamformingAngle(int angle_deg, const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, std::vector<std::vector<std::complex<int16_t>>>& output) {
+        int steer(int angle_deg, 
+                                  const std::vector<int16_t>& I_chirp, 
+                                  const std::vector<int16_t>& Q_chirp, 
+                                  std::vector<std::vector<std::complex<int16_t>>>& output) {
+
             if (output.size() != antenna_elements_) {
                 return 1; // Mismatched input lengths
             }
             
-            float theta = angle_deg * PI / 180.0;
-            float relative_phase_shift = -PI * sinf(theta);
+            float phi_rad = angle_deg * PI / 180.0;
+            float relative_phase_shift = -PI * sinf(phi_rad);
             // std::cout << "relative_phase_shift:" << relative_phase_shift << "\n";
 
-            for (int antenna = 0; antenna < antenna_elements_; ++antenna) {
+            for (int antenna_index = 0; antenna_index < antenna_elements_; ++antenna_index) {
                 // Phase shift formula: φ = -π * n * sin(θ)
-                float absolute_phase_shift = relative_phase_shift * (float)antenna;
-                //std::cout << "antenna:" << antenna << " absolute_phase_shift" << absolute_phase_shift << "\n";
+                float absolute_phase_shift = relative_phase_shift * (float)antenna_index;
+                //std::cout << "antenna index:" << antenna_index << " absolute_phase_shift" << absolute_phase_shift << "\n";
 
                 // apply calibration if available
                 if (calibrations_.size() == antenna_elements_) {
-                    absolute_phase_shift += calibrations_[antenna];
-                    std::cout << "Apply correction of (rad): " << calibrations_[antenna] << std::endl;
+                    absolute_phase_shift += calibrations_[antenna_index];
+                    // std::cout << "Apply correction of (rad): " << calibrations_[antenna_index] << std::endl;
                 }
                     
 
-                // Rad to Deg
-                float theta_deg = absolute_phase_shift * 180.0 / PI;
-                //std::cout << "theta_deg:" << theta_deg << "\n";
-                int phase_status = applyPhaseToIQ(I_chirp, Q_chirp, theta_deg, output[antenna]);
+                // Convert rad to degree
+                float phase_deg = absolute_phase_shift * 180.0 / PI;
+                //std::cout << "phase_deg:" << phase_deg << "\n";
+                
+                // Call the function to apply the phase to the IQ signals
+                int phase_status = applyPhaseToIQ(I_chirp, Q_chirp, phase_deg, output[antenna_index]);
 
                 if (phase_status != 0) {
                     return phase_status;
@@ -57,7 +63,10 @@ class BeamSteer {
             return 0;
         }
 
-        int applyPhaseToIQ(const std::vector<int16_t>& I_chirp, const std::vector<int16_t>& Q_chirp, int phase_deg, std::vector<std::complex<int16_t>>& output) {
+        int applyPhaseToIQ(const std::vector<int16_t>& I_chirp, 
+                           const std::vector<int16_t>& Q_chirp, 
+                           int phase_deg, 
+                           std::vector<std::complex<int16_t>>& output) {
             if (I_chirp.size() != Q_chirp.size() || output.size() < I_chirp.size()) {
                 return 1; // Mismatched input lengths
             }
