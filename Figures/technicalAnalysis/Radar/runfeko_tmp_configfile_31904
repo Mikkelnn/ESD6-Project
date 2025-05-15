@@ -1,1 +1,0 @@
- -machinefile runfeko_tmp_machinesfile_31904 -delegate -envall -mapall "C:\Program Files\Altair\2023.1-edu\FEKO\bin\feko_mkl.csv.impi.exe" "rcs_simulation2" "--run-from-gui"
