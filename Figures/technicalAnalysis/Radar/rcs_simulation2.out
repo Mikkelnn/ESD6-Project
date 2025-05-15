@@ -1,0 +1,73 @@
+Altair Feko - Solver (par) Version 2023.1.2-10713 from 2024-03-28
+          Altair Feko - PREFEKO Version 2023-2564 from 2023-05-25 [FEK: default 193; used 193] BINARY
+          CADFEKO version 2023.1.2-10713 from 2024-03-28
+          Copyright (c) 1999-2014 Altair Engineering (Pty) Ltd
+          Copyright (c) 2014-2023 Altair Engineering Inc.
+          Intel(R) MKL version 2023.0.2 (build 20230613) on Intel(R) Architecture processors, Intel(R) 64 architecture (1 thread)
+Computer: PC WIN64 EM64T MKL IMPI -- LAPTOP-L8D4OJSJ
+          Microsoft Windows 10  (Build 19045), Version 10.0.19045 x64 (SP 0.0)
+          AMD Ryzen 7 4800H with Radeon Graphics         ; AuthenticAMD family 23 model 96 stepping 1 brand id 0
+          1 physical CPU with a total of 16 processors found (multi-core CPU with max. 8 cores per physical CPU)
+Threads:  OpenMP threading not used
+Date:     2025-05-15 09:36:27
+File:     rcs_simulation2
+Memory:   Limited to physical available memory of 1.897 GByte per process
+          Installed memory 15.372 GByte, thereof free 5.394 GByte on LAPTOP-L8D4OJSJ
+MD5 check:5EE9F186AC9CE5799830553ED7009DC7
+MD5 total:C168234F2CA43AABB2A8351590F7A532
+Licence:  Student Edition
+
+ NOTE    33113: This is a Student Version of Feko
+MPI-lib:  Intel(R) MPI Library 2021.2 for Windows* OS
+Number of parallel processes:       8 on 1 CPUs
+------------------------------------------------------------------------------------
+ Process |                    Hostname                    | No. of  | Shared memory
+         |                                                | threads | rank | group
+------------------------------------------------------------------------------------
+       0 | LAPTOP-L8D4OJSJ                                |       1 |    0 |     0
+       1 | LAPTOP-L8D4OJSJ                                |       1 |    1 |     0
+       2 | LAPTOP-L8D4OJSJ                                |       1 |    2 |     0
+       3 | LAPTOP-L8D4OJSJ                                |       1 |    3 |     0
+       4 | LAPTOP-L8D4OJSJ                                |       1 |    4 |     0
+       5 | LAPTOP-L8D4OJSJ                                |       1 |    5 |     0
+       6 | LAPTOP-L8D4OJSJ                                |       1 |    6 |     0
+       7 | LAPTOP-L8D4OJSJ                                |       1 |    7 |     0
+------------------------------------------------------------------------------------
+
+
+Spice Engine:  PollEx Spice Version 2023.1-01301739-6f27ebdc from 2023-01-30
+
+                    Curvilinear triangles are used
+
+          Surface of all triangles in m*m:     6.08661E-04
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  1: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  2: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  4: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  3: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  5: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  6: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
+Received message from server process  7: 
+ ERROR    2579: MLFMM and UTD / RL-GO are not allowed in the same model
+
+Aborted: 2025-05-15 09:36:28
