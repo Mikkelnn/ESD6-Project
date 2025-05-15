@@ -19,12 +19,13 @@ int rx_test() {
     size_t num_channels = usrp_mgr.num_channels();
     size_t num_samps = 1024;
 
-    std::vector<std::vector<std::complex<float>>> rx_buffers(num_channels, std::vector<std::complex<float>>(num_samps));
+    std::vector<std::vector<std::complex<int16_t>>> rx_buffers(num_channels, std::vector<std::complex<int16_t>>(num_samps));
     std::vector<void*> rx_buffer_ptrs;
     for (auto& buf : rx_buffers) rx_buffer_ptrs.push_back(buf.data());
     
     auto time_spec = usrp_mgr.usrp_future_time(0.1); // 100ms from now
-    size_t samples_received = usrp_mgr.receive_samples(rx_buffer_ptrs, num_samps, time_spec);
+    usrp_mgr.issue_stream_cmd(num_samps, time_spec);
+    size_t samples_received = usrp_mgr.receive_samples(rx_buffer_ptrs, num_samps);
     if (samples_received > 0) {
         std::cout << "Successfully received " << samples_received << " samples on " << num_channels << " channels.\n";
         save_rx_buffers_to_csv_phase_diff(rx_buffers, "rx_data.csv");
@@ -48,7 +49,7 @@ int tx_test() {
     size_t num_channels = usrp_mgr.num_channels();
     size_t num_samps = 20480;
 
-    std::vector<std::vector<std::complex<float>>> tx_buffers(num_channels, std::vector<std::complex<float>>(num_samps, std::complex<float>(1.0f, 0.0f)));
+    std::vector<std::vector<std::complex<int16_t>>> tx_buffers(num_channels, std::vector<std::complex<int16_t>>(num_samps, std::complex<int16_t>(1.0f, 0.0f)));
     std::vector<void*> tx_buffer_ptrs;
     for (auto& buf : tx_buffers) tx_buffer_ptrs.push_back(buf.data());
 
@@ -99,11 +100,12 @@ int tx_rx_test() {
     auto time_spec = usrp_mgr.usrp_future_time(0.1); // 100ms from now
     
     // should transmit and recieve at simultaneously
+    usrp_mgr.issue_stream_cmd(num_samps_rx, time_spec);
     size_t samples_sent = usrp_mgr.transmit_samples(tx_buffer_ptrs, num_samps_tx, time_spec);
-    size_t samples_received = usrp_mgr.receive_samples(rx_buffer_ptrs, num_samps_rx, time_spec);
+    size_t samples_received = usrp_mgr.receive_samples(rx_buffer_ptrs, num_samps_rx);
 
     std::cout << "Transmitted: " << samples_sent << " samples, recieved: " << samples_received << " samples\n";
-    // std::cout << "Time used (ms): " << std::chrono::duration_cast<std::chrono::milliseconds>(start_time - start_time).count() << "\n";
+    // std::cout << "Time used (ms): " << std::c, time_spechrono::duration_cast<std::chrono::milliseconds>(start_time - start_time).count() << "\n";
 
     if (samples_received > 0) {
         std::cout << "Successfully received " << samples_received << " samples on " << num_channels << " channels.\n";
@@ -113,16 +115,28 @@ int tx_rx_test() {
     return 0;
 }
 
+
 int main() {
     try {
-        
+
         FMCWRadar radar = FMCWRadar();
         radar.initialize();
 
         // BIG-TEST
-        radar.startSweep();
+        // radar.startSweep();
 
-        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "chirps_128_data_local.csv");
+        // calibrate system
+        radar.calibrate();
+
+        // save_rx_buffers_to_csv_complex(radar.beamBuffer, "calibration_test_tx_buffer.csv");
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "calibrate_tx_phase_raw_data.csv");
+        save_rx_buffers_to_csv_phase_diff(radar.flat_rx_frame_buffer, "calibrate_tx_phase.csv");
+
+        // erify TX phase correction
+        radar.startSweep();
+    
+        save_rx_buffers_to_csv_complex(radar.flat_rx_frame_buffer, "after_calibrate_tx_phase_raw_data.csv");
+        save_rx_buffers_to_csv_phase_diff(radar.flat_rx_frame_buffer, "after_calibrate_tx_phase.csv");
 
         // tx_rx_test();
 

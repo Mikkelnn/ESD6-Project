@@ -43,7 +43,7 @@ void save_rx_buffers_to_csv_complex(const std::vector<std::vector<std::complex<i
     std::cout << "Saved " << num_samples << " samples from " << num_channels << " channels to " << filename << "\n";
 }
 
-void save_rx_buffers_to_csv_phase_diff(const std::vector<std::vector<std::complex<float>>>& rx_buffers, const std::string& filename) {
+void save_rx_buffers_to_csv_phase_diff(const std::vector<std::vector<std::complex<int16_t>>>& rx_buffers, const std::string& filename) {
     if (rx_buffers.empty()) {
         std::cerr << "No data to save.\n";
         return;
@@ -52,7 +52,7 @@ void save_rx_buffers_to_csv_phase_diff(const std::vector<std::vector<std::comple
     size_t num_channels = rx_buffers.size();
     size_t num_samples = rx_buffers[0].size();
 
-    std::ofstream outfile(filename, std::ios::app);
+    std::ofstream outfile(filename);
     if (!outfile.is_open()) {
         std::cerr << "Error opening file: " << filename << "\n";
         return;
@@ -69,11 +69,11 @@ void save_rx_buffers_to_csv_phase_diff(const std::vector<std::vector<std::comple
 
     for (size_t samp = 0; samp < num_samples; ++samp) {
         // Get reference sample (channel 0)
-        const std::complex<float>& ref_sample = rx_buffers[0][samp];
+        std::complex<float> ref_sample = std::complex<float>(rx_buffers[0][samp].real(), rx_buffers[0][samp].imag());
         float ref_phase = std::arg(ref_sample); // phase in radians
 
         for (size_t ch = 0; ch < num_channels; ++ch) {
-            const std::complex<float>& sample = rx_buffers[ch][samp];
+            std::complex<float> sample = std::complex<float>(rx_buffers[ch][samp].real(), rx_buffers[ch][samp].imag());
             float phase = std::arg(sample); // radians
             float phase_diff = phase - ref_phase; // relative to ch0
 

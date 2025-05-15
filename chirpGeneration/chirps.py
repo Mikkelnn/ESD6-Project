@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from scipy.signal import stft
 import re
 
-fs = 245.760 * 1e6 # MHz
+fs = 400e6 #  * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
-chirpTime = 10 * 1e-6 # micro seconds
+chirpTime = 3.2 * 1e-6 # micro seconds
 bitRes = 16 # bit resolution, used for scaling
 
 # determine length of array
@@ -64,6 +64,7 @@ res = input(f"Save to chirps.h? [Y/n]: ")
 if (res.lower() == 'y'):
   path = "./chirp.h"
   content = "#include <stdint.h>\n"
+  content += f"// length: {chirpLength}\n"
   content += "int16_t I_chirp[] = {" + I_chirp + "};\n"
   content += "int16_t Q_chirp[] = {" + Q_chirp + "};\n"
   open(path, "w").write(content)
