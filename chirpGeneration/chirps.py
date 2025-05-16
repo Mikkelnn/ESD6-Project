@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import stft
 import re
 
-fs = 61.440e6 # 245.760 * 1e6 # MHz
+fs = 400e6 #  * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
 chirpTime = 3.2 * 1e-6 # micro seconds
 bitRes = 16 # bit resolution, used for scaling
@@ -29,7 +29,7 @@ Q_chirp = ', '.join(str(x) for x in Q).removesuffix(', ')
 
 # print(f"comma count: {I_chirp.count(',')}")
 
-windowsSize = 32
+windowsSize = 128
 overlapFrac = 7/10 # 1/2 = 50% windows overlap
 
 carr = I + 1j*Q
@@ -37,10 +37,10 @@ f, t, Zxx = stft(carr, fs=fs, nperseg=windowsSize, noverlap=windowsSize*overlapF
 f /= 1e6
 t *= 1e6
 
-# maxPlotFreq = (fmax * 1e-6) * 1.3
-# lastIndex = np.argwhere(f > maxPlotFreq)[0][0]
-# f = f[:lastIndex]
-# Zxx = Zxx[:lastIndex,:]
+maxPlotFreq = (fmax * 1e-6) * 1.3
+lastIndex = np.argwhere(f > maxPlotFreq)[0][0]
+f = f[:lastIndex]
+Zxx = Zxx[:lastIndex,:]
 
 plt.figure(layout="constrained")
 plt.subplot(311)
