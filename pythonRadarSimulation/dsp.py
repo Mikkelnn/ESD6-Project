@@ -2,12 +2,13 @@ import numpy as np
 from numpy.typing import NDArray
 from scipy import signal, linalg, fft
 import matplotlib.pyplot as plt
+from scipy.ndimage import binary_dilation
 
-#import radarsimpy.processing as proc
+import radarsimpy.processing as proc
 
 # load data
 baseband = []
-with open('radarBaseband.npy', 'rb') as f:
+with open('simData/radarBasebandTarget7.npy', 'rb') as f:
     baseband = np.load(f)
 
 print(f"loaded data shape: {baseband.shape}")
@@ -232,30 +233,30 @@ angle_doppler_range  = np.abs(range_doppler_angle_fft(np.array(baseband, dtype=n
 
 
 # Time-domain plot
-plt.figure(0, figsize=(10, 4))
-plt.subplot(1, 2, 1)
-plt.plot(window, color='teal')
-plt.title(windowType)
-plt.ylabel('amplitude')
-plt.xlabel('samples')
-plt.grid(True)
+# plt.figure(0, figsize=(10, 4))
+# plt.subplot(1, 2, 1)
+# plt.plot(window, color='teal')
+# plt.title(windowType)
+# plt.ylabel('amplitude')
+# plt.xlabel('samples')
+# plt.grid(True)
 
 # Frequency-domain plot (dB)
-plt.subplot(1, 2, 2)
-A = np.fft.fft(window, 2048) / 25.5
-freq = np.fft.fftfreq(len(A), 1.0)
-response = 20 * np.log10(np.abs(np.fft.fftshift(A)))
-response = response - np.max(response)  # Normalize to 0 dB
+# plt.subplot(1, 2, 2)
+# A = np.fft.fft(window, 2048) / 25.5
+# freq = np.fft.fftfreq(len(A), 1.0)
+# response = 20 * np.log10(np.abs(np.fft.fftshift(A)))
+# response = response - np.max(response)  # Normalize to 0 dB
 
-plt.plot(np.fft.fftshift(freq), response, color='orange')
-plt.title('Fourier Transform')
-plt.ylabel('decibels')
-plt.xlabel('bins')
-plt.xlim(-0.5, 0.5)
-plt.ylim(-140, 0)
-plt.grid(True)
+# plt.plot(np.fft.fftshift(freq), response, color='orange')
+# plt.title('Fourier Transform')
+# plt.ylabel('decibels')
+# plt.xlabel('bins')
+# plt.xlim(-0.5, 0.5)
+# plt.ylim(-140, 0)
+# plt.grid(True)
 
-plt.tight_layout()
+# plt.tight_layout()
 
 
 
@@ -293,13 +294,13 @@ unambiguous_speed = (c / (prp * f_c * 4)) #(c / prp / f_c / 2)
 doppler_axis = np.linspace(-unambiguous_speed, unambiguous_speed, doppler_bins)
 
 # CFAR
-# doppler_range_shifted_cfar = proc.cfar_ca_2d(doppler_range_shifted, guard=2, trailing=10, pfa=0.8e-6)
-# doppler_range_shifted_cfar_db = 20 * np.log10(doppler_range_shifted_cfar)
-# doppler_range_shifted_cfar_diff = doppler_range_shifted - doppler_range_shifted_cfar
+doppler_range_shifted_cfar = proc.cfar_ca_2d(doppler_range_shifted, guard=2, trailing=10, pfa=0.8e-6)
+doppler_range_shifted_cfar_db = 20 * np.log10(doppler_range_shifted_cfar)
+doppler_range_shifted_cfar_diff = doppler_range_shifted - doppler_range_shifted_cfar
 
-# angle_range_cfar = proc.cfar_ca_2d(angle_range_map, guard=2, trailing=10, pfa=0.8e-6)
-# angle_range_cfar_db = 20 * np.log10(angle_range_cfar)
-# angle_range_cfar_diff = angle_range_map - angle_range_cfar
+angle_range_cfar = proc.cfar_ca_2d(angle_range_map, guard=2, trailing=10, pfa=0.8e-6)
+angle_range_cfar_db = 20 * np.log10(angle_range_cfar)
+angle_range_cfar_diff = angle_range_map - angle_range_cfar
 
 
 print(f"range bin count: {range_bins}, max range: {round(range_axis[-1], 2)} m, res: {round(range_axis[-1] / range_bins, 2)} m")
@@ -321,7 +322,7 @@ print(f"doppler bin count: {doppler_bins}, max velocity: {round(doppler_axis[-1]
 # plt.title('Range-Doppler Map (sum over angle)')
 
 # plt.figure(2)
-# plt.imshow(cfar_diff > 2, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
+# plt.imshow(doppler_range_shifted_cfar_diff, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
 # plt.colorbar(label='Amplitude (dB)')
 # plt.xlabel('Range (m)')
 # plt.ylabel('Velocity (m/s)')
@@ -362,7 +363,9 @@ fig = plt.figure(7)
 ax = fig.add_subplot(111, projection='3d')
 # Scatter plot
 angle_doppler_range_shifted = fft.fftshift(20 * np.log10(angle_doppler_range), axes=(1))
-indices  = np.argwhere(angle_doppler_range_shifted > -10) # -30
+max_val = np.max(angle_doppler_range_shifted)
+threshold = max_val - 3
+indices  = np.argwhere(angle_doppler_range_shifted > threshold-2) # -30
 angles, dopplers, ranges = indices.T
 points = angle_doppler_range_shifted[indices[:, 0], indices[:, 1], indices[:, 2]]
 sc = ax.scatter(angle_axis[angles], np.flip(doppler_axis)[dopplers], range_axis[ranges], c=points, cmap='viridis', marker='o', alpha=0.7)
@@ -383,5 +386,56 @@ plt.legend()
 
 # print(f"shape: {baseband.shape}, rw: {len(range_window)}, dw: {len(doppler_window)}")
 # proc.range_doppler_fft(baseband, rwin=range_window, dwin=doppler_window, rn=256, dn=200000)
+
+# Get the index of the maximum value
+a_max, d_max, r_max = np.unravel_index(np.argmax(angle_doppler_range_shifted), angle_doppler_range_shifted.shape)
+
+# Helper: Find first failure before/after peak in 1D profile
+def find_threshold_failures(data_1d, peak_idx, threshold):
+    forward_fail = None
+    for i in range(peak_idx, len(data_1d) - 1):
+        if data_1d[i] > threshold and data_1d[i + 1] <= threshold:
+            forward_fail = i + 1
+            break
+
+    backward_fail = None
+    for i in range(peak_idx, 0, -1):
+        if data_1d[i] > threshold and data_1d[i - 1] <= threshold:
+            backward_fail = i - 1
+            break
+
+    return backward_fail, forward_fail
+
+# 1. Along angle
+angle_profile = angle_doppler_range_shifted[:, d_max, r_max]
+fail_angle_back, fail_angle_forward = find_threshold_failures(angle_profile, a_max, threshold)
+
+# 2. Along doppler
+doppler_profile = angle_doppler_range_shifted[a_max, :, r_max]
+fail_doppler_back, fail_doppler_forward = find_threshold_failures(doppler_profile, d_max, threshold)
+
+# 3. Along range
+range_profile = angle_doppler_range_shifted[a_max, d_max, :]
+fail_range_back, fail_range_forward = find_threshold_failures(range_profile, r_max, threshold)
+
+# Map to physical coordinates
+def safe_map(axis, idx):
+    return axis[idx] if idx is not None else None
+
+angle_fail_back = safe_map(angle_axis, fail_angle_back)
+angle_fail_forward = safe_map(angle_axis, fail_angle_forward)
+
+doppler_fail_back = safe_map(np.flip(doppler_axis), fail_doppler_back)
+doppler_fail_forward = safe_map(np.flip(doppler_axis), fail_doppler_forward)
+
+range_fail_back = safe_map(range_axis, fail_range_back)
+range_fail_forward = safe_map(range_axis, fail_range_forward)
+
+# Output
+print(f"Max value at: angle={angle_axis[a_max]}, doppler={np.flip(doppler_axis)[d_max]}, range={range_axis[r_max]}")
+print("\nThreshold fails at:")
+print(f"  Angle:   back={angle_fail_back}, forward={angle_fail_forward}")
+print(f"  Doppler: back={doppler_fail_back}, forward={doppler_fail_forward}")
+print(f"  Range:   back={range_fail_back}, forward={range_fail_forward}")
 
 plt.show()

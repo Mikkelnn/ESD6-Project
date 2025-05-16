@@ -16,7 +16,7 @@ c = 3e8
 f_c = 5.8e9 # center frequency
 wavelength = c / f_c
 
-bw = 0.02e9 # bandwidth
+bw = 0.0 # bandwidth
 t_chirp = 4.6e-6 # chirp time
 prp=5e-6 # Pulse Repetition Period
 pulses = 128
@@ -24,11 +24,11 @@ pulses = 128
 fs = 46e6 # 50e6 # IF fs
 
 r_max = (c * t_chirp) / 2 # calculate the maximum range
-delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
+# delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
 doppler_max = wavelength / (4 * prp) #((wavelength * (1 / (2 * prp))) / 2)
 delta_velocity = wavelength / (2 * pulses * prp)
 
-print(f"max range: {round(r_max, 2)} m; range resolution: {round(delta_R, 3)} m")
+# print(f"max range: {round(r_max, 2)} m; range resolution: {round(delta_R, 3)} m")
 print(f"max velocity {round(doppler_max, 2)} m/s; velocity resolution: {round(delta_velocity, 3)} m/s")
 print(f"tx time: {prp * pulses}s; sampls/chirp: {round(t_chirp * fs, 2)}")
 
@@ -211,7 +211,7 @@ target_8 = dict(
 )
 
 
-targets = [target_1, target_2, target_3, target_4, target_5, target_6, target_7, target_8]
+targets = [target_1]
 # targets = [target_1, target_3]
 
 data = sim_radar(radar, targets)
@@ -219,5 +219,5 @@ timestamp = data["timestamp"]
 baseband = data["baseband"] #+ data["noise"]
 
 # Save data to file
-with open('radarBaseband.npy', 'wb') as f:
+with open('simData/radarBasebandTarget1NoChirp.npy', 'wb') as f:
     np.save(f, baseband)
