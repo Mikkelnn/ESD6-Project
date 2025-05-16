@@ -12,7 +12,7 @@ IN   8 1055  "antenamatrizro30035.6separacion5.8.cfm"
 FP: 0 : 0 :  : 0
 
 ** End of geometry
-EG: 1 : 0 : 0 :  :  : 1e-08 :  :  :  :  :  :  : 1
+EG: 1 : 0 : 0 :  :  : 1e-06 :  :  :  :  :  :  : 1
 
 ** Solution control
 PS: 0 : 0 : 3 : 1 : 0 : 1
@@ -25,17 +25,7 @@ DI: 0 : 0 : -1 :  :  : 1 :  :  :  : 0 : 1000
 ** Patch_rectangular1_f_ctr
 
 ** Set frequency
-FR: 20 : 0 :  :  :  : 5200000000 :  : 6200000000
-** Sources
-
-A1: 0 : Union1.Wire17_1_2.Port_Source_1_1_1 :  :  :  : 1 : 0 :  :  :  : 50   ** Source_1_1_1|Port_Source_1_1_1
-
-A1: 1 : Union1.Wire17_2_2.Port_Source_1_2_1 :  :  :  : 1 : 0 :  :  :  : 50   ** Source_1_2_1|Port_Source_1_2_1
-
-A1: 1 : Union1.Wire17_3_2.Port_Source_1_3_1 :  :  :  : 1 : 0 :  :  :  : 50   ** Source_1_3_1|Port_Source_1_3_1
-
-A1: 1 : Union1.Wire17_4_2.Port_Source_1_4_1 :  :  :  : 1 : 0 :  :  :  : 50   ** Source_1_4_1|Port_Source_1_4_1
-
+FR:  :  :  :  :  : 5800000000
 
 ** Clear local loads of all types
 LZ:  :  :  : -1
@@ -65,28 +55,10 @@ DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
 
 ** Far fields: FarField1
 DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
-OF: 1 : 0 :  :  :  : 0 : 0 : 0 : 0 : 0 : 0
-FF: 1 : 37 : 73 : 0 : 0 : 0 : 0 : 5 : 5   ** FarField1
-
-** SParameterConfiguration1
-
-NC: SParameterConfiguration1
-DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
-
-** S-parameters
-A1: 0 : Union1.Wire17_1_2.Port_Source_1_1_1 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|Port_Source_1_1_1
-A1: 1 : Union1.Wire17_2_2.Port_Source_1_2_1 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|Port_Source_1_2_1
-A1: 1 : Union1.Wire17_3_2.Port_Source_1_3_1 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|Port_Source_1_3_1
-A1: 1 : Union1.Wire17_4_2.Port_Source_1_4_1 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|Port_Source_1_4_1
-A1: 1 : Union1.Wire17_1_1.RxWirePort1 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|RxWirePort1
-A1: 1 : Union1.Wire17_2_1.RxWirePort2 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|RxWirePort2
-A1: 1 : Union1.Wire17_3_1.RxWirePort3 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|RxWirePort3
-A1: 1 : Union1.Wire17_4_1.RxWirePort4 :  :  :  : 1 : 0 :  :  :  : 50   ** VoltageSource|RxWirePort4
-DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
-SP: 1 : 1 :  : 1 :  :  :  : 0.5   ** SParameter
-DA:  0
+OF: 1 : 0 :  :  :  : 0 : 0 : 100 : 0 : 0 : 0
+FF: 1 : 181 : 1 : 0 : 0 : -180 : 90 : 2 : 0   ** FarField1
 
 ** End of file
 EN
 
-** CADFEKO Checksum: 31497e00e073160a32bd4a8adb11d996
+** CADFEKO Checksum: b967cedd8686ed65391b29e0f631138d
