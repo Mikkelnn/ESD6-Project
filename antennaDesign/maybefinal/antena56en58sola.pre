@@ -25,7 +25,7 @@ DI: 0 : 0 : -1 :  :  : 1 :  :  :  : 0 : 1000
 ** Patch_rectangular1_f_ctr
 
 ** Set frequency
-FR:  :  :  :  :  : 5600000000
+FR: 80 : 0 :  :  :  : 5400000000 :  : 6000000000
 
 ** Source power
 PW: 0 : 0
@@ -64,4 +64,4 @@ DA:  0
 ** End of file
 EN
 
-** CADFEKO Checksum: b3228320b7a62fd6a42e03957fbb6f42
+** CADFEKO Checksum: 560d7f0b35456e7599971534278eb189

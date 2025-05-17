@@ -12,7 +12,7 @@ IN   8 1055  "antenamatrizro30035.6separacion5.8.cfm"
 FP: 0 : 0 :  : 0
 
 ** End of geometry
-EG: 1 : 0 : 0 :  :  : 1e-06 :  :  :  :  :  :  : 1
+EG: 1 : 0 : 0 :  :  : 1e-08 :  :  :  :  :  :  : 1
 
 ** Solution control
 PS: 0 : 0 : 3 : 1 : 0 : 1
@@ -55,10 +55,10 @@ DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
 
 ** Far fields: FarField1
 DA: 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 : 0 :  : 0
-OF: 1 : 0 :  :  :  : 0 : 0 : 100 : 0 : 0 : 0
-FF: 1 : 181 : 1 : 0 : 0 : -180 : 90 : 2 : 0   ** FarField1
+OF: 1 : 0 :  :  :  : 0 : 0 : 0 : 0 : 0 : 0
+FF: 1 : 37 : 73 : 0 : 0 : 0 : 0 : 5 : 5   ** FarField1
 
 ** End of file
 EN
 
-** CADFEKO Checksum: b967cedd8686ed65391b29e0f631138d
+** CADFEKO Checksum: edbcc718a9052337653a8625fb101c02
