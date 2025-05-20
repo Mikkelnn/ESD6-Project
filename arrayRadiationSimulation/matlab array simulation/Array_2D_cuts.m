@@ -1,7 +1,7 @@
 data = readmatrix('antFULL.txt');
 frequency = 5.8e9;
 data_filtered = data(data(:, 3) == frequency, :);
-splitter_loss = 5.65;
+splitter_loss = 3.56;
 
 phi = data_filtered(:, 1);      % Azimuth
 theta = data_filtered(:, 2);    % Elevation
