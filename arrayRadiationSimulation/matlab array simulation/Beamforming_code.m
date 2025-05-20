@@ -13,7 +13,7 @@ d = lambda / 2;                         % Element spacing [m]
 N = 4;                                  % Number of transmitter elements
 positions = [0:d:(N-1)*d; 0 0 0 0; 0 0 0 0]; % Linear array along X-axis
 
-phases_deg = [0 0 0 0];
+phases_deg = [0 150 300 450];
 phases_rad = deg2rad(phases_deg);
 
 calibration_offset_dB = 0;
@@ -58,15 +58,16 @@ for i = 1:N
     E_phi_total   = E_phi_total   + E_phi_matrix   .* phase_shift;
 end
 
-%% Magnitudes  (with -6.02 dB correction applied to co-pol, cross-pol, and combined)
+% --- Corrección de ganancia para coherencia (factor -6.02 dB)
 gain_corr_lin = 10^(-10*log10(N)/20);  % ≈ 0.5012
 
+% --- Magnitudes corregidas
 E_co = abs(E_theta_total) * gain_corr_lin;
-E_xp = abs(E_phi_total) * gain_corr_lin;
+E_xp = abs(E_phi_total)   * gain_corr_lin;
 E_combined_raw = sqrt(E_co.^2 + E_xp.^2);
 E_combined = E_combined_raw;
 
-% --- Corrected maximum gain ---
+% --- Ganancia máxima en dB
 [max_val, ~] = max(E_combined(:));
 max_gain_dB = 20*log10(max_val) + calibration_offset_dB;
 
@@ -77,10 +78,11 @@ fprintf('Calibrated Gain Estimate (combined): %.2f dB\n', max_gain_dB);
 
 
 
+
 %% Polar Cuts (φ = 0°, φ = 90°, θ = 90°, θ = 0°) 
 
 threshold_dB   = -50;
-corr_lin       = 10^(-10*log10(N)/20);   % ≈ 0.5012  (−6.02 dB)
+corr_lin       = 10^(-10*log10(N)/20);   % ≈ 0.5012
 
 % --- helper function to convert a field slice to corrected dB with floor ---
 to_dB = @(x) max( 20*log10( abs(x) * corr_lin ), threshold_dB );
@@ -88,37 +90,39 @@ to_dB = @(x) max( 20*log10( abs(x) * corr_lin ), threshold_dB );
 % -------- φ = 0°  (θ sweep) --------
 cut_phi_0            = 0;
 [~, idx_phi_0]       = min(abs(rad2deg(phi_unique) - cut_phi_0));
-cut_theta_co_0_dB    = to_dB(E_co(:, idx_phi_0));
-cut_theta_xp_0_dB    = to_dB(E_xp(:, idx_phi_0));
+cut_theta_co_0_dB    = to_dB(E_theta_total(:, idx_phi_0));
+cut_theta_xp_0_dB    = to_dB(E_phi_total(:, idx_phi_0));
 cut_theta_comb_0_dB  = to_dB(E_combined(:, idx_phi_0));
 
 % -------- φ = 90°  (θ sweep) --------
 cut_phi_90           = 90;
 [~, idx_phi_90]      = min(abs(rad2deg(phi_unique) - cut_phi_90));
-cut_theta_co_90_dB   = to_dB(E_co(:, idx_phi_90));
-cut_theta_xp_90_dB   = to_dB(E_xp(:, idx_phi_90));
+cut_theta_co_90_dB   = to_dB(E_theta_total(:, idx_phi_90));
+cut_theta_xp_90_dB   = to_dB(E_phi_total(:, idx_phi_90));
 cut_theta_comb_90_dB = to_dB(E_combined(:, idx_phi_90));
 
 % -------- θ = 90°  (φ sweep) --------
 cut_theta_90         = 90;
 [~, idx_theta_90]    = min(abs(rad2deg(theta_unique) - cut_theta_90));
-cut_phi_co_90_dB     = to_dB(E_co(idx_theta_90, :));
-cut_phi_xp_90_dB     = to_dB(E_xp(idx_theta_90, :));
+cut_phi_co_90_dB     = to_dB(E_theta_total(idx_theta_90, :));
+cut_phi_xp_90_dB     = to_dB(E_phi_total(idx_theta_90, :));
 cut_phi_comb_90_dB   = to_dB(E_combined(idx_theta_90, :));
 
 % -------- θ = 0°  (φ sweep) --------
 cut_theta_0          = 10;
 [~, idx_theta_0]     = min(abs(rad2deg(theta_unique) - cut_theta_0));
-cut_phi_co_0_dB      = to_dB(E_co(idx_theta_0, :));
-cut_phi_xp_0_dB      = to_dB(E_xp(idx_theta_0, :));
+cut_phi_co_0_dB      = to_dB(E_theta_total(idx_theta_0, :));
+cut_phi_xp_0_dB      = to_dB(E_phi_total(idx_theta_0, :));
 cut_phi_comb_0_dB    = to_dB(E_combined(idx_theta_0, :));
 
-% --- r-axis upper limit ---
+
+% --- r-axis upper limit para polarplot ---
 all_dB = [cut_theta_co_0_dB; cut_theta_xp_0_dB; cut_theta_comb_0_dB; ...
           cut_theta_co_90_dB; cut_theta_xp_90_dB; cut_theta_comb_90_dB; ...
           cut_phi_co_90_dB'; cut_phi_xp_90_dB'; cut_phi_comb_90_dB'; ...
           cut_phi_co_0_dB'; cut_phi_xp_0_dB'; cut_phi_comb_0_dB'];
 rlim_upper = ceil(max(all_dB)/5)*5;
+
 
 %% Polar plots with 4 subplots
 figure('Units','normalized','Position',[0.05 0.1 0.95 0.7]);
@@ -195,14 +199,14 @@ phi_max   = phi_fine(col_max);
 figure('Name','3D Combined Pattern (turbo, -6 dB)','Color','w');
 scatter3(X_fine(:), Y_fine(:), Z_fine(:), 12, E_comb_dB_fine(:), 'filled');
 colormap(turbo);                                     % red = maximum
-caxis([max(E_comb_dB_fine(:))-40, max(E_comb_dB_fine(:))]); % 40 dB dynamic range
+caxis([max(E_comb_dB_fine(:))-20, max(E_comb_dB_fine(:))]); % 40 dB dynamic range
 colorbar;
 axis equal;
 view(45,30);
 xlabel('X'); ylabel('Y'); zlabel('Z');
 title('3D Radiation Pattern ', ...
       'FontSize', 14);
-max_gain_comb_dB = 10.98;
+max_gain_comb_dB = max_gain_comb_dB - 0.04;
 text(0, 0, max(abs(E_combined_fine(:))), ...
      sprintf('Max Gain: %.2f dB', max_gain_comb_dB), ...
      'HorizontalAlignment','center','VerticalAlignment','bottom', ...
@@ -212,70 +216,52 @@ sprintf('Max Gain: %.2f dB', max_gain_comb_dB), ...
 %fprintf('Max Gain: %.2f dB\n', max_gain_comb_dB);
 %fprintf('At θ = %.2f°, φ = %.2f°\n', rad2deg(theta_max), rad2deg(phi_max));
 
-%% Escalar Cuts (φ = 0°, φ = 90°, θ = 90°, θ = 0°) 
+%% Scalar theta cuts at φ = 0° and φ = 90°, in dB with correction
+threshold_dB = -50;
+corr_lin     = 10^(-10*log10(N)/20);  % ≈ 0.5012 (−6.02 dB correction)
 
-threshold_dB   = -50;
-corr_lin       = 10^(-10*log10(N)/20);   % ≈ 0.5012  (−6.02 dB)
-
-% --- helper function to convert a field slice to corrected dB with floor ---
 to_dB = @(x) max( 20*log10( abs(x) * corr_lin ), threshold_dB );
 
-% -------- φ = 0°  (θ sweep) --------
-cut_phi_0            = 0;
-[~, idx_phi_0]       = min(abs(rad2deg(phi_unique) - cut_phi_0));
-cut_theta_co_0_dB    = to_dB(E_co(:, idx_phi_0));
-cut_theta_xp_0_dB    = to_dB(E_xp(:, idx_phi_0));
+% --- φ = 0° (θ sweep) ---
+[~, idx_phi_0] = min(abs(rad2deg(phi_unique) - 0));
+cut_theta_co_0_dB    = to_dB(E_theta_total(:, idx_phi_0));
+cut_theta_xp_0_dB    = to_dB(E_phi_total(:, idx_phi_0));
 cut_theta_comb_0_dB  = to_dB(E_combined(:, idx_phi_0));
 
-% -------- φ = 90°  (θ sweep) --------
-cut_phi_90           = 90;
-[~, idx_phi_90]      = min(abs(rad2deg(phi_unique) - cut_phi_90));
-cut_theta_co_90_dB   = to_dB(E_co(:, idx_phi_90));
-cut_theta_xp_90_dB   = to_dB(E_xp(:, idx_phi_90));
+% --- φ = 90° (θ sweep) ---
+[~, idx_phi_90] = min(abs(rad2deg(phi_unique) - 90));
+cut_theta_co_90_dB   = to_dB(E_theta_total(:, idx_phi_90));
+cut_theta_xp_90_dB   = to_dB(E_phi_total(:, idx_phi_90));
 cut_theta_comb_90_dB = to_dB(E_combined(:, idx_phi_90));
 
-% -------- θ = 90°  (φ sweep) --------
-cut_theta_90         = 90;
-[~, idx_theta_90]    = min(abs(rad2deg(theta_unique) - cut_theta_90));
-cut_phi_co_90_dB     = to_dB(E_co(idx_theta_90, :));
-cut_phi_xp_90_dB     = to_dB(E_xp(idx_theta_90, :));
-cut_phi_comb_90_dB   = to_dB(E_combined(idx_theta_90, :));
-
-% -------- θ = 0°  (φ sweep) --------
-cut_theta_0          = 10;
-[~, idx_theta_0]     = min(abs(rad2deg(theta_unique) - cut_theta_0));
-cut_phi_co_0_dB      = to_dB(E_co(idx_theta_0, :));
-cut_phi_xp_0_dB      = to_dB(E_xp(idx_theta_0, :));
-cut_phi_comb_0_dB    = to_dB(E_combined(idx_theta_0, :));
-
-% --- r-axis upper limit ---
+% --- y-axis upper limit ---
 all_dB = [cut_theta_co_0_dB; cut_theta_xp_0_dB; cut_theta_comb_0_dB; ...
-          cut_theta_co_90_dB; cut_theta_xp_90_dB; cut_theta_comb_90_dB; ...
-          cut_phi_co_90_dB'; cut_phi_xp_90_dB'; cut_phi_comb_90_dB'; ...
-          cut_phi_co_0_dB'; cut_phi_xp_0_dB'; cut_phi_comb_0_dB'];
-rlim_upper = ceil(max(all_dB)/5)*5;
+          cut_theta_co_90_dB; cut_theta_xp_90_dB; cut_theta_comb_90_dB];
+ylim_upper = ceil(max(all_dB)/5)*5;
 
-%% Escalar plots with 4 subplots
-figure('Units','normalized','Position',[0.1 0.1 0.8 0.4]);
+%% Plot: θ sweep at φ = 0° and φ = 90°
+figure('Units','normalized','Position',[0.1 0.2 0.8 0.4],'Color','w');
 
-% φ = 0° cut (theta sweep)
+% φ = 0° cut
 subplot(1,2,1);
-plot(rad2deg(theta_unique), cut_theta_co_0_dB, 'b', ...
-     rad2deg(theta_unique), cut_theta_xp_0_dB, 'r--', ...
-     rad2deg(theta_unique), cut_theta_comb_0_dB, 'k:');
-xlabel('\theta [degrees]');
-ylabel('Magnitude');
+plot(rad2deg(theta_unique), cut_theta_co_0_dB, 'b', 'LineWidth', 1.2); hold on;
+plot(rad2deg(theta_unique), cut_theta_xp_0_dB, 'r--', 'LineWidth', 1.2);
+plot(rad2deg(theta_unique), cut_theta_comb_0_dB, 'k:', 'LineWidth', 1.5);
+xlabel('\theta [°]');
+ylabel('Magnitude [dB]');
 title('\phi = 0°');
-legend('Co-pol', 'Cross-pol', 'Combined');
+legend('Co-pol', 'Cross-pol', 'Combined', 'Location', 'south');
 grid on;
+ylim([threshold_dB, ylim_upper]);
 
-% φ = 90° cut (theta sweep)
+% φ = 90° cut
 subplot(1,2,2);
-plot(rad2deg(theta_unique), cut_theta_co_90_dB, 'b', ...
-     rad2deg(theta_unique), cut_theta_xp_90_dB, 'r--', ...
-     rad2deg(theta_unique), cut_theta_comb_90_dB, 'k:');
-xlabel('\theta [degrees]');
-ylabel('Magnitude');
+plot(rad2deg(theta_unique), cut_theta_co_90_dB, 'b', 'LineWidth', 1.2); hold on;
+plot(rad2deg(theta_unique), cut_theta_xp_90_dB, 'r--', 'LineWidth', 1.2);
+plot(rad2deg(theta_unique), cut_theta_comb_90_dB, 'k:', 'LineWidth', 1.5);
+xlabel('\theta [°]');
+ylabel('Magnitude [dB]');
 title('\phi = 90°');
-legend('Co-pol', 'Cross-pol', 'Combined');
+legend('Co-pol', 'Cross-pol', 'Combined', 'Location', 'south');
 grid on;
+ylim([threshold_dB, ylim_upper]);
