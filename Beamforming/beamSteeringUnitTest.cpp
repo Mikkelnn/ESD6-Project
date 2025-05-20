@@ -289,22 +289,22 @@ void test_same_amplitude_multiple_angles() {
             assert(std::abs(diff) <= 1);
         }
 
-        std::cout << "Passed for beam angle: " << angle << " deg\n";
+        // std::cout << "Passed for beam angle: " << angle << " deg\n";
     }
+        std::cout << "test_same_amplitude_multiple_angle passed \n";
 }
 
 void test_real_signal(){
     
     // Variable Setup
-    int N = 1; // Number of elements
+    int N = 4; // Number of elements
     int IQ_length = 4096; // Number of IQ samples
     std::vector<int16_t> I(IQ_length), Q(IQ_length), IQcomp(IQ_length); // Initiliaze IQ
     int amp_desired = 16000; // Desired amplitude
-    int phase_desired = 30; // Desired beam steer angle in degrees
+    int angle_desired = 20; // The beam angle
+    double phase_expected = 360.0 - 61.56362581; // Expected relative phase shift
     int f = 10; // frequency
     float sample_rate = 10e3;
-    int maxIQ = 0;  
-    int maxSamp = 0; 
     
     // Instance Setup; instance with N element
     BeamSteer steer(N); 
@@ -319,47 +319,37 @@ void test_real_signal(){
 
     // Apply beam steering
     std::vector<std::vector<std::complex<int16_t>>> output(N, std::vector<std::complex<int16_t>>(IQ_length));
-    // int status = steer.steer(phase_desired, I, Q, output);
-    int status = steer.applyPhaseToIQ(I, Q, phase_desired, output[0]); // Calling function to apply phase shift 
+    int status = steer.steer(angle_desired, I, Q, output);
     assert(status == 0); // Check everything is alright
 
 
     for (int i = 0; i < N; i++) {
+        int maxIQ = 0;  
+        int maxSamp = 0; 
+        
         for (int j = 0; j < IQ_length; j++) {
-            // Get amp and phase of beam steered signals
-            // float amp_actual = std::sqrt(pow(output[i][j].real(),2)+pow(output[i][j].imag(),2));
-            // float amp_actual = std::abs(std::complex<float>(output[i][j].real(),output[i][j].imag()));
-            // float phase_actual = std::arg(std::complex<float>(output[i][j].real(),output[i][j].imag()))*180/PI;
             IQcomp[j]=output[i][j].real()+output[i][j].imag(); // Creating new phase shift signal
             if(IQcomp[j]>maxIQ) {maxIQ = IQcomp[j]; maxSamp = j;} // Checking after a peak amplitude of the IQ signal 
-
-            // Calculate difference
-            // float amp_delta = std::abs(amp_desired - amp_actual);
-            // float phase_delta = std::abs((phase_desired /** i*/) - phase_actual); 
-            
-            // std::cout << " i: " << i << " | j: " << j <<  " | Output real: " << output[i][j].real()  << "\n";
-            // std::cout << " i: " << i << " | j: " << j <<  " | Output imag: " << output[i][j].imag()  << "\n";
-            // std::cout << " i: " << i << " | j: " << j <<  " | Combined signal: " << IQcomp[j]  << "\n";
-            // std::cout << " i: " << i << " | j: " << j <<  " | Phase_actual: " << phase_actual  << "\n";
-            // std::cout << " i: " << i << " | j: " << j <<  " | Amp_delta: " << amp_delta  << "\n";
-            // std::cout << " i: " << i << " | j: " << j <<  " | Phase_delta: " << phase_delta  << "\n";
-
-            // Assertion
-            // assert(amp_delta <= 1 && "The beam steered amplitude is not the same as the expected amplitude \n");
-            // assert(phase_delta <= 1 && "The beam steered phase is not the same as the expected phase \n");
         }
-    }
 
-    float phase_actual = (float)(360*maxSamp*f)/(float)(sample_rate); // The calculated phase in degrees
-    int amp_delta = std::abs(maxIQ-amp_desired); // Check difference between the calculated and the expected amplitude
-    float phase_delta = std::abs(phase_desired-phase_actual); // Check difference between the calculated and the expected phase 
+        float phase_actual = (float)(360*maxSamp*f)/(float)(sample_rate); // The calculated phase in degrees
+        while (phase_actual > 360) { phase_actual -= 360; }
 
-    std::cout<< "phase_actual: " << phase_actual << "  peak:  " << maxIQ << "  peak sample:  " << maxSamp << "\n";
-
-    // Validation
-    assert(amp_delta <= 1 && "The beam steered amplitude is not the same as the expected amplitude \n");
-    assert(phase_delta <= 1 && "The beam steered phase is not the same as the expected phase \n");
+        int amp_delta = std::abs(maxIQ-amp_desired); // Check difference between the calculated and the expected amplitude
+        
+        float absolute_phase_expected = (phase_expected*i); // expected phase fir ith antenna
+        while (absolute_phase_expected > 360) { absolute_phase_expected -= 360; }
+        
+        float phase_delta = std::abs(absolute_phase_expected - phase_actual); // Check difference between the calculated and the expected phase 
+        std::cout<< "phase_actual: " << phase_actual << "  peak:  " << maxIQ << "  peak sample:  " << maxSamp << "\n";
+    
+        // Validation
+        assert(amp_delta <= 1 && "The beam steered amplitude is not the same as the expected amplitude \n");
+        assert(phase_delta <= 1 && "The beam steered phase is not the same as the expected phase \n");
+    }       
 }
+
+
 
 
 int main() {
