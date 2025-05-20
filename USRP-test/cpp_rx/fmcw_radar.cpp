@@ -104,7 +104,7 @@ public:
 
         for (int beamAngle = startSweepAngleDeg; beamAngle <= endSweepAngleDeg; beamAngle += sweepResolutionDeg) {
             // steer beam and write to buffer
-            int status = _beam_steer->applyBeamformingAngle(beamAngle, I_vec, Q_vec, beamBuffer);
+            int status = _beam_steer->steer(beamAngle, I_vec, Q_vec, beamBuffer);
             if (status != 0)
                 std::cerr << "Error while steering beam!" << std::endl;
 
