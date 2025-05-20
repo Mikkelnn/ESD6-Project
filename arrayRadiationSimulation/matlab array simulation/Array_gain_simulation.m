@@ -28,24 +28,29 @@ phi = phi(valid_indices);
 theta = theta(valid_indices);
 gain = E_total_dB_calibrated(valid_indices);
 
-% === 3D Radiation Pattern ===
+% === 3D Radiation Pattern (Enhanced Colormap) ===
 [X, Y, Z] = sph2cart(phi, pi/2 - theta, gain);
 [max_gain_dB_3D, idx_max_3D] = max(gain);
 
+% Ajustar automáticamente los límites de color según percentiles
+lower_percentile = prctile(gain, 2);
+upper_percentile = prctile(gain, 98);
+
 figure;
 scatter3(X, Y, Z, 20, gain, 'filled');
-title('3D Radiation Pattern');
+title('3D Radiation Pattern (Enhanced Colors)');
 xlabel('X'); ylabel('Y'); zlabel('Z');
-colormap(jet);
+colormap(turbo);
 colorbar;
-caxis([0 15]);
+caxis([lower_percentile upper_percentile]);
 axis equal;
 view(3);
-text(0, 0, max(gain), sprintf('Max Gain: %.2f dB', max_gain_dB_3D), ...
+
+% Etiqueta del punto de máxima ganancia
+text(X(idx_max_3D), Y(idx_max_3D), Z(idx_max_3D), ...
+    sprintf('Max Gain: %.2f dB', max_gain_dB_3D), ...
     'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom', ...
     'FontSize', 12, 'FontWeight', 'bold', 'BackgroundColor', 'white');
 
 fprintf('Maximum calibrated gain (3D): %.2f dB\n', max_gain_dB_3D);
 fprintf('At θ = %.2f°, φ = %.2f°\n', rad2deg(theta(idx_max_3D)), rad2deg(phi(idx_max_3D)));
-
-
