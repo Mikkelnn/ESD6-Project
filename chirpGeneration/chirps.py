@@ -5,17 +5,17 @@ import re
 
 fs = 400e6 #  * 1e6 # MHz
 fmax = 20 * 1e6 # MHz
-chirpTime = 3.2 * 1e-6 # micro seconds
+rampTime = 3.2 * 1e-6 # micro seconds
 bitRes = 16 # bit resolution, used for scaling
 
 # determine length of array
-chirpLength = int(chirpTime * fs)
+chirpLength = int(rampTime * fs)
 I = np.zeros(chirpLength, dtype=int)
 Q = np.zeros(chirpLength, dtype=int)
 
 #  math is based on: https://dspfirst.gatech.edu/chapters/04samplin/demos/chirpSynthDemo/index.html
 
-alpha = fmax / chirpTime # Hz/s
+alpha = fmax / rampTime # Hz/s
 scale = ((2**bitRes) // 2) - 1
 for n in range(chirpLength):
   τ = n / fs  
