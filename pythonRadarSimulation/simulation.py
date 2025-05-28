@@ -9,6 +9,9 @@ import plotly.graph_objs as go
 from IPython.display import Image
 import matplotlib.pyplot as plt
 
+from tqdm import tqdm
+import time
+
 
 # print("`RadarSimPy` used in this example is version: " + str(radarsimpy.__version__))
 
@@ -16,15 +19,40 @@ c = 3e8
 f_c = 5.8e9 # center frequency
 wavelength = c / f_c
 
-bw = 0.0 # bandwidth
+bw = 20.0e6 # bandwidth
 t_chirp = 4.6e-6 # chirp time
 prp=5e-6 # Pulse Repetition Period
 pulses = 128
 
 fs = 46e6 # 50e6 # IF fs
 
+#initialize simulation parameters
+maxRange = 700.0
+resRange = 20
+stepsRange = int(maxRange/resRange)
+maxVelocity = 15000.0
+# resVelocity = 5
+# stepsVelocity = int(1 + maxVelocity//resVelocity)
+stepsVelocity = 1 + 15
+maxAngle = 50.0
+resAngle = 20
+stepsAngle = int(maxAngle/resAngle)
+
+Ranges = []
+Velocities = []
+Angles = []
+
+for i in range (stepsRange):
+    Ranges.append(maxRange*(i+1)/stepsRange)
+
+for i in range (stepsVelocity+1):
+    Velocities.append(maxVelocity*i/stepsVelocity)
+
+for i in range (-stepsAngle, stepsAngle+1):
+    Angles.append(maxAngle*i/stepsAngle)
+
 r_max = (c * t_chirp) / 2 # calculate the maximum range
-# delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
+delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
 doppler_max = wavelength / (4 * prp) #((wavelength * (1 / (2 * prp))) / 2)
 delta_velocity = wavelength / (2 * pulses * prp)
 
@@ -221,3 +249,32 @@ baseband = data["baseband"] #+ data["noise"]
 # Save data to file
 with open('simData/radarBasebandTarget1NoChirp.npy', 'wb') as f:
     np.save(f, baseband)
+
+
+
+#Do a lot of simulations
+
+for i in tqdm(range(len(Ranges))):
+    for j in range(len(Velocities)):
+        for k in range(len(Angles)):
+            targetLoop = dict(
+                location=(
+                    Ranges[i] * np.cos(np.radians(Angles[k])),
+                    Ranges[i] * np.sin(np.radians(Angles[k])),
+                    0,
+                ),
+                speed=(0, Velocities[j], 0),
+                rcs=rcs,
+                phase=0,
+            )
+            
+            targets = [targetLoop]      
+
+            data = sim_radar(radar, targets)
+            timestamp = data["timestamp"]
+            baseband = data["baseband"] #+ data["noise"]
+
+            # Save data to file
+            filename = f'simDataLoopChirp/Target{i}{j}{k}.npy'
+            with open(filename, 'wb') as f:
+                np.save(f, baseband)
