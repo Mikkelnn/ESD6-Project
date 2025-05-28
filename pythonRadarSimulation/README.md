@@ -10,7 +10,7 @@ https://radarsimx.com/
 Obtain the binaries of radarsimpy and place it in this folder i.e. 'pythonRadarSimulation\radarsimpy'
 
 1. Follow pyton direction from root README.md
-   - Required packages: ´matplotlib plotly kaleido ipython numpy scipy´
+   - Required packages: ´matplotlib plotly kaleido ipython numpy scipy tqdm´
 2. Run script:
    1. DSP:
       - Windows: `py -m dsp.py`

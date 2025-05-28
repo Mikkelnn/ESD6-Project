@@ -1,3 +1,4 @@
 pythonRadarSimulation/*radarsimpy/
 .venv/
 /.vscode/
+pythonRadarSimulation/*simDataLoopChirp/
