@@ -8,6 +8,7 @@ from scipy import signal, linalg, fft
 import plotly.graph_objs as go
 from IPython.display import Image
 import matplotlib.pyplot as plt
+import csv
 
 from tqdm import tqdm
 import time
@@ -138,18 +139,27 @@ fig.update_layout(
 
 rcs = 10
 
+print(f"Actual angle: {Angles[2]} Angle 1: {np.cos(np.radians(Angles[2]))} Angle 2: {np.sin(np.radians(Angles[2]))}")
+print(f"Range: {Ranges[24]} Velocity: {Velocities[1]}")
 
 # velocity resolution
+cos_val = np.float64(Ranges[24]*np.cos(np.radians(Angles[2])))
+sin_val = np.float64(Ranges[24]*np.sin(np.radians(Angles[2])))
+
+print(f"cos: {cos_val}, sin: {sin_val}")
+
 target_1 = dict(
     location=(
-        0,
-        500,
+        cos_val,
+        sin_val,
         0,
     ),
-    speed=(0, 0.5, 0),
+    speed=(0, Velocities[1], 0),
     rcs=rcs,
     phase=0,
 )
+
+print(target_1)
 
 # velocity resolution
 target_2 = dict(
@@ -247,34 +257,42 @@ timestamp = data["timestamp"]
 baseband = data["baseband"] #+ data["noise"]
 
 # Save data to file
-with open('simData/radarBasebandTarget1NoChirp.npy', 'wb') as f:
+with open('simData/TestOfManySim.npy', 'wb') as f:
     np.save(f, baseband)
 
 
 
 #Do a lot of simulations
+# with open('IDValues.csv', mode='w', newline='') as file:
+#     writer = csv.writer(file)
+#     writer.writerow(['id', 'range', 'velocity', 'angle'])  # Header
 
-for i in tqdm(range(len(Ranges))):
-    for j in range(len(Velocities)):
-        for k in range(len(Angles)):
-            targetLoop = dict(
-                location=(
-                    Ranges[i] * np.cos(np.radians(Angles[k])),
-                    Ranges[i] * np.sin(np.radians(Angles[k])),
-                    0,
-                ),
-                speed=(0, Velocities[j], 0),
-                rcs=rcs,
-                phase=0,
-            )
-            
-            targets = [targetLoop]      
+#     for i in tqdm(range(len(Ranges))):
+#         for j in range(len(Velocities)):
+#             for k in range(len(Angles)):
+#                 targetLoop = dict(
+#                     location=(
+#                         Ranges[i] * np.cos(np.radians(Angles[k])),
+#                         Ranges[i] * np.sin(np.radians(Angles[k])),
+#                         0,
+#                     ),
+#                     speed=(0, Velocities[j], 0),
+#                     rcs=rcs,
+#                     phase=0,
+#                 )
+                
+#                 targets = [targetLoop]      
 
-            data = sim_radar(radar, targets)
-            timestamp = data["timestamp"]
-            baseband = data["baseband"] #+ data["noise"]
+#                 data = sim_radar(radar, targets)
+#                 timestamp = data["timestamp"]
+#                 baseband = data["baseband"] #+ data["noise"]
 
-            # Save data to file
-            filename = f'simDataLoopChirp/Target{i}{j}{k}.npy'
-            with open(filename, 'wb') as f:
-                np.save(f, baseband)
+#                 # Save data to file
+#                 filename = f'simDataLoopChirp/Target{i}{j}{k}.npy'
+#                 with open(filename, 'wb') as f:
+#                     np.save(f, baseband)
+
+#                 #Save ids and their respective values for later use
+#                 id_str = f"{i}{j}{k}"
+#                 row = [id_str, Ranges[i], Velocities[j], Angles[k]]
+#                 writer.writerow(row)
