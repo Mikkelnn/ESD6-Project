@@ -8,7 +8,7 @@ import radarsimpy.processing as proc
 
 # load data
 baseband = []
-with open('simData/radarBasebandTarget7.npy', 'rb') as f:
+with open('simData/TestOfManySim.npy', 'rb') as f:
     baseband = np.load(f)
 
 print(f"loaded data shape: {baseband.shape}")
@@ -306,56 +306,56 @@ angle_range_cfar_diff = angle_range_map - angle_range_cfar
 print(f"range bin count: {range_bins}, max range: {round(range_axis[-1], 2)} m, res: {round(range_axis[-1] / range_bins, 2)} m")
 print(f"doppler bin count: {doppler_bins}, max velocity: {round(doppler_axis[-1], 2)} m/s, res: {round(doppler_axis[-1]*2 / doppler_bins, 3)} m/s")
 
-# remove_firs_range_bins = 5
-# targets = np.argwhere(doppler_range_shifted_cfar_diff[:, remove_firs_range_bins:] > 2)
-# targets[:,1] += remove_firs_range_bins # fix indexes 
-# print(f"targets (range doppler):")
-# for target in targets:
-#     print(f"conf: {round(doppler_range_shifted_cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
+remove_firs_range_bins = 5
+targets = np.argwhere(doppler_range_shifted_cfar_diff[:, remove_firs_range_bins:] > 2)
+targets[:,1] += remove_firs_range_bins # fix indexes 
+print(f"targets (range doppler):")
+for target in targets:
+    print(f"conf: {round(doppler_range_shifted_cfar_diff[target[0]][target[1]], 2)}; range: {range_axis[target[1]]} m; velocity: {round(doppler_axis[target[0]], 2)} m/s")
 
 # Plot the 2D array
-# plt.figure(1)
-# plt.imshow(doppler_range_shifted_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
-# plt.colorbar(label='Amplitude (dB)')
-# plt.xlabel('Range (m)')
-# plt.ylabel('Velocity (m/s)')
-# plt.title('Range-Doppler Map (sum over angle)')
+plt.figure(1)
+plt.imshow(doppler_range_shifted_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[0], doppler_axis[-1]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Range (m)')
+plt.ylabel('Velocity (m/s)')
+plt.title('Range-Doppler Map (sum over angle)')
 
-# plt.figure(2)
-# plt.imshow(doppler_range_shifted_cfar_diff, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
-# plt.colorbar(label='Amplitude (dB)')
-# plt.xlabel('Range (m)')
-# plt.ylabel('Velocity (m/s)')
-# plt.title('Range-Doppler Map with CFAR')
+plt.figure(2)
+plt.imshow(doppler_range_shifted_cfar_diff, cmap="gray", vmin=0, vmax=1, aspect='auto', extent=[range_axis[0], range_axis[-1], doppler_axis[-1], doppler_axis[0]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Range (m)')
+plt.ylabel('Velocity (m/s)')
+plt.title('Range-Doppler Map with CFAR')
 
-# plt.figure(3)
-# plt.plot(range_axis, doppler_range_shifted[len(doppler_range_shifted)//2], label='radar')
-# plt.plot(range_axis, doppler_range_shifted_cfar[len(doppler_range_shifted)//2], label='cfar')
-# plt.xlabel('Range (m)')
-# plt.title('Range doppler (doppler = 0 m/s)')
+plt.figure(3)
+plt.plot(range_axis, doppler_range_shifted[len(doppler_range_shifted)//2], label='radar')
+plt.plot(range_axis, doppler_range_shifted_cfar[len(doppler_range_shifted)//2], label='cfar')
+plt.xlabel('Range (m)')
+plt.title('Range doppler (doppler = 0 m/s)')
 
 
 # Plot
-# angle_doppler_range[:,0,:]
-# plt.figure(4)
-# plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
-# plt.colorbar(label="Power (dB)")
-# plt.xlabel("Range bin")
-# plt.ylabel("Angle (degrees)")
-# plt.title("Range-Angle Map (sum over doppler)")
+angle_doppler_range[:,0,:]
+plt.figure(4)
+plt.imshow(angle_range_dB, cmap='viridis', aspect='auto', extent=[range_axis[0], range_axis[-1], angle_axis[0], angle_axis[-1]])
+plt.colorbar(label="Power (dB)")
+plt.xlabel("Range bin")
+plt.ylabel("Angle (degrees)")
+plt.title("Range-Angle Map (sum over doppler)")
 
-# plt.figure(5)
-# plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
-# plt.colorbar(label='Amplitude (dB)')
-# plt.xlabel('Velocity (m/s)')
-# plt.ylabel('Angle (degrees)')
-# plt.title('Angle-Doppler Map (sum over range)')
+plt.figure(5)
+plt.imshow(fft.fftshift(angle_doppler_dB, axes=(1)), cmap='viridis', aspect='auto', extent=[doppler_axis[-1], doppler_axis[0], angle_axis[0], angle_axis[-1]])
+plt.colorbar(label='Amplitude (dB)')
+plt.xlabel('Velocity (m/s)')
+plt.ylabel('Angle (degrees)')
+plt.title('Angle-Doppler Map (sum over range)')
 
-# plt.figure(6)
-# plt.plot(angle_axis, angle_range_map[:,114], label='radar')
-# plt.plot(angle_axis, angle_range_cfar[:,114], label='cfar')
-# plt.xlabel('Angle (degrees)')
-# plt.title('Angle Range (range = 500)')
+plt.figure(6)
+plt.plot(angle_axis, angle_range_map[:,114], label='radar')
+plt.plot(angle_axis, angle_range_cfar[:,114], label='cfar')
+plt.xlabel('Angle (degrees)')
+plt.title('Angle Range (range = 500)')
 
 
 #Plot
