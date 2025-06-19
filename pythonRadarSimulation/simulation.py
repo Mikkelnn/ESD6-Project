@@ -12,6 +12,8 @@ import csv
 
 from tqdm import tqdm
 import time
+from concurrent.futures import ProcessPoolExecutor
+
 
 
 # print("`RadarSimPy` used in this example is version: " + str(radarsimpy.__version__))
@@ -27,30 +29,30 @@ pulses = 128
 
 fs = 46e6 # 50e6 # IF fs
 
-#initialize simulation parameters
-maxRange = 700.0
-resRange = 20
-stepsRange = int(maxRange/resRange)
-maxVelocity = 15000.0
-# resVelocity = 5
-# stepsVelocity = int(1 + maxVelocity//resVelocity)
-stepsVelocity = 1 + 15
-maxAngle = 50.0
-resAngle = 20
-stepsAngle = int(maxAngle/resAngle)
+# #initialize simulation parameters
+# maxRange = 700.0
+# resRange = 20
+# stepsRange = int(maxRange/resRange)
+# maxVelocity = 15000.0
+# # resVelocity = 5
+# # stepsVelocity = int(1 + maxVelocity//resVelocity)
+# stepsVelocity = 1 + 15
+# maxAngle = 50.0
+# resAngle = 20
+# stepsAngle = int(maxAngle/resAngle)
 
-Ranges = []
-Velocities = []
-Angles = []
+# Ranges = []
+# Velocities = []
+# Angles = []
 
-for i in range (stepsRange):
-    Ranges.append(maxRange*(i+1)/stepsRange)
+# for i in range (stepsRange):
+#     Ranges.append(maxRange*(i+1)/stepsRange)
 
-for i in range (stepsVelocity+1):
-    Velocities.append(maxVelocity*i/stepsVelocity)
+# for i in range (stepsVelocity+1):
+#     Velocities.append(maxVelocity*i/stepsVelocity)
 
-for i in range (-stepsAngle, stepsAngle+1):
-    Angles.append(maxAngle*i/stepsAngle)
+# for i in range (-stepsAngle, stepsAngle+1):
+#     Angles.append(maxAngle*i/stepsAngle)
 
 r_max = (c * t_chirp) / 2 # calculate the maximum range
 delta_R = c / (2 * bw)  # Calculate range resolution (meters / bin)
@@ -139,22 +141,13 @@ fig.update_layout(
 
 rcs = 10
 
-print(f"Actual angle: {Angles[2]} Angle 1: {np.cos(np.radians(Angles[2]))} Angle 2: {np.sin(np.radians(Angles[2]))}")
-print(f"Range: {Ranges[24]} Velocity: {Velocities[1]}")
-
-# velocity resolution
-cos_val = np.float64(Ranges[24]*np.cos(np.radians(Angles[2])))
-sin_val = np.float64(Ranges[24]*np.sin(np.radians(Angles[2])))
-
-print(f"cos: {cos_val}, sin: {sin_val}")
-
 target_1 = dict(
     location=(
-        cos_val,
-        sin_val,
+        0,
+        500,
         0,
     ),
-    speed=(0, Velocities[1], 0),
+    speed=(0, 0, 0),
     rcs=rcs,
     phase=0,
 )
@@ -248,6 +241,8 @@ target_8 = dict(
     phase=0,
 )
 
+print(target_1)
+
 
 targets = [target_1]
 # targets = [target_1, target_3]
@@ -263,36 +258,63 @@ with open('simData/TestOfManySim.npy', 'wb') as f:
 
 
 #Do a lot of simulations
-# with open('IDValues.csv', mode='w', newline='') as file:
-#     writer = csv.writer(file)
-#     writer.writerow(['id', 'range', 'velocity', 'angle'])  # Header
+for range in tqdm(np.linspace(0,700, 29)):
+    for velocity in np.linspace(0,15000,15):    
+        for angle in np.linspace(-50,50,5):
+            cos_val = range*np.cos(np.radians(angle))
+            sin_val = range*np.sin(np.radians(angle))
+            targetLoop = dict(
+                location=(
+                    cos_val,
+                    sin_val,
+                    0,
+                ),
+                speed=(0, velocity, 0),
+                rcs=rcs,
+                phase=0,
+            )
+            
+            targets = [targetLoop]      
 
-#     for i in tqdm(range(len(Ranges))):
-#         for j in range(len(Velocities)):
-#             for k in range(len(Angles)):
-#                 targetLoop = dict(
-#                     location=(
-#                         Ranges[i] * np.cos(np.radians(Angles[k])),
-#                         Ranges[i] * np.sin(np.radians(Angles[k])),
-#                         0,
-#                     ),
-#                     speed=(0, Velocities[j], 0),
-#                     rcs=rcs,
-#                     phase=0,
-#                 )
-                
-#                 targets = [targetLoop]      
+            data = sim_radar(radar, targets)
+            timestamp = data["timestamp"]
+            baseband = data["baseband"] #+ data["noise"]
 
-#                 data = sim_radar(radar, targets)
-#                 timestamp = data["timestamp"]
-#                 baseband = data["baseband"] #+ data["noise"]
+            # Save data to file
+            filename = f'simDataLoopChirp/Range{int(range)}Velocity{int(velocity)}Angle{int(angle)}.npy'
+            with open(filename, 'wb') as f:
+                np.save(f, baseband)
 
-#                 # Save data to file
-#                 filename = f'simDataLoopChirp/Target{i}{j}{k}.npy'
-#                 with open(filename, 'wb') as f:
-#                     np.save(f, baseband)
 
-#                 #Save ids and their respective values for later use
-#                 id_str = f"{i}{j}{k}"
-#                 row = [id_str, Ranges[i], Velocities[j], Angles[k]]
-#                 writer.writerow(row)
+# def manySimulations(distance):
+#     for velocity in np.linspace(0,15000,15):    
+#         for angle in np.linspace(-50,50,5):
+#             cos_val = distance*np.cos(np.radians(angle))
+#             sin_val = distance*np.sin(np.radians(angle))
+#             targetLoop = dict(
+#                 location=(
+#                     cos_val,
+#                     sin_val,
+#                     0,
+#                 ),
+#                 speed=(0, velocity, 0),
+#                 rcs=rcs,
+#                 phase=0,
+#             )
+            
+#             targets = [targetLoop]      
+
+#             data = sim_radar(radar, targets)
+#             timestamp = data["timestamp"]
+#             baseband = data["baseband"] #+ data["noise"]
+
+#             # Save data to file
+#             filename = f'simDataLoopChirp/Range{int(distance)}Velocity{int(velocity)}Angle{int(angle)}.npy'
+#             with open(filename, 'wb') as f:
+#                 np.save(f, baseband)
+
+
+# distances = np.linspace(0,700,29)
+
+# with ProcessPoolExecutor() as executor:
+#     results = list(executor.map(manySimulations, distances))
