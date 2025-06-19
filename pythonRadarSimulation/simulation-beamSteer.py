@@ -270,6 +270,14 @@ for angle in tqdm(angles):
 
 baseband_stack = np.stack(baseband_stack, axis=0) 
 
-# Save data to file
-with open('simData/radarBasebandBeamSteer.npy', 'wb') as f:
-    np.save(f, baseband_stack)
+part1 = baseband_stack[: len(baseband_stack)//2]
+part2 = baseband_stack[len(baseband_stack)//2 :]
+
+# print(f"len 1: {part1.shape}, len 2: {part2.shape}")
+
+# Save data to file in two parts.... as a single exceeds 100MB
+with open('simData/radarBasebandBeamSteer_1.npy', 'wb') as f:
+    np.save(f, part1)
+
+with open('simData/radarBasebandBeamSteer_2.npy', 'wb') as f:
+    np.save(f, part2)
